@@ -8,12 +8,24 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    var newsResult : News = News()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        Networking.sharedInstance.getNews{[weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let newsResult):
+                self?.newsResult = newsResult
+            }
+        }
+        
+        print(newsResult)
+        
     }
-
-
 }
 
