@@ -101,7 +101,7 @@ struct Networking {
                 print("The JSON has been recieved!",jsonData)
                 let userResponse = try decoder.decode(News.self, from: jsonData)
                 print("Articles returned by query : ",userResponse.articles?.count ?? 0)
-//                print("First article : ",userResponse.articles[0])
+                print("First article : ",userResponse.articles?[0])
                 completion(.success(userResponse))
             }
             catch {

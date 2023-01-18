@@ -10,6 +10,9 @@
 		4E30C373296FD406008E21A8 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C372296FD406008E21A8 /* Networking.swift */; };
 		4E30C375296FD5E1008E21A8 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C374296FD5E1008E21A8 /* AppSecret.swift */; };
 		4E30C377296FD62F008E21A8 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C376296FD62F008E21A8 /* News.swift */; };
+		4E30C37929766A93008E21A8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37829766A93008E21A8 /* TableViewController.swift */; };
+		4E30C37B29766D38008E21A8 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37A29766D38008E21A8 /* NewsView.swift */; };
+		4E30C37D297672CB008E21A8 /* NewsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37C297672CB008E21A8 /* NewsCard.swift */; };
 		4EF6DCDE296EBEBD00EB9360 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6DCDD296EBEBD00EB9360 /* AppDelegate.swift */; };
 		4EF6DCE0296EBEBD00EB9360 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */; };
 		4EF6DCE2296EBEBD00EB9360 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6DCE1296EBEBD00EB9360 /* ViewController.swift */; };
@@ -22,6 +25,9 @@
 		4E30C372296FD406008E21A8 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		4E30C374296FD5E1008E21A8 /* AppSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSecret.swift; sourceTree = "<group>"; };
 		4E30C376296FD62F008E21A8 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		4E30C37829766A93008E21A8 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		4E30C37A29766D38008E21A8 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		4E30C37C297672CB008E21A8 /* NewsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCard.swift; sourceTree = "<group>"; };
 		4EF6DCDA296EBEBD00EB9360 /* Artemis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Artemis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF6DCDD296EBEBD00EB9360 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +52,7 @@
 		4EF6DCD1296EBEBC00EB9360 = {
 			isa = PBXGroup;
 			children = (
+				4E30C37C297672CB008E21A8 /* NewsCard.swift */,
 				4EF6DCDC296EBEBD00EB9360 /* Artemis */,
 				4EF6DCDB296EBEBD00EB9360 /* Products */,
 			);
@@ -65,6 +72,8 @@
 				4EF6DCDD296EBEBD00EB9360 /* AppDelegate.swift */,
 				4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */,
 				4EF6DCE1296EBEBD00EB9360 /* ViewController.swift */,
+				4E30C37829766A93008E21A8 /* TableViewController.swift */,
+				4E30C37A29766D38008E21A8 /* NewsView.swift */,
 				4EF6DCE3296EBEBD00EB9360 /* Main.storyboard */,
 				4EF6DCE6296EBEBE00EB9360 /* Assets.xcassets */,
 				4EF6DCE8296EBEBE00EB9360 /* LaunchScreen.storyboard */,
@@ -147,7 +156,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E30C37D297672CB008E21A8 /* NewsCard.swift in Sources */,
 				4E30C377296FD62F008E21A8 /* News.swift in Sources */,
+				4E30C37B29766D38008E21A8 /* NewsView.swift in Sources */,
+				4E30C37929766A93008E21A8 /* TableViewController.swift in Sources */,
 				4EF6DCE2296EBEBD00EB9360 /* ViewController.swift in Sources */,
 				4EF6DCDE296EBEBD00EB9360 /* AppDelegate.swift in Sources */,
 				4EF6DCE0296EBEBD00EB9360 /* SceneDelegate.swift in Sources */,
