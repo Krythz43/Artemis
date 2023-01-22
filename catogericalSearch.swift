@@ -67,7 +67,11 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
         }
         
         print("Value chosen was ",indexPath[1]," enum value :",chosenCategory)
-        categorypicked()
+        if(chosenCategory != .undefined){
+            categorypicked()
+        } else {
+            searchResultPage()
+        }
     }
     
     @objc func categorypicked() {
@@ -88,6 +92,15 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
         let navVC = UINavigationController(rootViewController: newsView)
         present(navVC,animated: true)
         
+    }
+    @objc func searchResultPage() {
+        let newsView =  SearchResult()
+        newsView.title = "Whats on your mind?"
+        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        newsView.modalPresentationStyle = .fullScreen
+        
+        let navVC = UINavigationController(rootViewController: newsView)
+        present(navVC,animated: true,completion: nil)
     }
     
     @objc private func dismissSelf() {

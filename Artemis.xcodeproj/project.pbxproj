@@ -11,7 +11,7 @@
 		4E30C375296FD5E1008E21A8 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C374296FD5E1008E21A8 /* AppSecret.swift */; };
 		4E30C377296FD62F008E21A8 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C376296FD62F008E21A8 /* News.swift */; };
 		4E30C37929766A93008E21A8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37829766A93008E21A8 /* TableViewController.swift */; };
-		4E30C37B29766D38008E21A8 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37A29766D38008E21A8 /* NewsView.swift */; };
+		4E30C37B29766D38008E21A8 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37A29766D38008E21A8 /* SearchResult.swift */; };
 		4E30C37D297672CB008E21A8 /* NewsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37C297672CB008E21A8 /* NewsCard.swift */; };
 		4E30C37F2979181B008E21A8 /* SeachVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C37E2979181B008E21A8 /* SeachVCViewController.swift */; };
 		4E30C38129791843008E21A8 /* favListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C38029791843008E21A8 /* favListVC.swift */; };
@@ -30,7 +30,7 @@
 		4E30C374296FD5E1008E21A8 /* AppSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSecret.swift; sourceTree = "<group>"; };
 		4E30C376296FD62F008E21A8 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		4E30C37829766A93008E21A8 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		4E30C37A29766D38008E21A8 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		4E30C37A29766D38008E21A8 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		4E30C37C297672CB008E21A8 /* NewsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCard.swift; sourceTree = "<group>"; };
 		4E30C37E2979181B008E21A8 /* SeachVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachVCViewController.swift; sourceTree = "<group>"; };
 		4E30C38029791843008E21A8 /* favListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favListVC.swift; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 				4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */,
 				4EF6DCE1296EBEBD00EB9360 /* ViewController.swift */,
 				4E30C37829766A93008E21A8 /* TableViewController.swift */,
-				4E30C37A29766D38008E21A8 /* NewsView.swift */,
+				4E30C37A29766D38008E21A8 /* SearchResult.swift */,
 				4EF6DCE3296EBEBD00EB9360 /* Main.storyboard */,
 				4EF6DCE6296EBEBE00EB9360 /* Assets.xcassets */,
 				4EF6DCE8296EBEBE00EB9360 /* LaunchScreen.storyboard */,
@@ -170,7 +170,7 @@
 			files = (
 				4E30C37D297672CB008E21A8 /* NewsCard.swift in Sources */,
 				4E30C377296FD62F008E21A8 /* News.swift in Sources */,
-				4E30C37B29766D38008E21A8 /* NewsView.swift in Sources */,
+				4E30C37B29766D38008E21A8 /* SearchResult.swift in Sources */,
 				4E30C37929766A93008E21A8 /* TableViewController.swift in Sources */,
 				4EF6DCE2296EBEBD00EB9360 /* ViewController.swift in Sources */,
 				4EF6DCDE296EBEBD00EB9360 /* AppDelegate.swift in Sources */,
