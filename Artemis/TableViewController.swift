@@ -7,7 +7,12 @@
 
 import UIKit
 
-class TableViewController : UITableViewController, chooseCategoryDelegate {
+class TableViewController : UITableViewController, chooseCategoryDelegate,querySearchDelegate {
+    func querySearch(type: String) {
+        print("Query search invoked with params : ",type)
+        fetchNews(type: .querySearch,query: type)
+    }
+    
     func resetNews() {
         newsToDisplay = News()
     }
@@ -28,8 +33,8 @@ class TableViewController : UITableViewController, chooseCategoryDelegate {
         }
     }
     
-    func fetchNews(type: APICalls,category: categories = .undefined) {
-        Networking.sharedInstance.getNews(type: type, category: category){[weak self] result in
+    func fetchNews(type: APICalls,category: categories = .undefined, query : String = "") {
+        Networking.sharedInstance.getNews(type: type, category: category, query: query){[weak self] result in
             switch result {
             case .failure(let error):
                 print(error)

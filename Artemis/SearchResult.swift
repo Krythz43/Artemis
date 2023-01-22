@@ -11,6 +11,11 @@ enum SubmitError: Error {
     case fieldsCannotBeNull
 }
 
+protocol querySearchDelegate {
+    func querySearch(type: String)
+    func resetNews()
+}
+
 class SearchResult : UIViewController {
     
     var nameTextField: UITextField = {
@@ -18,10 +23,13 @@ class SearchResult : UIViewController {
         setupTextField(textField, placeHolder: "tennis to tentacles, you get all here")
         return textField
     }()
+    
+    var delegate : querySearchDelegate?
+    var query : String = ""
 
     var submit: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Add User", for: .normal)
+        button.setTitle("I'm feeling lucky", for: .normal)
         button.tintColor = .white
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 5
@@ -40,6 +48,30 @@ class SearchResult : UIViewController {
         setupConstaints()
     }
     
+    fileprivate func displayNews() {
+        let newsView =  TableViewController()
+        self.delegate = newsView
+        
+        print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
+        delegate?.querySearch(type: query)
+        
+        newsView.title = "Displaying news from : " + query
+        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        newsView.modalPresentationStyle = .pageSheet
+        newsView.sheetPresentationController?.detents = [.custom(resolver: { context in
+            return self.view.bounds.height*0.75
+        })]
+        newsView.sheetPresentationController?.prefersGrabberVisible = true
+        
+        let navVC = UINavigationController(rootViewController: newsView)
+        present(navVC,animated: false)
+    }
+    
+    @objc private func dismissSelf() {
+        delegate?.resetNews()
+        dismiss(animated: true,completion: nil)
+    }
+    
     
     @objc fileprivate func displayResult() throws {
         do {
@@ -47,6 +79,8 @@ class SearchResult : UIViewController {
                 throw SubmitError.fieldsCannotBeNull
             }
             print("Searched Query is : ",query)
+            self.query = query
+            displayNews()
         }
         catch {
             print(error)

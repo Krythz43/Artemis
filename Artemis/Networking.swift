@@ -17,7 +17,7 @@ enum UserError :  Error {
 enum APICalls {
     case everything
     case geoSearch
-    case topHeadlines
+    case querySearch
     case categoricalSearch
 }
 
@@ -53,7 +53,7 @@ struct Networking {
     let session = URLSession.shared
     
     
-    func getURL (_ callType: APICalls,_ category : categories = categories.undefined) -> String {
+    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "") -> String {
         
         let languageSetting = "en"
         let querySearchParams = ""
@@ -63,15 +63,13 @@ struct Networking {
         switch callType {
             case .everything:
                 return "https://newsapi.org/v2/top-headlines?language=" + languageSetting + "&apiKey=" + API_KEY
-        case .categoricalSearch:
-            print("Buisness raw value " , getCategory(.business))
-            return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&apiKey=" + API_KEY
-        case .geoSearch:
+            case .categoricalSearch:
+                return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&apiKey=" + API_KEY
+            case .geoSearch:
                 // phase 3
                 return ""
-        case .topHeadlines:
-                // phase 1
-                return ""
+            case .querySearch:
+                return "https://newsapi.org/v2/top-headlines?q=" + query + "&apiKey=" + API_KEY
             default:
                 print("Invalid call attempt")
                 return ""
@@ -80,9 +78,9 @@ struct Networking {
     
 //https://newsapi.org/v2/top-headlines/sources?category=business&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b
     
-    func getNews(type: APICalls, category: categories = .undefined, completion : @escaping (Result<News,UserError>) -> Void) {
+    func getNews(type: APICalls, category: categories = .undefined, query : String = "",completion : @escaping (Result<News,UserError>) -> Void) {
         
-        let queryURL = getURL(type,category)
+        let queryURL = getURL(type,category,query)
         
         guard let UserURL = URL(string: queryURL) else {
             completion(.failure(.invalidURL))
