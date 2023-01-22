@@ -18,13 +18,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        
+        let tabbar = createTabBar()
+        
         window?.windowScene = windowScene
-        window?.rootViewController = TableViewController()
+        window?.rootViewController = tabbar
         window?.makeKeyAndVisible()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window = window
     }
+    
+    func createSearcgNavController () -> UINavigationController {
+        let searchVC = SeachVCViewController()
+        searchVC.title = "Search"
+        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
+        return UINavigationController(rootViewController: searchVC)
+    }
+    
+    
+    func createFavNavController () -> UINavigationController {
+        let searchVC = favListVC()
+        searchVC.title = "Favourites"
+        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        
+        return UINavigationController(rootViewController: searchVC)
+    }
+    
+    func createTabBar() -> UITabBarController {
+        let tabbat = UITabBarController()
+        UITabBar.appearance().tintColor = .systemGreen
+        
+        tabbat.viewControllers = [createSearcgNavController(),createFavNavController()]
+        return tabbat
+        
+    }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

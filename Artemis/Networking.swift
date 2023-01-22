@@ -32,6 +32,7 @@ enum categories{
     case undefined
 }
 
+
 func getCategory(_ category : categories) -> String {
    
     switch category {
@@ -79,9 +80,9 @@ struct Networking {
     
 //https://newsapi.org/v2/top-headlines/sources?category=business&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b
     
-    func getNews(completion : @escaping (Result<News,UserError>) -> Void) {
+    func getNews(type: APICalls, category: categories = .undefined, completion : @escaping (Result<News,UserError>) -> Void) {
         
-        let queryURL = getURL(.categoricalSearch,.business)
+        let queryURL = getURL(type,category)
         
         guard let UserURL = URL(string: queryURL) else {
             completion(.failure(.invalidURL))

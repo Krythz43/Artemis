@@ -14,8 +14,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBlue
         
-        Networking.sharedInstance.getNews{[weak self] result in
+        Networking.sharedInstance.getNews(type: .everything){[weak self] result in
             switch result {
             case .failure(let error):
                 print(error)

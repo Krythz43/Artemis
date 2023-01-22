@@ -7,7 +7,15 @@
 
 import UIKit
 
-class TableViewController : UITableViewController {
+class TableViewController : UITableViewController, chooseCategoryDelegate {
+    func resetNews() {
+        newsToDisplay = News()
+    }
+    
+    func selectedCategory(type: categories) {
+        print("The catogery of news to be displayed is : ",type)
+        fetchNews(type: .categoricalSearch,category: type)
+    }
     
     var newsResult : News = News()
     
@@ -20,8 +28,8 @@ class TableViewController : UITableViewController {
         }
     }
     
-    func fetchNews() {
-        Networking.sharedInstance.getNews{[weak self] result in
+    func fetchNews(type: APICalls,category: categories = .undefined) {
+        Networking.sharedInstance.getNews(type: type, category: category){[weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -48,9 +56,8 @@ class TableViewController : UITableViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemRed
         
-        fetchNews()
+//        fetchNews(type: .categoricalSearch,category: .sports)
         setupTableView()
-        
     }
         
     override func numberOfSections(in tableView: UITableView) -> Int {
