@@ -17,12 +17,14 @@
 		4E30C38129791843008E21A8 /* favListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C38029791843008E21A8 /* favListVC.swift */; };
 		4E30C38529794F93008E21A8 /* catogericalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C38429794F93008E21A8 /* catogericalSearch.swift */; };
 		4E30C387297955BB008E21A8 /* CatogeriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C386297955BA008E21A8 /* CatogeriesCollectionViewCell.swift */; };
+		4E30C38D297EDAFC008E21A8 /* MapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C38C297EDAFC008E21A8 /* MapScene.swift */; };
 		4EF6DCDE296EBEBD00EB9360 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6DCDD296EBEBD00EB9360 /* AppDelegate.swift */; };
 		4EF6DCE0296EBEBD00EB9360 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */; };
 		4EF6DCE2296EBEBD00EB9360 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6DCE1296EBEBD00EB9360 /* ViewController.swift */; };
 		4EF6DCE5296EBEBD00EB9360 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EF6DCE3296EBEBD00EB9360 /* Main.storyboard */; };
 		4EF6DCE7296EBEBE00EB9360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF6DCE6296EBEBE00EB9360 /* Assets.xcassets */; };
 		4EF6DCEA296EBEBE00EB9360 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EF6DCE8296EBEBE00EB9360 /* LaunchScreen.storyboard */; };
+		6D5CE60ECB4BA81D001FD63F /* libPods-Artemis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B18843EA6AA2394C2B44691D /* libPods-Artemis.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,7 @@
 		4E30C38029791843008E21A8 /* favListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = favListVC.swift; sourceTree = "<group>"; };
 		4E30C38429794F93008E21A8 /* catogericalSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = catogericalSearch.swift; sourceTree = "<group>"; };
 		4E30C386297955BA008E21A8 /* CatogeriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatogeriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E30C38C297EDAFC008E21A8 /* MapScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScene.swift; sourceTree = "<group>"; };
 		4EF6DCDA296EBEBD00EB9360 /* Artemis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Artemis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EF6DCDD296EBEBD00EB9360 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +47,9 @@
 		4EF6DCE6296EBEBE00EB9360 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EF6DCE9296EBEBE00EB9360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EF6DCEB296EBEBE00EB9360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B18843EA6AA2394C2B44691D /* libPods-Artemis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Artemis.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6A8494FE85B7741DC36C2E1 /* Pods-Artemis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Artemis.release.xcconfig"; path = "Target Support Files/Pods-Artemis/Pods-Artemis.release.xcconfig"; sourceTree = "<group>"; };
+		F94AE177983F5CE5A47B7235 /* Pods-Artemis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Artemis.debug.xcconfig"; path = "Target Support Files/Pods-Artemis/Pods-Artemis.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,12 +57,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D5CE60ECB4BA81D001FD63F /* libPods-Artemis.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D821AC65C3D794FF7717A38 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F94AE177983F5CE5A47B7235 /* Pods-Artemis.debug.xcconfig */,
+				B6A8494FE85B7741DC36C2E1 /* Pods-Artemis.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4EF6DCD1296EBEBC00EB9360 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +81,8 @@
 				4E30C37C297672CB008E21A8 /* NewsCard.swift */,
 				4EF6DCDC296EBEBD00EB9360 /* Artemis */,
 				4EF6DCDB296EBEBD00EB9360 /* Products */,
+				4D821AC65C3D794FF7717A38 /* Pods */,
+				ED8E907B6659E0BC90101DCA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +99,7 @@
 			children = (
 				4EF6DCDD296EBEBD00EB9360 /* AppDelegate.swift */,
 				4EF6DCDF296EBEBD00EB9360 /* SceneDelegate.swift */,
+				4E30C38C297EDAFC008E21A8 /* MapScene.swift */,
 				4EF6DCE1296EBEBD00EB9360 /* ViewController.swift */,
 				4E30C37829766A93008E21A8 /* TableViewController.swift */,
 				4E30C37A29766D38008E21A8 /* SearchResult.swift */,
@@ -97,6 +116,14 @@
 			path = Artemis;
 			sourceTree = "<group>";
 		};
+		ED8E907B6659E0BC90101DCA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B18843EA6AA2394C2B44691D /* libPods-Artemis.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,9 +131,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EF6DCEE296EBEBE00EB9360 /* Build configuration list for PBXNativeTarget "Artemis" */;
 			buildPhases = (
+				69E41774FDC3BCF55272AD07 /* [CP] Check Pods Manifest.lock */,
 				4EF6DCD6296EBEBD00EB9360 /* Sources */,
 				4EF6DCD7296EBEBD00EB9360 /* Frameworks */,
 				4EF6DCD8296EBEBD00EB9360 /* Resources */,
+				1A5E85706AE739CFE07997E0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -163,6 +192,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A5E85706AE739CFE07997E0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Artemis/Pods-Artemis-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Artemis/Pods-Artemis-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Artemis/Pods-Artemis-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69E41774FDC3BCF55272AD07 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Artemis-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4EF6DCD6296EBEBD00EB9360 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -181,6 +252,7 @@
 				4E30C375296FD5E1008E21A8 /* AppSecret.swift in Sources */,
 				4E30C373296FD406008E21A8 /* Networking.swift in Sources */,
 				4E30C387297955BB008E21A8 /* CatogeriesCollectionViewCell.swift in Sources */,
+				4E30C38D297EDAFC008E21A8 /* MapScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +394,7 @@
 		};
 		4EF6DCEF296EBEBE00EB9360 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F94AE177983F5CE5A47B7235 /* Pods-Artemis.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -349,6 +422,7 @@
 		};
 		4EF6DCF0296EBEBE00EB9360 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6A8494FE85B7741DC36C2E1 /* Pods-Artemis.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

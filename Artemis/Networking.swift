@@ -53,10 +53,9 @@ struct Networking {
     let session = URLSession.shared
     
     
-    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "") -> String {
+    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "",_ countryCode: String = "") -> String {
         
         let languageSetting = "en"
-        let querySearchParams = ""
         let from = getDateAndTimeInISO(year: 0,month: 0,date: 0,hours: 0,min : 0, sec: 0)
         let to = getDateAndTimeInISO(year: 0,month: 0,date: 0,hours: 0,min : 0, sec: 0)
         
@@ -67,7 +66,7 @@ struct Networking {
                 return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&apiKey=" + API_KEY
             case .geoSearch:
                 // phase 3
-                return ""
+                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b"
             case .querySearch:
                 return "https://newsapi.org/v2/top-headlines?q=" + query + "&apiKey=" + API_KEY
             default:
@@ -78,9 +77,9 @@ struct Networking {
     
 //https://newsapi.org/v2/top-headlines/sources?category=business&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b
     
-    func getNews(type: APICalls, category: categories = .undefined, query : String = "",completion : @escaping (Result<News,UserError>) -> Void) {
+    func getNews(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "" ,completion : @escaping (Result<News,UserError>) -> Void) {
         
-        let queryURL = getURL(type,category,query)
+        let queryURL = getURL(type,category,query,countryCode)
         
         guard let UserURL = URL(string: queryURL) else {
             completion(.failure(.invalidURL))
@@ -112,8 +111,12 @@ struct Networking {
     
 }
 
-func getDateAndTimeInISO (year: Int,month: Int,date: Int,hours: Int,min : Int, sec: Int) -> Int{
+fileprivate func getDateAndTimeInISO (year: Int,month: Int,date: Int,hours: Int,min : Int, sec: Int) -> Int{
     // place holder
     // Convert the given time and date details to ISO cause the API accepts the same
     return 0
+}
+
+fileprivate func getCountryCode() -> String {
+    return "in"
 }

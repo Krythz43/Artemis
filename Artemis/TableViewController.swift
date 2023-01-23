@@ -7,7 +7,13 @@
 
 import UIKit
 
-class TableViewController : UITableViewController, chooseCategoryDelegate,querySearchDelegate {
+class TableViewController : UITableViewController, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate {
+    
+    func geoSearch(countryCode : String) {
+        print("Geo search invoked with params : ", countryCode)
+        fetchNews(type: .geoSearch,countryCode: countryCode)
+    }
+    
     func querySearch(type: String) {
         print("Query search invoked with params : ",type)
         fetchNews(type: .querySearch,query: type)
@@ -33,8 +39,8 @@ class TableViewController : UITableViewController, chooseCategoryDelegate,queryS
         }
     }
     
-    func fetchNews(type: APICalls,category: categories = .undefined, query : String = "") {
-        Networking.sharedInstance.getNews(type: type, category: category, query: query){[weak self] result in
+    func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "") {
+        Networking.sharedInstance.getNews(type: type, category: category, query: query,countryCode: countryCode){[weak self] result in
             switch result {
             case .failure(let error):
                 print(error)

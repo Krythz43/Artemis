@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabbar = createTabBar()
         
         window?.windowScene = windowScene
-        window?.rootViewController = tabbar
+        window?.rootViewController = MapScene()
         
         window?.makeKeyAndVisible()
         
