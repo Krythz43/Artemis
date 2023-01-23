@@ -1,2 +1,0 @@
-# Google Maps API dependency
-binary "https://dl.google.com/geosdk/GoogleMaps.json" == 6.2.1
