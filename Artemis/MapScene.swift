@@ -13,6 +13,9 @@ protocol geoSearchDelegate {
     func resetNews()
 }
 
+/// Handler that reports a geocoding response, or error.
+//public typealias GeocodeCallback = (_ results: [GMSReverseGeocodeCallback]?, _ error: Error?) -> Void
+
 class MapScene: UIViewController , GMSMapViewDelegate{
     
     var delegate: geoSearchDelegate?
@@ -45,7 +48,44 @@ class MapScene: UIViewController , GMSMapViewDelegate{
 //        marker.title = "Sydney"
 //        marker.snippet = "Australia"
         marker.map = mapView
-        displayNews()
+        let geoCoder = GMSGeocoder()
+        geoCoder.reverseGeocodeCoordinate(marker.position, completionHandler: {Result,Error in
+            guard let Result else {
+                print("unavaible")
+                self.countryNotFoundToast()
+                return
+            }
+            
+            let country = Result.firstResult()?.country ?? "none"
+            if(country == "none"){
+                self.countryNotFoundToast()
+            }
+            else {
+                self.countryCode = countryCodeDict[country] ?? "none"
+                if(self.countryCode != "none"){
+                    self.displayNews()
+                }
+                else {
+                    self.countryNotFoundToast()
+                }
+            }
+        })
+    }
+    
+    fileprivate func countryNotFoundToast() {
+        let alert = UIAlertController(title: nil, message: "Can't display news for selected location", preferredStyle: .alert)
+        alert.view.backgroundColor = .systemGray
+        alert.view.alpha = 0.5
+        alert.view.layer.cornerRadius = 15
+        alert.view.translatesAutoresizingMaskIntoConstraints = false
+
+        
+        self.sheetPresentationController?.detents = [.medium()]
+        self.present(alert,animated:true)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+            alert.dismiss(animated: true)
+        }
     }
     
     fileprivate func displayNews() {
