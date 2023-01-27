@@ -85,6 +85,7 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! NewsCard
         cell.layer.cornerRadius = 15
         let newsArticle = newsResult.articles?[indexPath.row]
+        print("The obtained results are : ",newsArticle)
         cell.set(res : newsArticle)
         return cell
     }

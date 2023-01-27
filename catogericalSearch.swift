@@ -15,13 +15,29 @@ protocol chooseCategoryDelegate {
 
 class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    private let imageView : UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "house")
+        imageView.backgroundColor = .systemYellow
+        return imageView
+    }()
+    
+    private let label: UILabel = {
+        let label = UILabel()
+        label.text = "Search"
+        label.backgroundColor = .systemGreen
+        return label
+    }()
+    
+    
+    
     private var collectionView : UICollectionView?
     var delegate: chooseCategoryDelegate?
     private var chosenCategory : categories = .undefined
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layout = UICollectionViewFlowLayout( )
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -33,11 +49,13 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
             return
         }
         
+        
+        
         collectionView.register(CatogeriesCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
-        collectionView.frame = view.bounds
+        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width*(2/3))
     }
     
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -47,6 +65,11 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CatogeriesCollectionViewCell
         cell.contentView.backgroundColor = .systemRed
+        
+        label.frame = CGRect(x: 5, y: cell.contentView.frame.size.height - 50, width: cell.contentView.frame.size.width - 10, height: 50)
+        
+        cell.contentView.addSubview(label)
+        
         
         return cell
     }
@@ -100,6 +123,7 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
         newsView.modalPresentationStyle = .fullScreen
         
         let navVC = UINavigationController(rootViewController: newsView)
+        navVC.modalPresentationStyle = .fullScreen
         present(navVC,animated: true,completion: nil)
     }
     

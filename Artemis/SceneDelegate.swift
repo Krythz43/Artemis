@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabbar = createTabBar()
         
         window?.windowScene = windowScene
-        window?.rootViewController = MapScene()
+        window?.rootViewController = tabbar
+        
         window?.makeKeyAndVisible()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -31,8 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createSearcgNavController () -> UINavigationController {
         let searchVC = SeachVCViewController()
-        searchVC.title = "Search"
-        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        searchVC.title = "Home Page"
+        searchVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "homekit"), tag: 1)
         
         return UINavigationController(rootViewController: searchVC)
     }
@@ -40,8 +41,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createFavNavController () -> UINavigationController {
         let searchVC = favListVC()
-        searchVC.title = "Favourites"
-        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        searchVC.title = "Preferences"
+        searchVC.tabBarItem = UITabBarItem(title: "Preferences", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 1)
         
         return UINavigationController(rootViewController: searchVC)
     }
