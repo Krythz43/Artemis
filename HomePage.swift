@@ -13,7 +13,10 @@ class HomePage : UIViewController {
         
         var delegate : getNewsDelegate?
         
-        let categoricalVC = SwipingController()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let categoricalVC = SwipingController(collectionViewLayout: layout)
+    
         let categoryView = UIView()
         view.backgroundColor = .systemTeal
         categoryView.backgroundColor = .systemBlue
@@ -24,10 +27,11 @@ class HomePage : UIViewController {
         categoryView.topAnchor.constraint(equalTo: view.topAnchor,constant: 250).isActive = true
         categoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         categoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
+        addChild(categoricalVC)
         categoryView.addSubview(categoricalVC.view)
-        
+        categoricalVC.didMove(toParent: self)
         delegate = categoricalVC
+        print(delegate)
         delegate?.headlinesSearch()
         
         

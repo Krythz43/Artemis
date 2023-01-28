@@ -48,6 +48,8 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
                 self?.newsResult = newsResult
                 self?.newsToDisplay = newsResult
             }
+            
+            print("API CALL WAS SUCESS", self?.newsToDisplay)
         }
         
         print(newsResult)

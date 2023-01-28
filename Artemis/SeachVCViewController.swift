@@ -27,12 +27,33 @@ class SeachVCViewController: UIViewController {
         NSLayoutConstraint.activate([
             categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            categoryController.view.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 50),
+            categoryController.view.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10),
             categoryController.view.heightAnchor.constraint(equalToConstant: view.frame.size.width*(2/3))
             ])
         
         
+        var delegate : getNewsDelegate?
         
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let categoricalVC = SwipingController(collectionViewLayout: layout)
+    
+        let categoryView = UIView()
+        view.backgroundColor = .systemTeal
+        categoryView.backgroundColor = .systemBlue
+        view.addSubview(categoryView)
+        
+        categoryView.translatesAutoresizingMaskIntoConstraints = false
+        categoryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -10).isActive = true
+        categoryView.topAnchor.constraint(equalTo: categoryController.view.bottomAnchor,constant: 10).isActive = true
+        categoryView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        categoryView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        addChild(categoricalVC)
+        categoryView.addSubview(categoricalVC.view)
+        categoricalVC.didMove(toParent: self)
+        delegate = categoricalVC
+        print(delegate)
+        delegate?.headlinesSearch()
     }
     
     fileprivate func setUpButton(){

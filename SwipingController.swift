@@ -20,7 +20,7 @@ protocol getNewsDelegate {
 class SwipingController: UICollectionViewController,UICollectionViewDelegateFlowLayout, getNewsDelegate {
     
     var newsResult : News = News()
-    
+    var x = 5
     var newsToDisplay = News(){
         didSet {
             print("NEWS WAS MODIFIEDDDDDDDDD")
@@ -32,21 +32,22 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
     }
     
     func headlinesSearch() {
-        print("Everything search invoked")
+        print("Everything search invoked",self.newsToDisplay)
+        
         fetchNews(type: .everything)
     }
     
     func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "") {
-        Networking.sharedInstance.getNews(type: type, category: category, query: query,countryCode: countryCode){[weak self] result in
+        Networking.sharedInstance.getNews(type: type, category: category, query: query,countryCode: countryCode){[self] result in
             switch result {
             case .failure(let error):
                 print(error)
             case .success(let newsResult):
-                print("API CALL WAS SUCESS", newsResult.articles?[0])
-                self?.newsResult = newsResult
-                self?.newsToDisplay = newsResult
+                print("API CALL WAS SUCESS1", newsResult.articles?[0])
+                self.newsResult = newsResult
+                self.newsToDisplay = newsResult
                 
-                print("API CALL WAS SUCESS", self?.newsToDisplay)
+                print("API CALL WAS SUCESS2", self.newsToDisplay, self.x)
             }
         }
         
@@ -68,6 +69,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("Number of sections to be processed : ",newsResult.articles?.count ?? 0)
         return newsResult.articles?.count ?? 0
     }
     

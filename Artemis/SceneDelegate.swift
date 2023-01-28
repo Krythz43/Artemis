@@ -23,7 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.windowScene = windowScene
         window?.rootViewController = tabbar
-        
         window?.makeKeyAndVisible()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
