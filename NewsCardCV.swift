@@ -33,7 +33,8 @@ class NewsCardCV : UICollectionViewCell {
        let title = UILabel()
         title.adjustsFontSizeToFitWidth = true
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = UIFont.boldSystemFont(ofSize: 25)
+        title.font = UIFont.boldSystemFont(ofSize: 15)
+        title.numberOfLines = 0
         return title
     }()
     
@@ -67,19 +68,14 @@ class NewsCardCV : UICollectionViewCell {
         addSubview(cardBackground)
         addSubview(newsImage)
         addSubview(newsTitle)
-        addSubview(newsDescription)
-        addSubview(authorName)
+//        addSubview(newsDescription)
+//        addSubview(authorName)
 
-//        cardBackground.addArrangedSubview(newsImage)
-//        cardBackground.addArrangedSubview(newsTitle)
-//        cardBackground.addArrangedSubview(newsDescription)
-//        cardBackground.addArrangedSubview(authorName)
-        
         cardBackgroundConstraints()
         newsImageConstraints()
         newsTitleConstraints()
-        newsDescriptionConstraints()
-        authorNameConstraints()
+//        newsDescriptionConstraints()
+//        authorNameConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -88,24 +84,24 @@ class NewsCardCV : UICollectionViewCell {
     
     fileprivate func cardBackgroundConstraints () {
         cardBackground.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        cardBackground.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        cardBackground.heightAnchor.constraint(equalToConstant: 300).isActive = true
 //        cardBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
         cardBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        cardBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+        cardBackground.widthAnchor.constraint(equalToConstant: 364).isActive = true
     }
     
     fileprivate func newsImageConstraints() {
-        newsImage.heightAnchor.constraint(equalTo: cardBackground.heightAnchor, multiplier: 0.7).isActive = true
+        newsImage.heightAnchor.constraint(equalTo: cardBackground.heightAnchor, multiplier: 0.75).isActive = true
         newsImage.leadingAnchor.constraint(equalTo: cardBackground.leadingAnchor, constant: 16).isActive = true
         newsImage.topAnchor.constraint(equalTo: cardBackground.topAnchor,constant: 16).isActive = true
         newsImage.trailingAnchor.constraint(equalTo: cardBackground.trailingAnchor,constant: -16).isActive = true
     }
     
     fileprivate func newsTitleConstraints() {
-        newsTitle.topAnchor.constraint(equalTo: newsImage.bottomAnchor, constant: 14).isActive = true
-        newsTitle.heightAnchor.constraint(equalToConstant: 25).isActive  = true
-        newsTitle.leadingAnchor.constraint(equalTo: cardBackground.leadingAnchor, constant: 30).isActive = true
-        newsTitle.trailingAnchor.constraint(equalTo: cardBackground.trailingAnchor ).isActive = true
+        newsTitle.topAnchor.constraint(equalTo: newsImage.bottomAnchor, constant: 7).isActive = true
+        newsTitle.bottomAnchor.constraint(equalTo: cardBackground.bottomAnchor,constant: -7).isActive  = true
+        newsTitle.leadingAnchor.constraint(equalTo: newsImage.leadingAnchor).isActive = true
+        newsTitle.trailingAnchor.constraint(equalTo: newsImage.trailingAnchor).isActive = true
     }
     
     fileprivate func newsDescriptionConstraints() {

@@ -15,6 +15,9 @@ protocol chooseCategoryDelegate {
 
 class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    private let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General","Search"]
+    private let imagelist = ["bag.fill","sportscourt.fill","apps.iphone","theatermasks","stethoscope","hexagon","pawprint.fill","sparkle.magnifyingglass"]
+    
     private let imageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "house")
@@ -24,7 +27,6 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     
     private let label: UILabel = {
         let label = UILabel()
-        label.text = "Search"
         label.backgroundColor = .systemGreen
         return label
     }()
@@ -64,13 +66,8 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CatogeriesCollectionViewCell
-        cell.contentView.backgroundColor = .systemRed
-        
-        label.frame = CGRect(x: 5, y: cell.contentView.frame.size.height - 50, width: cell.contentView.frame.size.width - 10, height: 50)
-        
-        cell.contentView.addSubview(label)
-        
-        
+        cell.label.text = categoryList[indexPath.row]
+        cell.imageView.image = UIImage(systemName: imagelist[indexPath.row])
         return cell
     }
     
@@ -116,6 +113,7 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
         present(navVC,animated: true)
         
     }
+    
     @objc func searchResultPage() {
         let newsView =  SearchResult()
         newsView.title = "Whats on your mind?"

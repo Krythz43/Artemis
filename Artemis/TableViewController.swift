@@ -67,8 +67,6 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemRed
-        
 //        fetchNews(type: .categoricalSearch,category: .sports)
         setupTableView()
     }

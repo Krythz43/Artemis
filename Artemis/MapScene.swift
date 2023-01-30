@@ -20,6 +20,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
     
     var delegate: geoSearchDelegate?
     var countryCode: String = "in"
+    var countryName: String = "India"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +28,14 @@ class MapScene: UIViewController , GMSMapViewDelegate{
         // Do any additional setup after loading the view.
                 // Create a GMSCameraPosition that tells the map to display the
                 // coordinate -33.86,151.20 at zoom level 6.
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 10.86, longitude: 60.20, zoom: 3.0)
         let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
         mapView.isIndoorEnabled = false
         mapView.delegate = self
         self.view.addSubview(mapView)
+        toastSettings(message: "Select a location",duration: 1)
         // Creates a marker in the center of the map.
-        setMarker(mapView, -33.86, 151)
+//        setMarker(mapView, -33.86, 151)
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -62,6 +64,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
             }
             else {
                 self.countryCode = countryCodeDict[country] ?? "none"
+                self.countryName = country
                 if(self.countryCode != "none"){
                     self.displayNews()
                 }
@@ -73,7 +76,11 @@ class MapScene: UIViewController , GMSMapViewDelegate{
     }
     
     fileprivate func countryNotFoundToast() {
-        let alert = UIAlertController(title: nil, message: "Can't display news for selected location", preferredStyle: .alert)
+        toastSettings(message:  "Can't display news for selected location",duration: 0.5)
+    }
+    
+    fileprivate func toastSettings(message: String,duration: Double){
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.view.backgroundColor = .systemGray
         alert.view.alpha = 0.5
         alert.view.layer.cornerRadius = 15
@@ -83,7 +90,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
         self.sheetPresentationController?.detents = [.medium()]
         self.present(alert,animated:true)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration){
             alert.dismiss(animated: true)
         }
     }
@@ -95,7 +102,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.geoSearch(countryCode: countryCode)
         
-        newsView.title = "Displaying news from : " + countryCode
+        newsView.title = "News from : " + countryName
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
         
         let navVC = UINavigationController(rootViewController: newsView)

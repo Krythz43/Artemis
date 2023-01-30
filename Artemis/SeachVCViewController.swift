@@ -40,7 +40,6 @@ class SeachVCViewController: UIViewController {
     
         let categoryView = UIView()
         view.backgroundColor = .systemTeal
-        categoryView.backgroundColor = .systemBlue
         view.addSubview(categoryView)
         
         categoryView.translatesAutoresizingMaskIntoConstraints = false
