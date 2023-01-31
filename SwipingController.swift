@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol topHeadlinesDelegate {
-    func getTopHeadlines()
-    func resetNews()
-}
-
 protocol getNewsDelegate {
     func headlinesSearch()
 }

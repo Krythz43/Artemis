@@ -15,6 +15,9 @@ class SeachVCViewController: UIViewController {
     private var topControlsStackView =  UIStackView()
     private let headlinesView = UIView()
     private let categoryController = CatogericalSearch()
+    private var navBar = UINavigationBar()
+    
+    private var delegate : getNewsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +32,6 @@ class SeachVCViewController: UIViewController {
         view.addSubview(button)
         button.setImage(UIImage(named: "earthIcon"), for: .normal)
         
-        
-        
         addChild(categoryController)
         view.addSubview(categoryController.view)
         categoryController.didMove(toParent: self)
@@ -41,7 +42,8 @@ class SeachVCViewController: UIViewController {
         layout.scrollDirection = .horizontal
         let headlinesContainer = SwipingController(collectionViewLayout: layout)
         addChild(headlinesContainer)
-        
+        self.setNavigationBar()
+
         
         view.addSubview(headlinesView)
         headlinesView.addSubview(headlinesContainer.view)
@@ -58,13 +60,40 @@ class SeachVCViewController: UIViewController {
         setupConstraints()
     }
     
+    func setNavigationBar() {
+        let navItem = UINavigationItem(title: "Top Headlines")
+        let doneItem = UIBarButtonItem(title: "view more", style: .plain, target: self, action: #selector(seeAllTopHeadlines))
+        navItem.rightBarButtonItem = doneItem
+        navBar.backgroundColor = .systemGray
+        navBar.setItems([navItem], animated: false)
+        self.view.addSubview(navBar)
+    }
+
+    @objc func seeAllTopHeadlines() { // remove @objc for Swift 3
+        let newsView =  TableViewController()
+        delegate = newsView
+        
+        print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
+        delegate?.headlinesSearch()
+        
+        newsView.title = "Top Headlines"
+        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        newsView.modalPresentationStyle = .fullScreen
+        newsView.sheetPresentationController?.prefersGrabberVisible = true
+        
+        let navVC = UINavigationController(rootViewController: newsView)
+        navVC.modalPresentationStyle = .fullScreen
+        
+        present(navVC,animated: true)
+    }
+    
     fileprivate func setupTopControlStack(){
         artemisTitleView.backgroundColor = .systemRed
     }
     
     fileprivate func setUpButton(){
 //        button.setTitle("News across the globe", for: .normal)
-        button.backgroundColor = .white
+        button.backgroundColor = .secondarySystemBackground
         button.setTitleColor(.black, for: .normal)
         button.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
@@ -95,6 +124,12 @@ class SeachVCViewController: UIViewController {
         topControlsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topControlsStackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.08).isActive = true
         
+        artemisTitleView.translatesAutoresizingMaskIntoConstraints = false
+        artemisTitleView.topAnchor.constraint(equalTo: topControlsStackView.topAnchor).isActive = true
+        artemisTitleView.bottomAnchor.constraint(equalTo: topControlsStackView.bottomAnchor).isActive = true
+        artemisTitleView.leadingAnchor.constraint(equalTo: topControlsStackView.leadingAnchor).isActive = true
+        artemisTitleView.widthAnchor.constraint(equalTo: topControlsStackView.widthAnchor, multiplier: 0.8).isActive = true
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.trailingAnchor.constraint(equalTo: globeImage.trailingAnchor).isActive = true
         button.leadingAnchor.constraint(equalTo: globeImage.leadingAnchor).isActive = true
@@ -106,20 +141,20 @@ class SeachVCViewController: UIViewController {
             categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             categoryController.view.topAnchor.constraint(equalTo: topControlsStackView.bottomAnchor, constant: 10),
-            categoryController.view.heightAnchor.constraint(equalToConstant: view.frame.size.width*(2/3))
+            categoryController.view.heightAnchor.constraint(equalToConstant: view.frame.size.width*(2/3) - 20)
             ])
         
-        artemisTitleView.translatesAutoresizingMaskIntoConstraints = false
-        artemisTitleView.topAnchor.constraint(equalTo: topControlsStackView.topAnchor).isActive = true
-        artemisTitleView.bottomAnchor.constraint(equalTo: topControlsStackView.bottomAnchor).isActive = true
-        artemisTitleView.leadingAnchor.constraint(equalTo: topControlsStackView.leadingAnchor).isActive = true
-        artemisTitleView.widthAnchor.constraint(equalTo: topControlsStackView.widthAnchor, multiplier: 0.8).isActive = true
-        
         headlinesView.translatesAutoresizingMaskIntoConstraints = false
-        headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -10).isActive = true
-        headlinesView.topAnchor.constraint(equalTo: categoryController.view.bottomAnchor,constant: 10).isActive = true
+        headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: 0).isActive = true
+        headlinesView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 0).isActive = true
         headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        navBar.topAnchor.constraint(equalTo: categoryController.view.bottomAnchor,constant: 20).isActive = true
+        navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        navBar.heightAnchor.constraint(equalToConstant: 44).isActive = true
     }
 
 }

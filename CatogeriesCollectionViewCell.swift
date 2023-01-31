@@ -43,7 +43,7 @@ class CatogeriesCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 30).isActive = true
         label.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
         label.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         imageView.frame = CGRect(x: 5, y: 0, width: contentView.frame.size.width - 10, height: contentView.frame.size.height - 50)

@@ -7,11 +7,16 @@
 
 import UIKit
 
-class TableViewController : UITableViewController, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate {
+class TableViewController : UITableViewController, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate {
     
     func geoSearch(countryCode : String) {
         print("Geo search invoked with params : ", countryCode)
         fetchNews(type: .geoSearch,countryCode: countryCode)
+    }
+    
+    func headlinesSearch() {
+        print("Everything search invoked",self.newsToDisplay)
+        fetchNews(type: .everything)
     }
     
     func querySearch(type: String) {

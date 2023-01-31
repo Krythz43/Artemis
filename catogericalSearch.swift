@@ -51,8 +51,6 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
             return
         }
         
-        
-        
         collectionView.register(CatogeriesCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
