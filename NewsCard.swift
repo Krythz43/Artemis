@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsCard : UITableViewCell {
+class NewsCard: UITableViewCell {
     
     /*
         From the API We use
@@ -19,7 +19,7 @@ class NewsCard : UITableViewCell {
         5) Published ago
      */
     
-    var cardBackground : UIView = {
+    var cardBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
@@ -47,7 +47,7 @@ class NewsCard : UITableViewCell {
         return name
     }()
     
-    var newsDescription : UILabel = {
+    var newsDescription: UILabel = {
         let description = UILabel()
         description.adjustsFontSizeToFitWidth = true
         description.translatesAutoresizingMaskIntoConstraints = false
@@ -57,10 +57,10 @@ class NewsCard : UITableViewCell {
     }()
     
     var newsImage : UIImageView = {
-        let nImage = UIImageView()
-        nImage.translatesAutoresizingMaskIntoConstraints = false
-        nImage.clipsToBounds = true
-        return nImage
+        let newsImage = UIImageView()
+        newsImage.translatesAutoresizingMaskIntoConstraints = false
+        newsImage.clipsToBounds = true
+        return newsImage
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -103,10 +103,10 @@ class NewsCard : UITableViewCell {
     }
     
     fileprivate func newsTitleConstraints() {
-        newsTitle.topAnchor.constraint(equalTo: newsImage.bottomAnchor, constant: 14).isActive = true
-        newsTitle.bottomAnchor.constraint(equalTo: cardBackground.bottomAnchor).isActive  = true
-        newsTitle.leadingAnchor.constraint(equalTo: cardBackground.leadingAnchor, constant: 30).isActive = true
-        newsTitle.trailingAnchor.constraint(equalTo: newsImage.trailingAnchor, constant: -14).isActive = true
+        newsTitle.topAnchor.constraint(equalTo: newsImage.bottomAnchor, constant: 7).isActive = true
+        newsTitle.bottomAnchor.constraint(equalTo: cardBackground.bottomAnchor,constant: -7).isActive  = true
+        newsTitle.leadingAnchor.constraint(equalTo: newsImage.leadingAnchor).isActive = true
+        newsTitle.trailingAnchor.constraint(equalTo: newsImage.trailingAnchor).isActive = true
     }
     
     fileprivate func newsDescriptionConstraints() {

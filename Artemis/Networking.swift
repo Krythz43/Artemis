@@ -66,7 +66,7 @@ struct Networking {
                 return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&apiKey=" + API_KEY
             case .geoSearch:
                 // phase 3
-                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b"
+                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&apiKey=" + API_KEY
             case .querySearch:
                 return "https://newsapi.org/v2/top-headlines?q=" + query + "&apiKey=" + API_KEY
             default:
@@ -99,7 +99,7 @@ struct Networking {
                 print("The JSON has been recieved!",jsonData)
                 let userResponse = try decoder.decode(News.self, from: jsonData)
                 print("Articles returned by query : ",userResponse.articles?.count ?? 0)
-                print("First article : ",userResponse.articles?[0])
+//                print("First article : ",userResponse.articles?[0])
                 completion(.success(userResponse))
             }
             catch {
@@ -115,8 +115,4 @@ fileprivate func getDateAndTimeInISO (year: Int,month: Int,date: Int,hours: Int,
     // place holder
     // Convert the given time and date details to ISO cause the API accepts the same
     return 0
-}
-
-fileprivate func getCountryCode() -> String {
-    return "in"
 }

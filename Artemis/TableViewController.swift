@@ -28,9 +28,9 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         fetchNews(type: .categoricalSearch,category: type)
     }
     
-    var newsResult : News = News()
+    private var newsResult : News = News()
     
-    var newsToDisplay = News(){
+    private var newsToDisplay = News(){
         didSet {
             print("News was modified")
             DispatchQueue.main.async {
@@ -61,6 +61,7 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 420
+//        tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
@@ -82,7 +83,10 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! NewsCard
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? NewsCard else {
+            return UITableViewCell()
+        }
+            
         cell.layer.cornerRadius = 15
         let newsArticle = newsResult.articles?[indexPath.row]
         print("The obtained results are : ",newsArticle)
