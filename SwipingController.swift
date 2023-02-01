@@ -54,6 +54,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
+        collectionView.allowsSelection = true
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -66,7 +67,9 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! NewsCardCV
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? NewsCardCV else {
+            return NewsCardCV()
+        }
         // we cant directly use this because its an UI something and cant be used for properties
         
 //        cell.backgroundColor = indexPath.item % 2 == 0 ? .red : .green
@@ -80,5 +83,6 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
+    
 }
 

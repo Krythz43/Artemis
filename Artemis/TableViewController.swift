@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol webViewDelegate {
+    func loadWebPage(targetURL: String)
+    func loadView()
+}
+
 class TableViewController : UITableViewController, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate {
     
     func geoSearch(countryCode : String) {
@@ -34,6 +39,7 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
     }
     
     private var newsResult : News = News()
+    private var delegate: webViewDelegate?
     
     private var newsToDisplay = News(){
         didSet {
@@ -67,7 +73,6 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         tableView.delegate = self
         tableView.rowHeight = 420
 //        tableView.rowHeight = UITableView.automaticDimension
-        tableView.allowsSelection = false
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
@@ -89,7 +94,7 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? NewsCard else {
-            return UITableViewCell()
+            return NewsCard()
         }
             
         cell.layer.cornerRadius = 15
@@ -97,5 +102,30 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         print("The obtained results are : ",newsArticle)
         cell.set(res : newsArticle)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let webView = BrowserViewController()
+        delegate = webView
+        delegate?.loadView()
+        
+        webView.title = newsToDisplay.articles?[indexPath.row].source?.name ?? ""
+        
+        webView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
+
+        print("Url to display : ", newsToDisplay.articles?[indexPath.row].url ?? "")
+        delegate?.loadWebPage(targetURL: newsToDisplay.articles?[indexPath.row].url ?? "")
+        
+        let navVC = UINavigationController(rootViewController: webView)
+        
+        navVC.modalPresentationStyle = .fullScreen
+        navVC.sheetPresentationController?.prefersGrabberVisible = true
+        present(navVC,animated: true,completion: nil)
+    }
+    
+    @objc private func dismissSelf() {
+        dismiss(animated: true,completion: nil)
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Articles : Decodable {
-    var sources : Source?
+    var source : Source?
     var title : String?
     var author : String?
     var description : String?

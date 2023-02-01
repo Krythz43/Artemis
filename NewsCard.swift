@@ -147,11 +147,11 @@ class NewsCard: UITableViewCell {
             return
         }
         
-        let url = URL(string: (res?.urlToImage)!)
+        let url = URL(string: (res?.urlToImage) ?? "")
         
-        guard let _ = url else {
+        guard let finalURL = url else {
             return
         }
-        downloadImage(from: url!)
+        downloadImage(from: finalURL)
     }
 }

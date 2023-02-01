@@ -84,7 +84,7 @@ class NewsCardCV : UICollectionViewCell {
     
     fileprivate func cardBackgroundConstraints () {
         cardBackground.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        cardBackground.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        cardBackground.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
 //        cardBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
         cardBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         cardBackground.widthAnchor.constraint(equalToConstant: 364).isActive = true
@@ -142,11 +142,11 @@ class NewsCardCV : UICollectionViewCell {
             return
         }
         
-        let url = URL(string: (res?.urlToImage)!)
+        let url = URL(string: (res?.urlToImage) ?? "")
         
-        guard let _ = url else {
+        guard let finalURL = url else {
             return
         }
-        downloadImage(from: url!)
+        downloadImage(from: finalURL)
     }
 }

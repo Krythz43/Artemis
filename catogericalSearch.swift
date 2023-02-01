@@ -63,7 +63,9 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CatogeriesCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CatogeriesCollectionViewCell else {
+            return CatogeriesCollectionViewCell()
+        }
         cell.label.text = categoryList[indexPath.row]
         cell.imageView.image = UIImage(systemName: imagelist[indexPath.row])
         return cell

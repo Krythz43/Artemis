@@ -155,6 +155,12 @@ class SeachVCViewController: UIViewController {
         navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         navBar.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        
+        headlinesView.translatesAutoresizingMaskIntoConstraints = false
+        headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        headlinesView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
+        headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
 }
