@@ -39,7 +39,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
                 self?.newsResult = newsResult
                 self?.newsToDisplay = newsResult
                 
-//                print("API CALL WAS SUCESS2", self.newsToDisplay, self.x)
+                //                print("API CALL WAS SUCESS2", self.newsToDisplay, self.x)
             }
         }
         
@@ -72,7 +72,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         }
         // we cant directly use this because its an UI something and cant be used for properties
         
-//        cell.backgroundColor = indexPath.item % 2 == 0 ? .red : .green
+        //        cell.backgroundColor = indexPath.item % 2 == 0 ? .red : .green
         cell.layer.cornerRadius = 15
         let newsArticle = newsResult.articles?[indexPath.row]
         cell.set(res : newsArticle)
@@ -84,5 +84,29 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("item selected at collection view at : ",indexPath)
+        let webView = BrowserViewController()
+        var delegate: webViewDelegate?
+        delegate = webView
+        delegate?.loadView()
+        
+        webView.title = newsToDisplay.articles?[indexPath.row].source?.name ?? ""
+        
+        webView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
+
+        print("Url to display : ", newsToDisplay.articles?[indexPath.row].url ?? "")
+        delegate?.loadWebPage(targetURL: newsToDisplay.articles?[indexPath.row].url ?? "")
+        
+        let navVC = UINavigationController(rootViewController: webView)
+        
+        navVC.modalPresentationStyle = .fullScreen
+        navVC.sheetPresentationController?.prefersGrabberVisible = true
+        present(navVC,animated: true,completion: nil)
+    }
+    
+    @objc private func dismissSelf() {
+        dismiss(animated: true,completion: nil)
+    }
 }
 
