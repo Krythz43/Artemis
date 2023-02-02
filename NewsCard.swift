@@ -26,6 +26,8 @@ class NewsCard: UITableViewCell {
 //        view.axis = NSLayoutConstraint.Axis.vertical
         view.backgroundColor = UIColor.secondarySystemBackground
         view.clipsToBounds = true
+        view.layer.borderColor = CGColor(gray: 0, alpha: 0.5)
+        view.layer.borderWidth = 0.5
         return view
     }()
     
@@ -59,6 +61,7 @@ class NewsCard: UITableViewCell {
     var newsImage : UIImageView = {
         let newsImage = UIImageView()
         newsImage.translatesAutoresizingMaskIntoConstraints = false
+        newsImage.layer.cornerRadius = 16
         newsImage.clipsToBounds = true
         return newsImage
     }()

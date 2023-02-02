@@ -26,6 +26,8 @@ class NewsCardCV : UICollectionViewCell {
 //        view.axis = NSLayoutConstraint.Axis.vertical
         view.backgroundColor = UIColor.secondarySystemBackground
         view.clipsToBounds = true
+        view.layer.borderColor = CGColor(gray: 0, alpha: 0.5)
+        view.layer.borderWidth = 0.5
         return view
     }()
     
@@ -57,10 +59,11 @@ class NewsCardCV : UICollectionViewCell {
     }()
     
     var newsImage : UIImageView = {
-        let nImage = UIImageView()
-        nImage.translatesAutoresizingMaskIntoConstraints = false
-        nImage.clipsToBounds = true
-        return nImage
+        let newsImage = UIImageView()
+        newsImage.translatesAutoresizingMaskIntoConstraints = false
+        newsImage.clipsToBounds = true
+        newsImage.layer.cornerRadius = 16
+        return newsImage
     }()
     
     override init(frame: CGRect) {

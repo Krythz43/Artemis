@@ -28,7 +28,7 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         print("The text field has been edited")
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField!) {    //delegate method
+    func textFieldDidBeginEditing(_ textField: UITextField?) {    //delegate method
         print("The text field has yet to be edited")
     }
     
@@ -64,7 +64,6 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         
         view.addSubview(nameTextField)
         nameTextField.delegate = self
-        print("textfield delegate check: ",nameTextField.delegate!)
         
         view.addSubview(submit)
         view.backgroundColor = .systemBackground
@@ -124,8 +123,8 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         submit.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
-        submit.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        submit.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        submit.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16).isActive = true
+        submit.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -16).isActive = true
         
         newsContainerView.translatesAutoresizingMaskIntoConstraints = false
         newsContainerView.topAnchor.constraint(equalTo: submit.bottomAnchor,constant: 30).isActive = true

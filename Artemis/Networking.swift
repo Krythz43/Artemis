@@ -19,6 +19,8 @@ enum APICalls {
     case geoSearch
     case querySearch
     case categoricalSearch
+    case sources
+    case singularSourceSearch
 }
 
 enum categories{
@@ -53,7 +55,7 @@ struct Networking {
     let session = URLSession.shared
     
     
-    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "",_ countryCode: String = "") -> String {
+    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "",_ countryCode: String = "",_ source: String = "") -> String {
         
         let languageSetting = "en"
         let from = getDateAndTimeInISO(year: 0,month: 0,date: 0,hours: 0,min : 0, sec: 0)
@@ -69,6 +71,10 @@ struct Networking {
                 return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&apiKey=" + API_KEY
             case .querySearch:
                 return "https://newsapi.org/v2/top-headlines?q=" + query + "&apiKey=" + API_KEY
+        case .singularSourceSearch:
+            return "https://newsapi.org/v2/top-headlines?sources=" + source + "&apiKey=" + API_KEY
+        case .sources:
+            return "https://newsapi.org/v2/top-headlines/sources?apiKey=" + API_KEY
             default:
                 print("Invalid call attempt")
                 return ""
@@ -77,7 +83,39 @@ struct Networking {
     
 //https://newsapi.org/v2/top-headlines/sources?category=business&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b
     
-    func getNews(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "" ,completion : @escaping (Result<News,UserError>) -> Void) {
+    func getNews(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "", source : String = "" ,completion : @escaping (Result<News,UserError>) -> Void) {
+        
+        let queryURL = getURL(type,category,query,countryCode,source)
+        print("The recieved source is :",source)
+        guard let UserURL = URL(string: queryURL) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        let dataTask = session.dataTask(with: UserURL){data,_,_ in
+            print("URL used : ", queryURL)
+            
+            guard let jsonData = data else {
+                completion(.failure(.noDataAvailable))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                print("The JSON has been recieved!",jsonData)
+                let userResponse = try decoder.decode(News.self, from: jsonData)
+                print("Articles returned by query : ",userResponse.articles?.count ?? 0)
+//                print("First article : ",userResponse.articles?[0])
+                completion(.success(userResponse))
+            }
+            catch {
+                completion(.failure(.canNotProcessData))
+            }
+        }
+        dataTask.resume()
+    }
+    
+    func getSources(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "" ,completion : @escaping (Result<SourcesV2,UserError>) -> Void) {
         
         let queryURL = getURL(type,category,query,countryCode)
         
@@ -97,8 +135,8 @@ struct Networking {
             do {
                 let decoder = JSONDecoder()
                 print("The JSON has been recieved!",jsonData)
-                let userResponse = try decoder.decode(News.self, from: jsonData)
-                print("Articles returned by query : ",userResponse.articles?.count ?? 0)
+                let userResponse = try decoder.decode(SourcesV2.self, from: jsonData)
+                print("Articles returned by query : ",userResponse)
 //                print("First article : ",userResponse.articles?[0])
                 completion(.success(userResponse))
             }

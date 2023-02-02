@@ -13,9 +13,11 @@ protocol webViewDelegate {
 }
 
 
-class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate {
-    
-    
+class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, singularSourceDelegate {
+    func getSourceNews(type: APICalls, source: String) {
+        print("Sources news invoked with params : ",source)
+        fetchNews(type: .singularSourceSearch,source: source)
+    }
     
     func geoSearch(countryCode : String) {
         print("Geo search invoked with params : ", countryCode)
@@ -53,8 +55,8 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
         }
     }
     
-    func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "") {
-        Networking.sharedInstance.getNews(type: type, category: category, query: query,countryCode: countryCode){[weak self] result in
+    func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "",source: String = "") {
+        Networking.sharedInstance.getNews(type: type, category: category, query: query,countryCode: countryCode,source: source){[weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -74,8 +76,6 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
         tableView.register(NewsCard.self, forCellReuseIdentifier: "Cell") // register tableView cells as cell
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.prefetchDataSource = self
-        print("Table view delegate ",tableView.prefetchDataSource)
         tableView.rowHeight = 420
 //        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -148,4 +148,22 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
     @objc private func dismissSelf() {
         dismiss(animated: true,completion: nil)
     }
+    
+    func configureRefreshControl () {
+       // Add the refresh control to your UIScrollView object.
+       tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action:
+                                          #selector(handleRefreshControl),
+                                          for: .valueChanged)
+    }
+    
+    @objc func handleRefreshControl() {
+       // Update your content…
+
+       // Dismiss the refresh control.
+       DispatchQueue.main.async {
+          self.tableView.refreshControl?.endRefreshing()
+       }
+    }
+
 }

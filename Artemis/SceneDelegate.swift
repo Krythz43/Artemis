@@ -25,7 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = tabbar
         window?.makeKeyAndVisible()
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         appDelegate.window = window
     }
     
@@ -37,9 +39,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func createFavNavController () -> UINavigationController {
-        let searchVC = favListVC()
-        searchVC.title = "Preferences"
-        searchVC.tabBarItem = UITabBarItem(title: "Preferences", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 1)
+        let searchVC = SourcesList()
+        searchVC.title = "Sources"
+        searchVC.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 1)
         
         return UINavigationController(rootViewController: searchVC)
     }

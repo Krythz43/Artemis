@@ -27,6 +27,15 @@ struct News : Decodable {
 struct Source : Decodable {
     var id : String?
     var name : String?
+//    let description: String?
+//    let url: String?
+//    let category: String?
+//    let language: String?
+//    let country: String?
+}
+
+struct SourcesV2: Decodable {
+    let sources: [Source]?
 }
 
 // move to news app utils/models

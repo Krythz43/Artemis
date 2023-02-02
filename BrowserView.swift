@@ -10,12 +10,12 @@ import WebKit
 
 class BrowserViewController : UIViewController, WKUIDelegate, webViewDelegate {
     
-    private var webView : WKWebView!
+    private var webView : WKWebView?
     
     override func loadView() {
         let webConfig = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfig)
-        webView.uiDelegate = self
+        webView?.uiDelegate = self
         view = webView
     }
     
@@ -30,6 +30,6 @@ class BrowserViewController : UIViewController, WKUIDelegate, webViewDelegate {
             return
         }
         let pageRequest = URLRequest(url: urlFormat)
-        webView.load(pageRequest)
+        webView?.load(pageRequest)
     }
 }
