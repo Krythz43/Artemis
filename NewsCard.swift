@@ -26,7 +26,7 @@ class NewsCard: UITableViewCell {
 //        view.axis = NSLayoutConstraint.Axis.vertical
         view.backgroundColor = UIColor.secondarySystemBackground
         view.clipsToBounds = true
-        view.layer.borderColor = CGColor(gray: 0, alpha: 0.5)
+        view.layer.borderColor = CGColor(gray: 0, alpha: 0.6)
         view.layer.borderWidth = 0.5
         return view
     }()

@@ -56,8 +56,9 @@ class SourcesList: UITableViewController {
 //    ove
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print("Number of sections to be processed : ",sources.sources?.count ?? 0)
-        return sources.sources?.count ?? 0
+        let numberOfSections = sources.sources?.count ?? 0
+//        pageControl.numberOfPages = numberOfSections
+        return numberOfSections
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

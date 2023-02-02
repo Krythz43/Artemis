@@ -21,7 +21,7 @@ class BrowserViewController : UIViewController, WKUIDelegate, webViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadWebPage(targetURL:"https://www.espn.com.br/futebol/flamengo/artigo/_/id/11556451/presidente-flamengo-cita-gigante-europeu-tratar-projeto-novo-estadio-2-bilhoes")
+        loadWebPage(targetURL:" https://www.espn.com.br/futebol/flamengo/artigo/_/id/11556451/presidente-flamengo-cita-gigante-europeu-tratar-projeto-novo-estadio-2-bilhoes")
     }
     
     func loadWebPage(targetURL: String) {

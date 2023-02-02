@@ -24,6 +24,18 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         }
     }
     
+        @objc func scrollToNextCell(){
+            let cellSize = CGSizeMake(self.view.frame.width, self.view.frame.height);
+            let contentOffset = collectionView.contentOffset;
+            collectionView.scrollRectToVisible(CGRectMake(contentOffset.x + cellSize.width, contentOffset.y + 100, cellSize.width, cellSize.height), animated: true);
+        }
+    
+        func startTimer() {
+            _ = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.scrollToNextCell), userInfo: nil, repeats: true);
+        }
+    
+    var pageControldelegate: customPageControlDelegate?
+    
     func headlinesSearch() {
         print("Everything search invoked",self.newsToDisplay)
         fetchNews(type: .everything)
@@ -55,6 +67,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
         collectionView.allowsSelection = true
+        startTimer()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -107,6 +120,15 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
     
     @objc private func dismissSelf() {
         dismiss(animated: true,completion: nil)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print("The view shall end acceleering now")
+        print("current page is: ",Int(collectionView.contentOffset.x/collectionView.frame.width))
+        
+        var currentPage = Int(collectionView.contentOffset.x/collectionView.frame.width)
+        
+        pageControldelegate?.setCurrentPage(currentPage: currentPage)
     }
 }
 

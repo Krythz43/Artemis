@@ -7,7 +7,20 @@
 
 import UIKit
 
-class SeachVCViewController: UIViewController {
+protocol customPageControlDelegate {
+    func setPages(numberOfPages: Int)
+    func setCurrentPage(currentPage: Int)
+}
+
+class SeachVCViewController: UIViewController, customPageControlDelegate {
+    func setPages(numberOfPages: Int) {
+        pageControl.numberOfPages = numberOfPages
+    }
+    
+    func setCurrentPage(currentPage: Int) {
+        pageControl.currentPage = currentPage
+    }
+    
 
     private var artemisTitleView = UIImageView()
     private var globeImage = UIImageView()
@@ -16,6 +29,16 @@ class SeachVCViewController: UIViewController {
     private let headlinesView = UIView()
     private let categoryController = CatogericalSearch()
     private var headlinesNavigationNar = UINavigationBar()
+    
+    let pageControl : UIPageControl = {
+        let pc = UIPageControl()
+        pc.currentPage = 0
+        pc.numberOfPages = 20
+        pc.currentPageIndicatorTintColor = .systemBlue
+        pc.pageIndicatorTintColor = .gray
+        pc.allowsContinuousInteraction = false
+        return pc
+    }()
     
     private var delegate : getNewsDelegate?
     
@@ -32,6 +55,7 @@ class SeachVCViewController: UIViewController {
         view.addSubview(button)
         button.setImage(UIImage(named: "earthIcon"), for: .normal)
         
+        
         addChild(categoryController)
         view.addSubview(categoryController.view)
         categoryController.didMove(toParent: self)
@@ -41,6 +65,7 @@ class SeachVCViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let headlinesContainer = SwipingController(collectionViewLayout: layout)
+        
         addChild(headlinesContainer)
         self.setNavigationBar()
 
@@ -48,7 +73,8 @@ class SeachVCViewController: UIViewController {
         view.addSubview(headlinesView)
         headlinesView.addSubview(headlinesContainer.view)
         headlinesContainer.didMove(toParent: self)
-        
+        headlinesContainer.pageControldelegate = self
+        view.addSubview(pageControl)
         
         var delegate : getNewsDelegate?
         delegate = headlinesContainer
@@ -159,8 +185,15 @@ class SeachVCViewController: UIViewController {
         headlinesView.translatesAutoresizingMaskIntoConstraints = false
         headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationNar.bottomAnchor).isActive = true
+        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationNar.bottomAnchor,constant: -5).isActive = true
         headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        pageControl.bottomAnchor
+            .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -3
+            ).isActive=true
+        pageControl.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
 
 }

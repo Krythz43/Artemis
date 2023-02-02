@@ -12,11 +12,13 @@ class CatogeriesCollectionViewCell: UICollectionViewCell {
     
     let containerView : UIView = {
         let view = UIView()
-//        view.layer.cornerRadius = 25
+        view.layer.cornerRadius = 5
         view.layer.borderColor = CGColor(gray: 0, alpha: 0.5)
         view.layer.borderWidth = 0.5
+        view.clipsToBounds = true
         return view
     }()
+    
     let imageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "sportscourt")
