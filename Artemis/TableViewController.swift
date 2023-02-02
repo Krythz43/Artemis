@@ -12,7 +12,10 @@ protocol webViewDelegate {
     func loadView()
 }
 
-class TableViewController : UITableViewController, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate {
+
+class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate {
+    
+    
     
     func geoSearch(countryCode : String) {
         print("Geo search invoked with params : ", countryCode)
@@ -60,10 +63,10 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
                 self?.newsToDisplay = newsResult
             }
             
-            print("API CALL WAS SUCESS", self?.newsToDisplay)
+//            print("API CALL WAS SUCESS", self?.newsToDisplay)
         }
         
-        print(newsResult)
+//        print(newsResult)
     }
     
     fileprivate func setupTableView(){
@@ -71,6 +74,8 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         tableView.register(NewsCard.self, forCellReuseIdentifier: "Cell") // register tableView cells as cell
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
+        print("Table view delegate ",tableView.prefetchDataSource)
         tableView.rowHeight = 420
 //        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -106,7 +111,7 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
             print("Index not available yet")
             return NewsCard()
         }
-        print("The obtained results are : ",newsArticle)
+//        print("The obtained results are : ",newsArticle)
         cell.set(res : newsArticle)
         return cell
     }
@@ -130,6 +135,14 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         navVC.modalPresentationStyle = .fullScreen
         navVC.sheetPresentationController?.prefersGrabberVisible = true
         present(navVC,animated: true,completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        print("prefetch shall happen at: ",indexPaths)
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        print("prefetch shall be cancelled at: ",indexPaths)
     }
     
     @objc private func dismissSelf() {
