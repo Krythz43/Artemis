@@ -15,7 +15,7 @@ class SeachVCViewController: UIViewController {
     private var topControlsStackView =  UIStackView()
     private let headlinesView = UIView()
     private let categoryController = CatogericalSearch()
-    private var navBar = UINavigationBar()
+    private var headlinesNavigationNar = UINavigationBar()
     
     private var delegate : getNewsDelegate?
     
@@ -64,9 +64,9 @@ class SeachVCViewController: UIViewController {
         let navItem = UINavigationItem(title: "Top Headlines")
         let doneItem = UIBarButtonItem(title: "view more", style: .plain, target: self, action: #selector(seeAllTopHeadlines))
         navItem.rightBarButtonItem = doneItem
-        navBar.backgroundColor = .systemGray
-        navBar.setItems([navItem], animated: false)
-        self.view.addSubview(navBar)
+        headlinesNavigationNar.backgroundColor = .systemGray
+        headlinesNavigationNar.setItems([navItem], animated: false)
+        self.view.addSubview(headlinesNavigationNar)
     }
 
     @objc func seeAllTopHeadlines() { // remove @objc for Swift 3
@@ -103,7 +103,7 @@ class SeachVCViewController: UIViewController {
         let rootVC = MapScene()
         rootVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
         rootVC.title = "Map View"
-        button.setImage(UIImage(), for: .normal)
+//        button.setImage(UIImage(), for: .normal)
         let navVC = UINavigationController(rootViewController: rootVC)
         navVC.modalPresentationStyle = .fullScreen
         navVC.modalTransitionStyle = .flipHorizontal
@@ -112,7 +112,7 @@ class SeachVCViewController: UIViewController {
     }
     
     @objc private func dismissSelf() {
-        button.setImage(UIImage(named: "earthIcon"), for: .normal)
+//        button.setImage(UIImage(named: "earthIcon"), for: .normal)
         dismiss(animated: true,completion: nil)
     }
     
@@ -146,20 +146,20 @@ class SeachVCViewController: UIViewController {
         
         headlinesView.translatesAutoresizingMaskIntoConstraints = false
         headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: 0).isActive = true
-        headlinesView.topAnchor.constraint(equalTo: navBar.bottomAnchor, constant: 0).isActive = true
+        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationNar.bottomAnchor, constant: 0).isActive = true
         headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
-        navBar.translatesAutoresizingMaskIntoConstraints = false
-        navBar.topAnchor.constraint(equalTo: categoryController.view.bottomAnchor,constant: 20).isActive = true
-        navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        navBar.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        headlinesNavigationNar.translatesAutoresizingMaskIntoConstraints = false
+        headlinesNavigationNar.topAnchor.constraint(equalTo: categoryController.view.bottomAnchor,constant: 20).isActive = true
+        headlinesNavigationNar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        headlinesNavigationNar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        headlinesNavigationNar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
         
         headlinesView.translatesAutoresizingMaskIntoConstraints = false
         headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headlinesView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
+        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationNar.bottomAnchor).isActive = true
         headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 

@@ -98,7 +98,14 @@ class TableViewController : UITableViewController, chooseCategoryDelegate, query
         }
             
         cell.layer.cornerRadius = 15
-        let newsArticle = newsResult.articles?[indexPath.row]
+        guard indexPath.row < newsResult.articles?.count ?? 0 else {
+            return NewsCard()
+        }
+        
+        guard let newsArticle = newsResult.articles?[indexPath.row] else {
+            print("Index not available yet")
+            return NewsCard()
+        }
         print("The obtained results are : ",newsArticle)
         cell.set(res : newsArticle)
         return cell

@@ -16,7 +16,7 @@ protocol querySearchDelegate {
     func resetNews()
 }
 
-class SearchResult : UIViewController {
+class SearchResult : UIViewController, UITextFieldDelegate {
     
     var nameTextField: UITextField = {
        let textField = UITextField()
@@ -24,8 +24,28 @@ class SearchResult : UIViewController {
         return textField
     }()
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("The text field has been edited")
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField!) {    //delegate method
+        print("The text field has yet to be edited")
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        print("The text field wws cheanged?")
+        delegate?.resetNews()
+        do {
+            try displayResult()
+        } catch {
+            print("Can't diplay results at the moment")
+        }
+    }
+    
     var delegate : querySearchDelegate?
     var query : String = ""
+    let newsContainerView = UIView()
+    let newsView =  TableViewController()
 
     var submit: UIButton = {
         let button = UIButton(type: .system)
@@ -38,33 +58,43 @@ class SearchResult : UIViewController {
         return button
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemTeal
         
         view.addSubview(nameTextField)
+        nameTextField.delegate = self
+        print("textfield delegate check: ",nameTextField.delegate!)
+        
         view.addSubview(submit)
+        view.backgroundColor = .systemBackground
+
+        addChild(newsView)
+        newsContainerView.backgroundColor = .systemTeal
+        view.addSubview(newsContainerView)
+        newsContainerView.addSubview(newsView.view)
+        newsView.didMove(toParent: self)
         
         setupConstaints()
     }
     
     fileprivate func displayNews() {
-        let newsView =  TableViewController()
+        let newsView =  self.newsView
         self.delegate = newsView
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.querySearch(type: query)
         
-        newsView.title = "Displaying news from : " + query
-        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
-        newsView.modalPresentationStyle = .pageSheet
-        newsView.sheetPresentationController?.detents = [.custom(resolver: { context in
-            return self.view.bounds.height*0.75
-        })]
-        newsView.sheetPresentationController?.prefersGrabberVisible = true
-        
-        let navVC = UINavigationController(rootViewController: newsView)
-        present(navVC,animated: false)
+//        newsView.title = "Displaying news from : " + query
+//        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+//        newsView.modalPresentationStyle = .pageSheet
+//        newsView.sheetPresentationController?.detents = [.custom(resolver: { context in
+//            return self.view.bounds.height*0.75
+//        })]
+//        newsView.sheetPresentationController?.prefersGrabberVisible = true
+//
+//        let navVC = UINavigationController(rootViewController: newsView)
+//        present(navVC,animated: false)
     }
     
     @objc private func dismissSelf() {
@@ -96,6 +126,12 @@ class SearchResult : UIViewController {
         submit.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
         submit.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         submit.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        newsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        newsContainerView.topAnchor.constraint(equalTo: submit.bottomAnchor,constant: 30).isActive = true
+        newsContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        newsContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        newsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
 }
