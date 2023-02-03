@@ -7,5 +7,6 @@
 
 import Foundation
 
-let API_KEY = "d4176ad3ed464b71bebf54688b5d6a4c"
+//let API_KEY = "d4176ad3ed464b71bebf54688b5d6a4c"
+let API_KEY = "472b45481bf34223a10edf93ba856391"
 let MAPS_API_KEY = "AIzaSyCIsxQYL-p22uNQGFZsjB_oTwFgeMQGEuY"

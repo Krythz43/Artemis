@@ -7,20 +7,30 @@
 
 import UIKit
 
+enum pages{
+    case category
+    case sources
+    case undefined
+}
+
 class SourcesList: UITableViewController {
+    
+    var typeOfPage: pages = .undefined
+    private var categorySelected : categories = .undefined
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemTeal
-        fetchNews(type: .sources)
+//        self.sources = SourcesV2(sources: [Source(name: "business"),Source(name: "health")])
+//        fetchNews(type: .sources)
         setupTableView()
     }
     
-    var delegate: singularSourceDelegate?
+    var newsFetchDelegate: categorySourceDelegate?
     
-    private var sources = SourcesV2(sources: []){
+    var sources = SourcesV2(sources: []){
         didSet {
-            print("News was modified")
+            print("Sources was modified")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -80,73 +90,58 @@ class SourcesList: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         
-        let newsView = TableViewController()
-        self.delegate = newsView
-        
-        let sourceName = sources.sources?[indexPath.row].name ?? ""
-        delegate?.getSourceNews(type: .singularSourceSearch, source: sourceName)
-        
-        newsView.title = "News from : " + sourceName
-        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
-        
-        let navVC = UINavigationController(rootViewController: newsView)
-        
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC,animated: true,completion: nil)
+        if(typeOfPage == .sources)
+        {
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            let newsView = TableViewController()
+            self.newsFetchDelegate = newsView
+            
+            let sourceName = sources.sources?[indexPath.row].name ?? ""
+            let sourceId = sources.sources?[indexPath.row].id ?? ""
+            newsFetchDelegate?.getCategoricalSourceNews(type: .sourceSearch, source: sourceId, category: categorySelected)
+            
+            newsView.title = "News from : " + sourceName
+            newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
+            
+            let navVC = UINavigationController(rootViewController: newsView)
+            
+            navVC.modalPresentationStyle = .fullScreen
+            present(navVC,animated: true,completion: nil)
+        }
+        else {
+            tableView.deselectRow(at: indexPath, animated: true)
+            categorySelected = getCategoryat(index: indexPath.row)
+            fetchNews(type: .sources,category: categorySelected)
+            typeOfPage = .sources
+        }
+    }
+    
+    func getCategoryat(index: Int) -> categories{
+        switch categoryList[index] {
+        case "Buisness" : return .business
+        case "Sports" : return .sports
+        case "Technology" : return .technology
+        case "Entertainment" : return .entertainment
+        case "Health": return .health
+        case "Science": return .science
+        case "General": return .general
+        default:
+            return .undefined
+        }
     }
     
     @objc private func dismissSelf() {
         dismiss(animated: true,completion: nil)
+        resetCatergoriesView()
+        typeOfPage = .category
     }
     
-//
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//
-//        let webView = BrowserViewController()
-//        delegate = webView
-//        delegate?.loadView()
-//
-//        webView.title = newsToDisplay.articles?[indexPath.row].source?.name ?? ""
-//
-//        webView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
-//
-//        print("Url to display : ", newsToDisplay.articles?[indexPath.row].url ?? "")
-//        delegate?.loadWebPage(targetURL: newsToDisplay.articles?[indexPath.row].url ?? "")
-//
-//        let navVC = UINavigationController(rootViewController: webView)
-//
-//        navVC.modalPresentationStyle = .fullScreen
-//        navVC.sheetPresentationController?.prefersGrabberVisible = true
-//        present(navVC,animated: true,completion: nil)
-//    }
-//
-//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//        print("prefetch shall happen at: ",indexPaths)
-//    }
-//
-//    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-//        print("prefetch shall be cancelled at: ",indexPaths)
-//    }
-//
-//
-//    func configureRefreshControl () {
-//       // Add the refresh control to your UIScrollView object.
-//       tableView.refreshControl = UIRefreshControl()
-//        tableView.refreshControl?.addTarget(self, action:
-//                                          #selector(handleRefreshControl),
-//                                          for: .valueChanged)
-//    }
-//
-//    @objc func handleRefreshControl() {
-//       // Update your content…
-//
-//       // Dismiss the refresh control.
-//       DispatchQueue.main.async {
-//          self.tableView.refreshControl?.endRefreshing()
-//       }
-//    }
-
+    func resetCatergoriesView(){
+        sources = SourcesV2(sources: [])
+        for category in categoryList {
+            sources.sources?.append(Source(name: category))
+        }
+    }
 }

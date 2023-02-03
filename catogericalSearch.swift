@@ -13,9 +13,10 @@ protocol chooseCategoryDelegate {
     func resetNews()
 }
 
+let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General","Search"]
+
 class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    private let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General","Search"]
     private let imagelist = ["bag.fill","sportscourt.fill","apps.iphone","theatermasks","stethoscope","hexagon","pawprint.fill","sparkle.magnifyingglass"]
     
     private let imageView : UIImageView = {

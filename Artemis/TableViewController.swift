@@ -13,10 +13,11 @@ protocol webViewDelegate {
 }
 
 
-class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, singularSourceDelegate {
-    func getSourceNews(type: APICalls, source: String) {
-        print("Sources news invoked with params : ",source)
-        fetchNews(type: .singularSourceSearch,source: source)
+class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, categorySourceDelegate {
+    
+    func getCategoricalSourceNews(type: APICalls, source: String, category: categories) {
+        print("Sources news invoked with params : ",source," ",category)
+        fetchNews(type: .sourceSearch,category: category, source: source)
     }
     
     func geoSearch(countryCode : String) {

@@ -35,7 +35,7 @@ struct Source : Decodable {
 }
 
 struct SourcesV2: Decodable {
-    let sources: [Source]?
+    var sources: [Source]?
 }
 
 // move to news app utils/models

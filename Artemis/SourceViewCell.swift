@@ -7,10 +7,16 @@
 
 import UIKit
 
-protocol singularSourceDelegate{
+protocol singularSourceDelegate {
     func getSourceNews(type: APICalls,source: String)
     func resetNews()
 }
+
+protocol categorySourceDelegate {
+    func getCategoricalSourceNews(type: APICalls,source: String,category: categories)
+    func resetNews()
+}
+
 class SourceViewCell: UITableViewCell {
     var sourcesBackground: UIView = {
         let view = UIView()

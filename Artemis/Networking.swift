@@ -20,7 +20,7 @@ enum APICalls {
     case querySearch
     case categoricalSearch
     case sources
-    case singularSourceSearch
+    case sourceSearch
 }
 
 enum categories{
@@ -55,7 +55,7 @@ struct Networking {
     let session = URLSession.shared
     
     
-    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "",_ countryCode: String = "",_ source: String = "") -> String {
+    func getURL (_ callType: APICalls,_ category : categories = categories.undefined,_ query: String = "",_ countryCode: String = "",_ source: String = "",_ page: Int = 1) -> String {
         
         let languageSetting = "en"
         let from = getDateAndTimeInISO(year: 0,month: 0,date: 0,hours: 0,min : 0, sec: 0)
@@ -63,19 +63,19 @@ struct Networking {
         
         switch callType {
             case .everything:
-                return "https://newsapi.org/v2/top-headlines?language=" + languageSetting + "&apiKey=" + API_KEY
+                return "https://newsapi.org/v2/top-headlines?language=" + languageSetting + "&page=\(page)" + "&apiKey=" + API_KEY
             case .categoricalSearch:
-                return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&apiKey=" + API_KEY
+                return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
             case .geoSearch:
                 // phase 3
-                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&apiKey=" + API_KEY
+                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&page=\(page)" + "&apiKey=" + API_KEY
             case .querySearch:
-                return "https://newsapi.org/v2/top-headlines?q=" + query + "&apiKey=" + API_KEY
-        case .singularSourceSearch:
-            return "https://newsapi.org/v2/top-headlines?sources=" + source + "&apiKey=" + API_KEY
+                return "https://newsapi.org/v2/top-headlines?q=" + query + "&page=\(page)" + "&apiKey=" + API_KEY
+        case .sourceSearch:
+            return "https://newsapi.org/v2/top-headlines?sources=" + source + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sources:
-            return "https://newsapi.org/v2/top-headlines/sources?apiKey=" + API_KEY
-            default:
+            return "https://newsapi.org/v2/top-headlines/sources?category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
+        default:
                 print("Invalid call attempt")
                 return ""
         }
@@ -86,7 +86,7 @@ struct Networking {
     func getNews(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "", source : String = "" ,completion : @escaping (Result<News,UserError>) -> Void) {
         
         let queryURL = getURL(type,category,query,countryCode,source)
-        print("The recieved source is :",source)
+        print("The recieved source is :",source," for URL: ",queryURL)
         guard let UserURL = URL(string: queryURL) else {
             completion(.failure(.invalidURL))
             return
