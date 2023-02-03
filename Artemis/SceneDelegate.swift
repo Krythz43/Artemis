@@ -31,28 +31,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appDelegate.window = window
     }
     
-    func createSearcgNavController () -> UINavigationController {
-        let searchVC = SeachVCViewController()
-        searchVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "homekit"), tag: 1)
+    func createHomePageNavController () -> UINavigationController {
+        let homePage = SeachVCViewController()
+        homePage.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "homekit"), tag: 1)
+        return UINavigationController(rootViewController: homePage)
+    }
+    
+    func createMapsNavController () -> UINavigationController {
+        let mapsViewController = MapScene()
+        mapsViewController.title = "Map View"
+        mapsViewController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "globe.asia.australia"), tag: 2)
+        return UINavigationController(rootViewController: mapsViewController)
+    }
+    
+    func createSearchNavController () -> UINavigationController {
+        let searchVC = SearchResult()
+        searchVC.title = "Search"
+        searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: 3)
+        
         return UINavigationController(rootViewController: searchVC)
     }
     
-    
-    func createFavNavController () -> UINavigationController {
+    func createSourcesNavController () -> UINavigationController {
         let searchVC = SourcesList()
         searchVC.title = "Sources"
-        searchVC.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 1)
+        searchVC.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
         
         return UINavigationController(rootViewController: searchVC)
     }
     
     func createTabBar() -> UITabBarController {
-        let tabbar = UITabBarController()
+        let tabBar = UITabBarController()
+        customizeTabBar()
+        tabBar.viewControllers = [createHomePageNavController(),createMapsNavController(),createSearchNavController(),createSourcesNavController()]
+        return tabBar
+    }
+    
+    func customizeTabBar() {
         UITabBar.appearance().tintColor = .systemGreen
-        
-        tabbar.viewControllers = [createSearcgNavController(),createFavNavController()]
-        return tabbar
-        
     }
     
 

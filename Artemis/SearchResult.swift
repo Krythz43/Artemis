@@ -119,8 +119,8 @@ class SearchResult : UIViewController, UITextFieldDelegate {
     
     fileprivate func setupConstaints() {
         nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10).isActive = true
-        nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        nameTextField.leadingAnchor.constraint(equalTo: submit.leadingAnchor).isActive = true
+        nameTextField.trailingAnchor.constraint(equalTo: submit.trailingAnchor).isActive = true
         
         submit.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
         submit.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16).isActive = true
