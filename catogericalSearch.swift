@@ -98,6 +98,7 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     @objc func categorypicked() {
         let newsView =  TableViewController()
         self.delegate = newsView
+        newsView.newsType = .categoricalNews
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.selectedCategory(type: chosenCategory)

@@ -97,6 +97,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
     @objc func seeAllTopHeadlines() { // remove @objc for Swift 3
         let newsView =  TableViewController()
         delegate = newsView
+        newsView.newsType = .topHeadlines
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.headlinesSearch()

@@ -67,7 +67,8 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         
         view.addSubview(submit)
         view.backgroundColor = .systemBackground
-
+        
+        newsView.newsType = .searchNews
         addChild(newsView)
         newsContainerView.backgroundColor = .systemTeal
         view.addSubview(newsContainerView)

@@ -12,8 +12,39 @@ protocol webViewDelegate {
     func loadView()
 }
 
+protocol setFiltersDelegate {
+    func setSourceName(sourceName: String)
+    func setSourceId(sourceId: String)
+    func setCategory(category: categories)
+}
 
-class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, categorySourceDelegate {
+// Everything except categorical news type requires both Category and Sources selection
+// Categorical news already has category set so proceed to source selection
+
+enum displayedNewsType {
+    case topHeadlines
+    case geopraphicNews
+    case categoricalNews
+    case searchNews
+    case undefined
+}
+
+
+class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, categorySourceDelegate, setFiltersDelegate{
+    func setSourceName(sourceName: String) {
+        self.sourceName = sourceName
+    }
+    
+    func setSourceId(sourceId: String) {
+        self.sourceId = sourceId
+        print("Source ID set to ", self.sourceId)
+    }
+    
+    func setCategory(category: categories) {
+        self.categorySelected = category
+        print("Category set to ", self.categorySelected )
+    }
+    
     
     func getCategoricalSourceNews(type: APICalls, source: String, category: categories) {
         print("Sources news invoked with params : ",source," ",category)
@@ -44,9 +75,14 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
         fetchNews(type: .categoricalSearch,category: type)
     }
     
+    var newsType: displayedNewsType = .undefined
     private var newsResult : News = News()
     private var delegate: webViewDelegate?
     
+    private var categorySelected : categories = .undefined
+    private var sourceName: String = ""
+    private var sourceId: String = ""
+
     private var newsToDisplay = News(){
         didSet {
             print("News was modified")
@@ -85,6 +121,7 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
     override func viewDidLoad() {
         super.viewDidLoad()
 //        fetchNews(type: .categoricalSearch,category: .sports)
+        print("Type of news called: INIJNSINSIOOWNIKSN",newsType)
         setupTableView()
     }
         

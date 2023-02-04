@@ -98,7 +98,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
     fileprivate func displayNews() {
         let newsView =  TableViewController()
         self.delegate = newsView
-        
+        newsView.newsType = .geopraphicNews
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.geoSearch(countryCode: countryCode)
         

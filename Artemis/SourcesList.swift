@@ -17,6 +17,8 @@ class SourcesList: UITableViewController {
     
     var typeOfPage: pages = .undefined
     private var categorySelected : categories = .undefined
+    private var sourceName: String = ""
+    private var sourceId: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,7 @@ class SourcesList: UITableViewController {
     }
     
     var newsFetchDelegate: categorySourceDelegate?
+    private var setFiltersdelegate: setFiltersDelegate?
     
     var sources = SourcesV2(sources: []){
         didSet {
@@ -97,10 +100,15 @@ class SourcesList: UITableViewController {
             
             let newsView = TableViewController()
             self.newsFetchDelegate = newsView
+            self.setFiltersdelegate = newsView
             
-            let sourceName = sources.sources?[indexPath.row].name ?? ""
-            let sourceId = sources.sources?[indexPath.row].id ?? ""
+            sourceName = sources.sources?[indexPath.row].name ?? ""
+            sourceId = sources.sources?[indexPath.row].id ?? ""
+            
             newsFetchDelegate?.getCategoricalSourceNews(type: .sourceSearch, source: sourceId, category: categorySelected)
+            setFiltersdelegate?.setSourceId(sourceId: sourceId)
+            setFiltersdelegate?.setSourceName(sourceName: sourceName)
+            setFiltersdelegate?.setCategory(category: categorySelected)
             
             newsView.title = "News from : " + sourceName
             newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
