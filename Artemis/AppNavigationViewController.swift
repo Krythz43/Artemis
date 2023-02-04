@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppNavigationViewController: UITabBarController {
+class AppNavigationViewController: UINavigationController {
     
     private var appNavigationTabBar = UITabBarController()
     
@@ -46,10 +46,10 @@ class AppNavigationViewController: UITabBarController {
     }
     
     func setupConstraints(){
-        appNavigationTabBar.tabBar.translatesAutoresizingMaskIntoConstraints = false
-        appNavigationTabBar.tabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        appNavigationTabBar.tabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        appNavigationTabBar.tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        appNavigationTabBar.tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//        appNavigationTabBar.tabBar.translatesAutoresizingMaskIntoConstraints = false
+//        appNavigationTabBar.tabBar.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        appNavigationTabBar.tabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//        appNavigationTabBar.tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//        appNavigationTabBar.tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 }

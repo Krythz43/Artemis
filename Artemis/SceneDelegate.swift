@@ -48,7 +48,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let searchVC = SearchResult()
         searchVC.title = "Search"
         searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: 3)
-        
         return UINavigationController(rootViewController: searchVC)
     }
     
@@ -61,7 +60,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         for category in categoryList {
             searchVC.sources.sources?.append(Source(name: category))
         }
-        return UINavigationController(rootViewController: searchVC)
+        let x = UINavigationController(rootViewController: searchVC)
+//        x.navigationBar.prefersLargeTitles = true
+        x.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: nil)
+        return x
     }
     
     func createTabBar() -> UITabBarController {

@@ -65,7 +65,6 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let headlinesContainer = SwipingController(collectionViewLayout: layout)
-        
         addChild(headlinesContainer)
         self.setNavigationBar()
 

@@ -24,10 +24,23 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         }
     }
     
+    var numberOfPages = 0
+    private var swipeViewWasReset = false
         @objc func scrollToNextCell(){
             let cellSize = CGSizeMake(self.view.frame.width, self.view.frame.height);
             let contentOffset = collectionView.contentOffset;
-            collectionView.scrollRectToVisible(CGRectMake(contentOffset.x + cellSize.width, contentOffset.y + 100, cellSize.width, cellSize.height), animated: true);
+            if(cellSize.width*CGFloat(numberOfPages - 1) >= contentOffset.x + cellSize.width){
+                if(swipeViewWasReset){
+                    swipeViewWasReset = false
+                    return
+                }
+                collectionView.scrollRectToVisible(CGRectMake(contentOffset.x + cellSize.width, contentOffset.y, cellSize.width, cellSize.height), animated: true);
+                
+            } else {
+                print("Attempt to bring back to start")
+                collectionView.scrollToItem(at: [0,-1], at: UICollectionView.ScrollPosition.left, animated: true);
+                swipeViewWasReset = true
+            }
         }
     
         func startTimer() {
@@ -75,8 +88,10 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.numberOfPages = newsResult.articles?.count ?? 0
         print("Number of sections to be processed : ",newsResult.articles?.count ?? 0)
-        return newsResult.articles?.count ?? 0
+        pageControldelegate?.setPages(numberOfPages: self.numberOfPages)
+        return self.numberOfPages
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -126,8 +141,7 @@ class SwipingController: UICollectionViewController,UICollectionViewDelegateFlow
         print("The view shall end acceleering now")
         print("current page is: ",Int(collectionView.contentOffset.x/collectionView.frame.width))
         
-        var currentPage = Int(collectionView.contentOffset.x/collectionView.frame.width)
-        
+        var currentPage = Int((collectionView.contentOffset.x+collectionView.frame.width - 1)/collectionView.frame.width)
         pageControldelegate?.setCurrentPage(currentPage: currentPage)
     }
 }

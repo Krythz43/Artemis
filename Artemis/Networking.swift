@@ -132,6 +132,7 @@ struct Networking {
                 return
             }
             
+            
             do {
                 let decoder = JSONDecoder()
                 print("The JSON has been recieved!",jsonData)
