@@ -22,7 +22,6 @@
 		4E30C39329839F5F008E21A8 /* NewsCardCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C39229839F5F008E21A8 /* NewsCardCV.swift */; };
 		4E30C3952983A42E008E21A8 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C3942983A42E008E21A8 /* HomePage.swift */; };
 		4E30C3B9298A43D8008E21A8 /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C3B8298A43D8008E21A8 /* BrowserView.swift */; };
-		4EEF16F2298BAC0F00754EDD /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF16F1298BAC0F00754EDD /* Sources.swift */; };
 		4EEF16F4298BC88300754EDD /* SourceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF16F3298BC88300754EDD /* SourceViewCell.swift */; };
 		4EEF16F6298CC31F00754EDD /* AppNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF16F5298CC31F00754EDD /* AppNavigationViewController.swift */; };
 		4EEF16F8298CFA2600754EDD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF16F7298CFA2600754EDD /* Preferences.swift */; };
@@ -51,7 +50,6 @@
 		4E30C39229839F5F008E21A8 /* NewsCardCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCardCV.swift; sourceTree = "<group>"; };
 		4E30C3942983A42E008E21A8 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		4E30C3B8298A43D8008E21A8 /* BrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
-		4EEF16F1298BAC0F00754EDD /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		4EEF16F3298BC88300754EDD /* SourceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewCell.swift; sourceTree = "<group>"; };
 		4EEF16F5298CC31F00754EDD /* AppNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationViewController.swift; sourceTree = "<group>"; };
 		4EEF16F7298CFA2600754EDD /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 				4EF6DCE8296EBEBE00EB9360 /* LaunchScreen.storyboard */,
 				4EF6DCEB296EBEBE00EB9360 /* Info.plist */,
 				4E30C372296FD406008E21A8 /* Networking.swift */,
-				4EEF16F1298BAC0F00754EDD /* Sources.swift */,
 				4E30C376296FD62F008E21A8 /* News.swift */,
 				4E30C374296FD5E1008E21A8 /* AppSecret.swift */,
 				4E30C37E2979181B008E21A8 /* SeachVCViewController.swift */,
@@ -282,7 +279,6 @@
 				4E30C373296FD406008E21A8 /* Networking.swift in Sources */,
 				4E30C387297955BB008E21A8 /* CatogeriesCollectionViewCell.swift in Sources */,
 				4EEF16F8298CFA2600754EDD /* Preferences.swift in Sources */,
-				4EEF16F2298BAC0F00754EDD /* Sources.swift in Sources */,
 				4EEF16F6298CC31F00754EDD /* AppNavigationViewController.swift in Sources */,
 				4E30C38D297EDAFC008E21A8 /* MapScene.swift in Sources */,
 			);

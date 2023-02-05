@@ -94,7 +94,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         self.view.addSubview(headlinesNavigationNar)
     }
 
-    @objc func seeAllTopHeadlines() { // remove @objc for Swift 3
+    @objc func seeAllTopHeadlines() {
         let newsView =  TableViewController()
         delegate = newsView
         newsView.newsType = .topHeadlines
@@ -104,13 +104,31 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         
         newsView.title = "Top Headlines"
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Set Filters", style: .plain, target: self, action: #selector(setFilters))
         newsView.modalPresentationStyle = .fullScreen
         newsView.sheetPresentationController?.prefersGrabberVisible = true
         
         let navVC = UINavigationController(rootViewController: newsView)
         navVC.modalPresentationStyle = .fullScreen
         
-        present(navVC,animated: true)
+        navigationController?.pushViewController(newsView, animated: true)
+    }
+    
+    @objc func setFilters() {
+        let filtersView = SourcesList()
+        filtersView.typeOfPage = .category
+        filtersView.title = "Sources"
+        filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
+        filtersView.sources = SourcesV2(sources: [])
+        for category in categoryList {
+            filtersView.sources.sources?.append(Source(name: category))
+        }
+        filtersView.title = "Set Sources"
+        filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        filtersView.modalPresentationStyle = .fullScreen
+        filtersView.sheetPresentationController?.prefersGrabberVisible = true
+        
+        navigationController?.pushViewController(filtersView, animated: true)
     }
     
     fileprivate func setupTopControlStack(){
@@ -134,10 +152,16 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         navVC.modalPresentationStyle = .fullScreen
         navVC.modalTransitionStyle = .flipHorizontal
         
-        present(navVC,animated: true)
+        navigationController?.pushViewController(rootVC, animated: true)
     }
     
     @objc private func dismissSelf() {
+        print("Call to dismiss")
+        dismiss(animated: true,completion: nil)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func dismissSelfSecond() {
 //        button.setImage(UIImage(named: "earthIcon"), for: .normal)
         dismiss(animated: true,completion: nil)
     }
