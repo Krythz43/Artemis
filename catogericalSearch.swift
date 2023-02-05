@@ -63,6 +63,27 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
         return 8
     }
     
+    @objc func setFiltersForCategories() {
+        let filtersView = SourcesList()
+        filtersView.newsType = .topHeadlines
+        filtersView.typeOfPage = .sources
+        filtersView.title = "Sources"
+        filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
+        filtersView.sources = SourcesV2(sources: [])
+        filtersView.fetchSources(type: .sources,category: chosenCategory)
+        filtersView.title = "Set Sources"
+        filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSources))
+        filtersView.modalPresentationStyle = .fullScreen
+        filtersView.sheetPresentationController?.prefersGrabberVisible = true
+        
+        navigationController?.pushViewController(filtersView, animated: true)
+    }
+    
+    @objc private func dismissSources() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CatogeriesCollectionViewCell else {
             return CatogeriesCollectionViewCell()
@@ -105,14 +126,14 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
         
         newsView.title = "Displaying news from : " + getCategory(chosenCategory)
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Set Filters", style: .plain, target: self, action: #selector(setFiltersForCategories))
         newsView.modalPresentationStyle = .pageSheet
         newsView.sheetPresentationController?.detents = [.custom(resolver: { context in
             return self.view.bounds.height*0.75
         })]
         newsView.sheetPresentationController?.prefersGrabberVisible = true
         
-        let navVC = UINavigationController(rootViewController: newsView)
-        present(navVC,animated: true)
+        navigationController?.pushViewController(newsView, animated: true)
         
     }
     
@@ -130,5 +151,6 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     @objc private func dismissSelf() {
         delegate?.resetNews()
         dismiss(animated: true,completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 }

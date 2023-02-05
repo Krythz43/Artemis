@@ -128,7 +128,8 @@ class SourcesList: UITableViewController {
                 refreshNewsDelegate?.refreshNews(callType: .querySearch, category: categorySelected, sourceName: sourceId)
             }
             else if (newsType == .categoricalNews) {
-                
+                print("CALLING CATEGORYRYRYRYR")
+                refreshNewsDelegate?.refreshNews(callType: .categoricalSearch, category: categorySelected, sourceName: sourceId)
             }
             else {
                 print("UNDEFFEINEDEDNEINDENDEJUDN NEWS")
