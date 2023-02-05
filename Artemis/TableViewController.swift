@@ -18,6 +18,10 @@ protocol setFiltersDelegate {
     func setCategory(category: categories)
 }
 
+protocol refreshNewsDelegate {
+    func refreshNews(callType: APICalls,category: categories,sourceName: String)
+}
+
 // Everything except categorical news type requires both Category and Sources selection
 // Categorical news already has category set so proceed to source selection
 
@@ -30,13 +34,20 @@ enum displayedNewsType {
 }
 
 
-class TableViewController : UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, categorySourceDelegate, setFiltersDelegate{
+class TableViewController :UITableViewController, UITableViewDataSourcePrefetching, chooseCategoryDelegate, querySearchDelegate, geoSearchDelegate, getNewsDelegate, categorySourceDelegate, setFiltersDelegate, refreshNewsDelegate{
+    
+    func refreshNews(callType: APICalls, category: categories, sourceName: String = "") {
+        print("REFRESG CALL HAPPENED TO :",callType," source: ",sourceName, "cc: ",countryCode, " query: ",queryString)
+        fetchNews(type: callType,category: category, query: queryString,countryCode: countryCode,source: sourceName)
+    }
+    
     func setSourceName(sourceName: String) {
         self.sourceName = sourceName
     }
     
     func setSourceId(sourceId: String) {
         self.sourceId = sourceId
+        
         print("Source ID set to ", self.sourceId)
     }
     
@@ -53,6 +64,7 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
     
     func geoSearch(countryCode : String) {
         print("Geo search invoked with params : ", countryCode)
+        self.countryCode = countryCode
         fetchNews(type: .geoSearch,countryCode: countryCode)
     }
     
@@ -63,6 +75,7 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
     
     func querySearch(type: String) {
         print("Query search invoked with params : ",type)
+        queryString = type
         fetchNews(type: .querySearch,query: type)
     }
     
@@ -82,6 +95,8 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
     private var categorySelected : categories = .undefined
     private var sourceName: String = ""
     private var sourceId: String = ""
+    private var countryCode: String = ""
+    private var queryString: String = ""
 
     private var newsToDisplay = News(){
         didSet {
@@ -167,7 +182,6 @@ class TableViewController : UITableViewController, UITableViewDataSourcePrefetch
 
         print("Url to display : ", newsToDisplay.articles?[indexPath.row].url ?? "")
         delegate?.loadWebPage(targetURL: newsToDisplay.articles?[indexPath.row].url ?? "")
-        
         let navVC = UINavigationController(rootViewController: webView)
         
         navVC.modalPresentationStyle = .fullScreen

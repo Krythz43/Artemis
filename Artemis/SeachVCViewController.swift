@@ -104,18 +104,16 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         
         newsView.title = "Top Headlines"
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
-        newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Set Filters", style: .plain, target: self, action: #selector(setFilters))
+        newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Set Filters", style: .plain, target: self, action: #selector(setFiltersHeadlines))
         newsView.modalPresentationStyle = .fullScreen
         newsView.sheetPresentationController?.prefersGrabberVisible = true
-        
-        let navVC = UINavigationController(rootViewController: newsView)
-        navVC.modalPresentationStyle = .fullScreen
         
         navigationController?.pushViewController(newsView, animated: true)
     }
     
-    @objc func setFilters() {
+    @objc func setFiltersHeadlines() {
         let filtersView = SourcesList()
+        filtersView.newsType = .topHeadlines
         filtersView.typeOfPage = .category
         filtersView.title = "Sources"
         filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
@@ -124,7 +122,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
             filtersView.sources.sources?.append(Source(name: category))
         }
         filtersView.title = "Set Sources"
-        filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
+        filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSources))
         filtersView.modalPresentationStyle = .fullScreen
         filtersView.sheetPresentationController?.prefersGrabberVisible = true
         
@@ -141,6 +139,10 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         button.setTitleColor(.black, for: .normal)
         button.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+    }
+    
+    @objc private func dismissSources() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func didTapButton() {

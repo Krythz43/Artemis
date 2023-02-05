@@ -16,6 +16,9 @@ enum pages{
 class SourcesList: UITableViewController {
     
     var typeOfPage: pages = .undefined
+    var newsType: displayedNewsType = .undefined
+    var searchView: TableViewController = TableViewController()
+    
     private var categorySelected : categories = .undefined
     private var sourceName: String = ""
     private var sourceId: String = ""
@@ -30,6 +33,7 @@ class SourcesList: UITableViewController {
     
     var newsFetchDelegate: categorySourceDelegate?
     private var setFiltersdelegate: setFiltersDelegate?
+    private var refreshNewsDelegate: refreshNewsDelegate?
     
     var sources = SourcesV2(sources: []){
         didSet {
@@ -40,7 +44,7 @@ class SourcesList: UITableViewController {
         }
     }
     
-    func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "") {
+    func fetchSources(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "") {
         Networking.sharedInstance.getSources(type: type, category: category, query: query,countryCode: countryCode){[weak self] result in
             switch result {
             case .failure(let error):
@@ -94,39 +98,73 @@ class SourcesList: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if(typeOfPage == .sources)
         {
-            tableView.deselectRow(at: indexPath, animated: true)
+            navigationController?.popViewController(animated: true)
+            var newsView = navigationController?.topViewController as? TableViewController
+            if(newsType == .searchNews){
+                newsView = searchView
+            }
             
-            let newsView = TableViewController()
             self.newsFetchDelegate = newsView
             self.setFiltersdelegate = newsView
+            self.refreshNewsDelegate = newsView
             
             sourceName = sources.sources?[indexPath.row].name ?? ""
             sourceId = sources.sources?[indexPath.row].id ?? ""
             
-            newsFetchDelegate?.getCategoricalSourceNews(type: .sourceSearch, source: sourceId, category: categorySelected)
             setFiltersdelegate?.setSourceId(sourceId: sourceId)
             setFiltersdelegate?.setSourceName(sourceName: sourceName)
             setFiltersdelegate?.setCategory(category: categorySelected)
             
-            newsView.title = "News from : " + sourceName
-            newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
-            
-            let navVC = UINavigationController(rootViewController: newsView)
-            
-            navVC.modalPresentationStyle = .fullScreen
-            present(navVC,animated: true,completion: nil)
+            if(newsType == .topHeadlines){
+                print("CAlling SOURCE ")
+                refreshNewsDelegate?.refreshNews(callType: .sourceSearch, category: categorySelected, sourceName: sourceId)
+            }
+            else if(newsType == .searchNews){
+                print("CALLING SEAVHCHCHCHC")
+                refreshNewsDelegate?.refreshNews(callType: .querySearch, category: categorySelected, sourceName: sourceId)
+            }
+            else if (newsType == .categoricalNews) {
+                
+            }
+            else {
+                print("UNDEFFEINEDEDNEINDENDEJUDN NEWS")
+                print("UNDEFINED NEWS")
+            }
+            newsView?.title = "News from : " + sourceName
+//            newsView?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(popViewController))
         }
         else {
-            tableView.deselectRow(at: indexPath, animated: true)
-            categorySelected = getCategoryat(index: indexPath.row)
-            fetchNews(type: .sources,category: categorySelected)
+            categorySelected = getCategoryAt(index: indexPath.row)
+            var vcArray = self.navigationController?.viewControllers
+            print("View controllers array :",vcArray)
+            
+            if(newsType == .geopraphicNews){
+                print("calling GEOGRAPHIC")
+                navigationController?.popViewController(animated: true)
+                let newsView = navigationController?.topViewController as? TableViewController
+                self.setFiltersdelegate = newsView
+                self.refreshNewsDelegate = newsView
+                
+                setFiltersdelegate?.setCategory(category: categorySelected)
+                refreshNewsDelegate?.refreshNews(callType: .geoSearch, category: categorySelected,sourceName: "")
+                return
+            }
+            
+            fetchSources(type: .sources,category: categorySelected)
             typeOfPage = .sources
         }
     }
     
-    func getCategoryat(index: Int) -> categories{
+    @objc func popViewController(){
+        print("Popping the view controller")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func getCategoryAt(index: Int) -> categories{
         switch categoryList[index] {
         case "Buisness" : return .business
         case "Sports" : return .sports

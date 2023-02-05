@@ -104,18 +104,42 @@ class MapScene: UIViewController , GMSMapViewDelegate{
         
         newsView.title = "News from : " + countryName
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
+        newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select Filters", style: .plain, target: self, action: #selector(setFiltersMaps))
+        navigationController?.pushViewController(newsView, animated: true)
+//        let navVC = UINavigationController(rootViewController: newsView)
+//
+//        navVC.modalPresentationStyle = .pageSheet
+//        navVC.sheetPresentationController?.detents = [.medium(),.large()]
+//        navVC.sheetPresentationController?.prefersGrabberVisible = true
+//        present(navVC,animated: true,completion: nil)
+    }
+    
+    
+    @objc func setFiltersMaps() {
+        let filtersView = SourcesList()
+        filtersView.newsType = .geopraphicNews
+        filtersView.typeOfPage = .category
+        filtersView.title = "Sources"
+        filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
+        filtersView.sources = SourcesV2(sources: [])
+        for category in categoryList {
+            filtersView.sources.sources?.append(Source(name: category))
+        }
+        filtersView.title = "Set Sources"
+        filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissMapsNews))
+        filtersView.modalPresentationStyle = .fullScreen
+        filtersView.sheetPresentationController?.prefersGrabberVisible = true
         
-        let navVC = UINavigationController(rootViewController: newsView)
-        
-        navVC.modalPresentationStyle = .pageSheet
-        navVC.sheetPresentationController?.detents = [.medium(),.large()]
-        navVC.sheetPresentationController?.prefersGrabberVisible = true
-        present(navVC,animated: true,completion: nil)
+        navigationController?.pushViewController(filtersView, animated: true)
     }
     
     @objc private func dismissSelf() {
         delegate?.resetNews()
-        dismiss(animated: true,completion: nil)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func dismissMapsNews() {
+        navigationController?.popViewController(animated: true)
     }
 
 }

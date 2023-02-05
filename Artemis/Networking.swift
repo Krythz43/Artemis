@@ -61,6 +61,7 @@ struct Networking {
         let from = getDateAndTimeInISO(year: 0,month: 0,date: 0,hours: 0,min : 0, sec: 0)
         let to = getDateAndTimeInISO(year: 0,month: 0,date: 0,hours: 0,min : 0, sec: 0)
         
+        print("Handling a calll of type:",callType)
         switch callType {
             case .everything:
                 return "https://newsapi.org/v2/top-headlines?language=" + languageSetting + "&page=\(page)" + "&apiKey=" + API_KEY
@@ -68,12 +69,14 @@ struct Networking {
                 return "https://newsapi.org/v2/top-headlines?category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
             case .geoSearch:
                 // phase 3
-                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&page=\(page)" + "&apiKey=" + API_KEY
+                return "https://newsapi.org/v2/top-headlines?country=" + countryCode + "&category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
             case .querySearch:
-                return "https://newsapi.org/v2/top-headlines?q=" + query + "&page=\(page)" + "&apiKey=" + API_KEY
+                return "https://newsapi.org/v2/top-headlines?q=" + query + "&sources=" + source + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sourceSearch:
+            "Sources Search call attempted"
             return "https://newsapi.org/v2/top-headlines?sources=" + source + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sources:
+            "Sources call attempted"
             return "https://newsapi.org/v2/top-headlines/sources?category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
         default:
                 print("Invalid call attempt")

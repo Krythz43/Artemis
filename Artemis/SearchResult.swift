@@ -49,15 +49,37 @@ class SearchResult : UIViewController, UITextFieldDelegate {
 
     var submit: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("I'm feeling lucky", for: .normal)
+        button.setTitle("Set Filters", for: .normal)
         button.tintColor = .white
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 5
-        button.addTarget(self, action: #selector(displayResult), for: .touchUpInside)
+        button.addTarget(self, action: #selector(setFiltersSearch), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    @objc func setFiltersSearch() {
+        let filtersView = SourcesList()
+        filtersView.newsType = .searchNews
+        filtersView.searchView = newsView
+        filtersView.typeOfPage = .category
+        filtersView.title = "Sources"
+        filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
+        filtersView.sources = SourcesV2(sources: [])
+        for category in categoryList {
+            filtersView.sources.sources?.append(Source(name: category))
+        }
+        filtersView.title = "Set Sources"
+        filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSources))
+        filtersView.modalPresentationStyle = .fullScreen
+        filtersView.sheetPresentationController?.prefersGrabberVisible = true
+        
+        self.navigationController?.pushViewController(filtersView, animated: true)
+    }
+    
+    @objc private func dismissSources() {
+        navigationController?.popViewController(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,11 +91,9 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         view.backgroundColor = .systemBackground
         
         newsView.newsType = .searchNews
-        addChild(newsView)
         newsContainerView.backgroundColor = .systemTeal
         view.addSubview(newsContainerView)
         newsContainerView.addSubview(newsView.view)
-        newsView.didMove(toParent: self)
         
         setupConstaints()
     }
