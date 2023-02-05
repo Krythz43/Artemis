@@ -34,6 +34,7 @@ class SourcesList: UITableViewController {
     var newsFetchDelegate: categorySourceDelegate?
     private var setFiltersdelegate: setFiltersDelegate?
     private var refreshNewsDelegate: refreshNewsDelegate?
+    var searchFilterDelegate : setSearchFilterDelegate?
     
     var sources = SourcesV2(sources: []){
         didSet {
@@ -125,6 +126,9 @@ class SourcesList: UITableViewController {
             }
             else if(newsType == .searchNews){
                 print("CALLING SEAVHCHCHCHC")
+                print("Search filter deleagte ,",searchFilterDelegate)
+                searchFilterDelegate?.setCategory(category: categorySelected)
+                searchFilterDelegate?.setSource(source: sourceId)
                 refreshNewsDelegate?.refreshNews(callType: .querySearch, category: categorySelected, sourceName: sourceId)
             }
             else if (newsType == .categoricalNews) {

@@ -73,10 +73,10 @@ class TableViewController :UITableViewController, UITableViewDataSourcePrefetchi
         fetchNews(type: .everything)
     }
     
-    func querySearch(type: String) {
+    func querySearch(type: String,categorySelected: categories,sourceName: String) {
         print("Query search invoked with params : ",type)
         queryString = type
-        fetchNews(type: .querySearch,query: type)
+        fetchNews(type: .querySearch,category: categorySelected,query: type,source: sourceName)
     }
     
     func resetNews() {

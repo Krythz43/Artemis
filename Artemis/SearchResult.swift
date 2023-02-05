@@ -12,11 +12,25 @@ enum SubmitError: Error {
 }
 
 protocol querySearchDelegate {
-    func querySearch(type: String)
+    func querySearch(type: String, categorySelected: categories,sourceName: String)
     func resetNews()
 }
 
-class SearchResult : UIViewController, UITextFieldDelegate {
+protocol setSearchFilterDelegate {
+    func setCategory(category: categories)
+    func setSource(source: String)
+}
+
+class SearchResult : UIViewController, UITextFieldDelegate,setSearchFilterDelegate {
+    func setCategory(category: categories) {
+        print("Categroy set")
+        filterCategory = category
+    }
+    
+    func setSource(source: String) {
+        filterSources = source
+    }
+    
     
     var nameTextField: UITextField = {
        let textField = UITextField()
@@ -46,6 +60,9 @@ class SearchResult : UIViewController, UITextFieldDelegate {
     var query : String = ""
     let newsContainerView = UIView()
     let newsView =  TableViewController()
+    
+    var filterCategory: categories = .undefined
+    var filterSources: String = ""
 
     var submit: UIButton = {
         let button = UIButton(type: .system)
@@ -64,6 +81,7 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         filtersView.searchView = newsView
         filtersView.typeOfPage = .category
         filtersView.title = "Sources"
+        filtersView.searchFilterDelegate = self
         filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
         filtersView.sources = SourcesV2(sources: [])
         for category in categoryList {
@@ -103,7 +121,7 @@ class SearchResult : UIViewController, UITextFieldDelegate {
         self.delegate = newsView
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
-        delegate?.querySearch(type: query)
+        delegate?.querySearch(type: query,categorySelected: filterCategory,sourceName: filterSources)
         
 //        newsView.title = "Displaying news from : " + query
 //        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))

@@ -52,22 +52,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UINavigationController(rootViewController: searchVC)
     }
     
-    func createSourcesNavController () -> UINavigationController {
-        let searchVC = SourcesList()
-        searchVC.typeOfPage = .category
-        searchVC.title = "Sources"
-        searchVC.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
-        searchVC.sources = SourcesV2(sources: [])
-        for category in categoryList {
-            searchVC.sources.sources?.append(Source(name: category))
-        }
-        return UINavigationController(rootViewController: searchVC)
-    }
-    
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
         customizeTabBar()
-        tabBar.viewControllers = [createHomePageNavController(),createMapsNavController(),createSearchNavController(),createSourcesNavController()]
+        tabBar.viewControllers = [createHomePageNavController(),createMapsNavController(),createSearchNavController()]
         return tabBar
     }
     
