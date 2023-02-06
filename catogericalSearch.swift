@@ -15,7 +15,7 @@ protocol chooseCategoryDelegate {
 
 let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General","Search"]
 
-class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CatogericalSearchViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private let imagelist = ["bag.fill","sportscourt.fill","apps.iphone","theatermasks","stethoscope","hexagon","pawprint.fill","sparkle.magnifyingglass"]
     
@@ -64,7 +64,7 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func setFiltersForCategories() {
-        let filtersView = SourcesList()
+        let filtersView = SourceHandlerViewController()
         filtersView.newsType = .topHeadlines
         filtersView.typeOfPage = .sources
         filtersView.title = "Sources"
@@ -117,7 +117,7 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func categorypicked() {
-        let newsView =  TableViewController()
+        let newsView =  NewsDisplayViewController()
         self.delegate = newsView
         newsView.newsType = .categoricalNews
         
@@ -138,7 +138,7 @@ class CatogericalSearch : UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func searchResultPage() {
-        let newsView =  SearchResult()
+        let newsView =  QueriedNewsViewController()
         newsView.title = "Whats on your mind?"
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
         newsView.modalPresentationStyle = .fullScreen

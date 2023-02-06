@@ -74,7 +74,7 @@ struct Networking {
                 return "https://newsapi.org/v2/top-headlines?q=" + query + "&sources=" + source + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sourceSearch:
             "Sources Search call attempted"
-            return "https://newsapi.org/v2/top-headlines?sources=" + source + "&page=\(page)" + "&apiKey=" + API_KEY
+            return "https://newsapi.org/v2/top-headlines?sources=" + source + "&language=" + languageSetting + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sources:
             "Sources call attempted"
             return "https://newsapi.org/v2/top-headlines/sources?category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
@@ -86,9 +86,9 @@ struct Networking {
     
 //https://newsapi.org/v2/top-headlines/sources?category=business&apiKey=db6fb73ef14a4f0eadf77a19254d9c3b
     
-    func getNews(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "", source : String = "" ,completion : @escaping (Result<News,UserError>) -> Void) {
+    func getNews(type: APICalls, category: categories = .undefined, query : String = "", countryCode: String = "", source : String = "",page: Int = 1 ,completion : @escaping (Result<News,UserError>) -> Void) {
         
-        let queryURL = getURL(type,category,query,countryCode,source)
+        let queryURL = getURL(type,category,query,countryCode,source,page)
         print("The recieved source is :",source," for URL: ",queryURL)
         guard let UserURL = URL(string: queryURL) else {
             completion(.failure(.invalidURL))

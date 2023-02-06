@@ -21,7 +21,7 @@ protocol setSearchFilterDelegate {
     func setSource(source: String)
 }
 
-class SearchResult : UIViewController, UITextFieldDelegate,setSearchFilterDelegate {
+class QueriedNewsViewController: UIViewController, UITextFieldDelegate,setSearchFilterDelegate {
     func setCategory(category: categories) {
         print("Categroy set")
         filterCategory = category
@@ -59,7 +59,7 @@ class SearchResult : UIViewController, UITextFieldDelegate,setSearchFilterDelega
     var delegate : querySearchDelegate?
     var query : String = ""
     let newsContainerView = UIView()
-    let newsView =  TableViewController()
+    let newsView =  NewsDisplayViewController()
     
     var filterCategory: categories = .undefined
     var filterSources: String = ""
@@ -76,7 +76,7 @@ class SearchResult : UIViewController, UITextFieldDelegate,setSearchFilterDelega
     }()
     
     @objc func setFiltersSearch() {
-        let filtersView = SourcesList()
+        let filtersView = SourceHandlerViewController()
         filtersView.newsType = .searchNews
         filtersView.searchView = newsView
         filtersView.typeOfPage = .category

@@ -13,11 +13,11 @@ enum pages{
     case undefined
 }
 
-class SourcesList: UITableViewController {
+class SourceHandlerViewController: UITableViewController {
     
     var typeOfPage: pages = .undefined
     var newsType: displayedNewsType = .undefined
-    var searchView: TableViewController = TableViewController()
+    var searchView: NewsDisplayViewController = NewsDisplayViewController()
     
     private var categorySelected : categories = .undefined
     private var sourceName: String = ""
@@ -59,7 +59,7 @@ class SourcesList: UITableViewController {
     
     fileprivate func setupTableView(){
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(SourceViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(SourceHandlerViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 40
@@ -83,14 +83,14 @@ class SourcesList: UITableViewController {
         
         print("Setting something")
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SourceViewCell else {
-            return SourceViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SourceHandlerViewCell else {
+            return SourceHandlerViewCell()
         }
 
         cell.layer.cornerRadius = 15
         guard let name = sources.sources?[indexPath.row] else {
             print("Index not available yet")
-            return SourceViewCell()
+            return SourceHandlerViewCell()
         }
         print("The obtained results are : ",name)
         cell.set(res : name)
@@ -104,7 +104,7 @@ class SourcesList: UITableViewController {
         if(typeOfPage == .sources)
         {
             navigationController?.popViewController(animated: true)
-            var newsView = navigationController?.topViewController as? TableViewController
+            var newsView = navigationController?.topViewController as? NewsDisplayViewController
             if(newsType == .searchNews){
                 newsView = searchView
             }
@@ -122,18 +122,18 @@ class SourcesList: UITableViewController {
             
             if(newsType == .topHeadlines){
                 print("CAlling SOURCE ")
-                refreshNewsDelegate?.refreshNews(callType: .sourceSearch, category: categorySelected, sourceName: sourceId)
+                refreshNewsDelegate?.refreshNews(callType: .sourceSearch, category: categorySelected, sourceName: sourceId,page: 1)
             }
             else if(newsType == .searchNews){
                 print("CALLING SEAVHCHCHCHC")
                 print("Search filter deleagte ,",searchFilterDelegate)
                 searchFilterDelegate?.setCategory(category: categorySelected)
                 searchFilterDelegate?.setSource(source: sourceId)
-                refreshNewsDelegate?.refreshNews(callType: .querySearch, category: categorySelected, sourceName: sourceId)
+                refreshNewsDelegate?.refreshNews(callType: .querySearch, category: categorySelected, sourceName: sourceId,page: 1)
             }
             else if (newsType == .categoricalNews) {
                 print("CALLING CATEGORYRYRYRYR")
-                refreshNewsDelegate?.refreshNews(callType: .categoricalSearch, category: categorySelected, sourceName: sourceId)
+                refreshNewsDelegate?.refreshNews(callType: .categoricalSearch, category: categorySelected, sourceName: sourceId,page: 1)
             }
             else {
                 print("UNDEFFEINEDEDNEINDENDEJUDN NEWS")
@@ -150,12 +150,12 @@ class SourcesList: UITableViewController {
             if(newsType == .geopraphicNews){
                 print("calling GEOGRAPHIC")
                 navigationController?.popViewController(animated: true)
-                let newsView = navigationController?.topViewController as? TableViewController
+                let newsView = navigationController?.topViewController as? NewsDisplayViewController
                 self.setFiltersdelegate = newsView
                 self.refreshNewsDelegate = newsView
                 
                 setFiltersdelegate?.setCategory(category: categorySelected)
-                refreshNewsDelegate?.refreshNews(callType: .geoSearch, category: categorySelected,sourceName: "")
+                refreshNewsDelegate?.refreshNews(callType: .geoSearch, category: categorySelected,sourceName: "",page: 1)
                 return
             }
             

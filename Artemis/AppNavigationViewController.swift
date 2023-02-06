@@ -20,14 +20,14 @@ class AppNavigationViewController: UINavigationController {
     }
     
     func createSearchNavController () -> UINavigationController {
-        let searchVC = SeachVCViewController()
+        let searchVC = HomePageViewController()
         searchVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "homekit"), tag: 1)
         return UINavigationController(rootViewController: searchVC)
     }
     
     
     func createFavNavController () -> UINavigationController {
-        let searchVC = SourcesList()
+        let searchVC = SourceHandlerViewController()
         searchVC.title = "Sources"
         searchVC.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 1)
         

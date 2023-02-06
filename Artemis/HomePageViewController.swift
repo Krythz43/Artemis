@@ -12,7 +12,7 @@ protocol customPageControlDelegate {
     func setCurrentPage(currentPage: Int)
 }
 
-class SeachVCViewController: UIViewController, customPageControlDelegate {
+class HomePageViewController: UIViewController, customPageControlDelegate {
     func setPages(numberOfPages: Int) {
         pageControl.numberOfPages = numberOfPages
     }
@@ -27,7 +27,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
     private let button = UIButton()
     private var topControlsStackView =  UIStackView()
     private let headlinesView = UIView()
-    private let categoryController = CatogericalSearch()
+    private let categoryController = CatogericalSearchViewController()
     private var headlinesNavigationNar = UINavigationBar()
     
     let pageControl : UIPageControl = {
@@ -64,7 +64,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let headlinesContainer = SwipingController(collectionViewLayout: layout)
+        let headlinesContainer = NewsCarouselViewController(collectionViewLayout: layout)
         addChild(headlinesContainer)
         self.setNavigationBar()
 
@@ -75,10 +75,9 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
         headlinesContainer.pageControldelegate = self
         view.addSubview(pageControl)
         
-        var delegate : getNewsDelegate?
+        var delegate: getNewsDelegate?
         delegate = headlinesContainer
         delegate?.headlinesSearch()
-        
         
         setupTopControlStack()
         setUpButton()
@@ -95,7 +94,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
     }
 
     @objc func seeAllTopHeadlines() {
-        let newsView =  TableViewController()
+        let newsView =  NewsDisplayViewController()
         delegate = newsView
         newsView.newsType = .topHeadlines
         
@@ -112,7 +111,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
     }
     
     @objc func setFiltersHeadlines() {
-        let filtersView = SourcesList()
+        let filtersView = SourceHandlerViewController()
         filtersView.newsType = .topHeadlines
         filtersView.typeOfPage = .category
         filtersView.title = "Sources"
@@ -146,7 +145,7 @@ class SeachVCViewController: UIViewController, customPageControlDelegate {
     }
     
     @objc private func didTapButton() {
-        let rootVC = MapScene()
+        let rootVC = MapsSceneViewController()
         rootVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
         rootVC.title = "Map View"
 //        button.setImage(UIImage(), for: .normal)

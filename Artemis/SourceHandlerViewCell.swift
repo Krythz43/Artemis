@@ -17,7 +17,7 @@ protocol categorySourceDelegate {
     func resetNews()
 }
 
-class SourceViewCell: UITableViewCell {
+class SourceHandlerViewCell: UITableViewCell {
     var sourcesBackground: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false

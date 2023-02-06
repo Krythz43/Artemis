@@ -3,4 +3,22 @@
    uuid = "0E9A2D2A-6E91-49DE-9276-D3D6AD9E4DE2"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7F79444D-536D-4C9A-BACD-813635E7F6F6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Artemis/SourcesList.swift"
+            startingColumnNumber = "38"
+            endingColumnNumber = "57"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "refreshNewsDelegate"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

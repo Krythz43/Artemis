@@ -12,7 +12,7 @@ protocol getNewsDelegate {
     func headlinesSearch()
 }
 
-class SwipingController: UICollectionViewController,UICollectionViewDelegateFlowLayout, getNewsDelegate {
+class NewsCarouselViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout, getNewsDelegate {
     
     var newsResult : News = News()
     var newsToDisplay = News(){

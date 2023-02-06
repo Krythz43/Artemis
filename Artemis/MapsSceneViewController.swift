@@ -16,7 +16,7 @@ protocol geoSearchDelegate {
 /// Handler that reports a geocoding response, or error.
 //public typealias GeocodeCallback = (_ results: [GMSReverseGeocodeCallback]?, _ error: Error?) -> Void
 
-class MapScene: UIViewController , GMSMapViewDelegate{
+class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
     
     var delegate: geoSearchDelegate?
     var countryCode: String = "in"
@@ -96,7 +96,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
     }
     
     fileprivate func displayNews() {
-        let newsView =  TableViewController()
+        let newsView =  NewsDisplayViewController()
         self.delegate = newsView
         newsView.newsType = .geopraphicNews
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
@@ -116,7 +116,7 @@ class MapScene: UIViewController , GMSMapViewDelegate{
     
     
     @objc func setFiltersMaps() {
-        let filtersView = SourcesList()
+        let filtersView = SourceHandlerViewController()
         filtersView.newsType = .geopraphicNews
         filtersView.typeOfPage = .category
         filtersView.title = "Sources"

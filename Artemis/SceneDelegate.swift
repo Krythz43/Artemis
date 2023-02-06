@@ -32,20 +32,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createHomePageNavController () -> UINavigationController {
-        let homePage = SeachVCViewController()
+        let homePage = HomePageViewController()
         homePage.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "homekit"), tag: 1)
         return UINavigationController(rootViewController: homePage)
     }
     
     func createMapsNavController () -> UINavigationController {
-        let mapsViewController = MapScene()
+        let mapsViewController = MapsSceneViewController()
         mapsViewController.title = "Map View"
         mapsViewController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "globe.asia.australia"), tag: 2)
         return UINavigationController(rootViewController: mapsViewController)
     }
     
     func createSearchNavController () -> UINavigationController {
-        let searchVC = SearchResult()
+        let searchVC = QueriedNewsViewController()
         searchVC.title = "Search"
         searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: 3)
         

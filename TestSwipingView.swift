@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomePage : UIViewController {
+class TestSwipingView : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -15,7 +15,7 @@ class HomePage : UIViewController {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let categoricalVC = SwipingController(collectionViewLayout: layout)
+        let categoricalVC = NewsCarouselViewController(collectionViewLayout: layout)
     
         let categoryView = UIView()
         view.backgroundColor = .systemTeal
