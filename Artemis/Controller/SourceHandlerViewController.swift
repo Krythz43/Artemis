@@ -25,9 +25,6 @@ class SourceHandlerViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemTeal
-//        self.sources = SourcesV2(sources: [Source(name: "business"),Source(name: "health")])
-//        fetchNews(type: .sources)
         setupTableView()
     }
     
@@ -140,7 +137,6 @@ class SourceHandlerViewController: UITableViewController {
                 print("UNDEFINED NEWS")
             }
             newsView?.title = "News from : " + sourceName
-//            newsView?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(popViewController))
         }
         else {
             categorySelected = getCategoryAt(index: indexPath.row)

@@ -8,22 +8,27 @@
 import UIKit
 import WebKit
 
-class BrowserViewController : UIViewController, WKUIDelegate, webViewDelegate {
-    
+class BrowserViewController : UIViewController {
     private var webView : WKWebView?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
+
+
+private typealias setupBrowserViewFunctions = BrowserViewController
+extension setupBrowserViewFunctions: WKUIDelegate{
     override func loadView() {
         let webConfig = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfig)
         webView?.uiDelegate = self
         view = webView
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadWebPage(targetURL:"https://www.espn.com.br/futebol/flamengo/artigo/_/id/11556451/presidente-flamengo-cita-gigante-europeu-tratar-projeto-novo-estadio-2-bilhoes")
-    }
-    
+}
+
+private typealias loadWebPageOnBroswer = BrowserViewController
+extension loadWebPageOnBroswer: webViewDelegate{
     func loadWebPage(targetURL: String) {
         guard let urlFormat = URL(string: targetURL) else {
             print("Invlaid URL!")

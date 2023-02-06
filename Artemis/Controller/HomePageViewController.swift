@@ -12,14 +12,7 @@ protocol customPageControlDelegate {
     func setCurrentPage(currentPage: Int)
 }
 
-class HomePageViewController: UIViewController, customPageControlDelegate {
-    func setPages(numberOfPages: Int) {
-        pageControl.numberOfPages = numberOfPages
-    }
-    
-    func setCurrentPage(currentPage: Int) {
-        pageControl.currentPage = currentPage
-    }
+class HomePageViewController: UIViewController {
     
 
     private var artemisTitleView = UIImageView()
@@ -221,4 +214,14 @@ class HomePageViewController: UIViewController, customPageControlDelegate {
         pageControl.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
 
+}
+
+extension HomePageViewController: customPageControlDelegate{
+    func setPages(numberOfPages: Int) {
+        pageControl.numberOfPages = numberOfPages
+    }
+    
+    func setCurrentPage(currentPage: Int) {
+        pageControl.currentPage = currentPage
+    }
 }

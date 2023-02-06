@@ -21,16 +21,7 @@ protocol setSearchFilterDelegate {
     func setSource(source: String)
 }
 
-class QueriedNewsViewController: UIViewController, UITextFieldDelegate,setSearchFilterDelegate {
-    func setCategory(category: categories) {
-        print("Categroy set")
-        filterCategory = category
-    }
-    
-    func setSource(source: String) {
-        filterSources = source
-    }
-    
+class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     
     var nameTextField: UITextField = {
        let textField = UITextField()
@@ -190,4 +181,16 @@ fileprivate func setupTextField(_ textField: UITextField, placeHolder: String) {
     textField.layer.cornerRadius = 5
     textField.clearButtonMode = UITextField.ViewMode.whileEditing
     textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+}
+
+private typealias setFilters = QueriedNewsViewController
+extension setFilters: setSearchFilterDelegate {
+    func setCategory(category: categories) {
+        print("Categroy set")
+        filterCategory = category
+    }
+    
+    func setSource(source: String) {
+        filterSources = source
+    }
 }

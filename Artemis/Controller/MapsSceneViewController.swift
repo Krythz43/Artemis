@@ -34,8 +34,6 @@ class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
         mapView.delegate = self
         self.view.addSubview(mapView)
         toastSettings(message: "Select a location",duration: 1)
-        // Creates a marker in the center of the map.
-//        setMarker(mapView, -33.86, 151)
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -106,12 +104,6 @@ class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
         newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select Filters", style: .plain, target: self, action: #selector(setFiltersMaps))
         navigationController?.pushViewController(newsView, animated: true)
-//        let navVC = UINavigationController(rootViewController: newsView)
-//
-//        navVC.modalPresentationStyle = .pageSheet
-//        navVC.sheetPresentationController?.detents = [.medium(),.large()]
-//        navVC.sheetPresentationController?.prefersGrabberVisible = true
-//        present(navVC,animated: true,completion: nil)
     }
     
     
