@@ -13,8 +13,6 @@ protocol chooseCategoryDelegate {
     func resetNews()
 }
 
-let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General","Search"]
-
 class CatogericalSearchViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private let imagelist = ["bag.fill","sportscourt.fill","apps.iphone","theatermasks","stethoscope","hexagon","pawprint.fill","sparkle.magnifyingglass"]
@@ -118,8 +116,8 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
     
     @objc func categorypicked() {
         let newsView =  NewsDisplayViewController()
-        self.delegate = newsView
-        newsView.newsType = .categoricalNews
+        self.delegate = newsView.getNewsModel()
+        newsView.setNewsType(newsType: .categoricalNews)
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.selectedCategory(type: chosenCategory)

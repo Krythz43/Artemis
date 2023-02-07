@@ -88,8 +88,8 @@ class HomePageViewController: UIViewController {
 
     @objc func seeAllTopHeadlines() {
         let newsView =  NewsDisplayViewController()
-        delegate = newsView
-        newsView.newsType = .topHeadlines
+        delegate = newsView.getNewsModel()
+        newsView.setNewsType(newsType: .topHeadlines)
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.headlinesSearch()

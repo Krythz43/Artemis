@@ -106,9 +106,10 @@ class SourceHandlerViewController: UITableViewController {
                 newsView = searchView
             }
             
-            self.newsFetchDelegate = newsView
-            self.setFiltersdelegate = newsView
-            self.refreshNewsDelegate = newsView
+            let viewModel = newsView?.getNewsModel()
+            self.newsFetchDelegate = viewModel
+            self.setFiltersdelegate = viewModel
+            self.refreshNewsDelegate = viewModel
             
             sourceName = sources.sources?[indexPath.row].name ?? ""
             sourceId = sources.sources?[indexPath.row].id ?? ""
@@ -147,8 +148,8 @@ class SourceHandlerViewController: UITableViewController {
                 print("calling GEOGRAPHIC")
                 navigationController?.popViewController(animated: true)
                 let newsView = navigationController?.topViewController as? NewsDisplayViewController
-                self.setFiltersdelegate = newsView
-                self.refreshNewsDelegate = newsView
+                self.setFiltersdelegate = newsView?.getNewsModel()
+                self.refreshNewsDelegate = newsView?.getNewsModel()
                 
                 setFiltersdelegate?.setCategory(category: categorySelected)
                 refreshNewsDelegate?.refreshNews(callType: .geoSearch, category: categorySelected,sourceName: "",page: 1)

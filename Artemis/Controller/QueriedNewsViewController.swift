@@ -29,14 +29,6 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("The text field has been edited")
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField?) {    //delegate method
-        print("The text field has yet to be edited")
-    }
-    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         print("The text field wws cheanged?")
         delegate?.resetNews()
@@ -99,7 +91,8 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(submit)
         view.backgroundColor = .systemBackground
         
-        newsView.newsType = .searchNews
+        newsView.setNewsType(newsType: .searchNews)
+        
         newsContainerView.backgroundColor = .systemTeal
         view.addSubview(newsContainerView)
         newsContainerView.addSubview(newsView.view)
@@ -109,21 +102,10 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func displayNews() {
         let newsView =  self.newsView
-        self.delegate = newsView
+        self.delegate = newsView.getNewsModel()
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.querySearch(type: query,categorySelected: filterCategory,sourceName: filterSources)
-        
-//        newsView.title = "Displaying news from : " + query
-//        newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
-//        newsView.modalPresentationStyle = .pageSheet
-//        newsView.sheetPresentationController?.detents = [.custom(resolver: { context in
-//            return self.view.bounds.height*0.75
-//        })]
-//        newsView.sheetPresentationController?.prefersGrabberVisible = true
-//
-//        let navVC = UINavigationController(rootViewController: newsView)
-//        present(navVC,animated: false)
     }
     
     @objc private func dismissSelf() {

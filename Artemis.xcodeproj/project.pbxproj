@@ -21,6 +21,9 @@
 		4E30C3912982928B008E21A8 /* NewsCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C3902982928B008E21A8 /* NewsCarouselViewController.swift */; };
 		4E30C39329839F5F008E21A8 /* NewsCardCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C39229839F5F008E21A8 /* NewsCardCV.swift */; };
 		4E30C3B9298A43D8008E21A8 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30C3B8298A43D8008E21A8 /* BrowserViewController.swift */; };
+		4EACF094299228D5000AE74A /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EACF093299228D5000AE74A /* Filters.swift */; };
+		4EACF0972992AEA1000AE74A /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EACF0962992AEA1000AE74A /* NewsViewModel.swift */; };
+		4EACF0992992CF2A000AE74A /* SourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EACF0982992CF2A000AE74A /* SourceViewModel.swift */; };
 		4EEF16F4298BC88300754EDD /* SourceHandlerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF16F3298BC88300754EDD /* SourceHandlerViewCell.swift */; };
 		4EEF16F6298CC31F00754EDD /* AppNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF16F5298CC31F00754EDD /* AppNavigationViewController.swift */; };
 		4EEF170029914BD700754EDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EEF16FE29914BD700754EDD /* Main.storyboard */; };
@@ -48,6 +51,9 @@
 		4E30C3902982928B008E21A8 /* NewsCarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCarouselViewController.swift; sourceTree = "<group>"; };
 		4E30C39229839F5F008E21A8 /* NewsCardCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCardCV.swift; sourceTree = "<group>"; };
 		4E30C3B8298A43D8008E21A8 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		4EACF093299228D5000AE74A /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		4EACF0962992AEA1000AE74A /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		4EACF0982992CF2A000AE74A /* SourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewModel.swift; sourceTree = "<group>"; };
 		4EEF16F3298BC88300754EDD /* SourceHandlerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceHandlerViewCell.swift; sourceTree = "<group>"; };
 		4EEF16F5298CC31F00754EDD /* AppNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationViewController.swift; sourceTree = "<group>"; };
 		4EEF16FF29914BD700754EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../../v1/Artemis/Artemis/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,10 +91,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4EACF09529924124000AE74A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EACF0962992AEA1000AE74A /* NewsViewModel.swift */,
+				4EACF0982992CF2A000AE74A /* SourceViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4EEF16F92991312A00754EDD /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				4E30C376296FD62F008E21A8 /* News.swift */,
+				4EACF093299228D5000AE74A /* Filters.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -107,13 +123,13 @@
 		4EEF16FC2991318E00754EDD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4E30C37E2979181B008E21A8 /* HomePageViewController.swift */,
 				4E30C3B8298A43D8008E21A8 /* BrowserViewController.swift */,
 				4E30C3902982928B008E21A8 /* NewsCarouselViewController.swift */,
 				4EEF16F5298CC31F00754EDD /* AppNavigationViewController.swift */,
 				4E30C37829766A93008E21A8 /* NewsDisplayViewController.swift */,
 				4E30C38C297EDAFC008E21A8 /* MapsSceneViewController.swift */,
 				4E30C38029791843008E21A8 /* SourceHandlerViewController.swift */,
-				4E30C37E2979181B008E21A8 /* HomePageViewController.swift */,
 				4E30C37A29766D38008E21A8 /* QueriedNewsViewController.swift */,
 				4E30C38429794F93008E21A8 /* catogericalSearchViewController.swift */,
 			);
@@ -153,6 +169,7 @@
 		4EF6DCDC296EBEBD00EB9360 /* Artemis */ = {
 			isa = PBXGroup;
 			children = (
+				4EACF09529924124000AE74A /* ViewModel */,
 				4EEF16F92991312A00754EDD /* Model */,
 				4EEF16FB2991318700754EDD /* View */,
 				4EEF16FC2991318E00754EDD /* Controller */,
@@ -289,12 +306,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EACF094299228D5000AE74A /* Filters.swift in Sources */,
 				4E30C37D297672CB008E21A8 /* NewsCard.swift in Sources */,
 				4E30C377296FD62F008E21A8 /* News.swift in Sources */,
 				4E30C37B29766D38008E21A8 /* QueriedNewsViewController.swift in Sources */,
 				4E30C37929766A93008E21A8 /* NewsDisplayViewController.swift in Sources */,
 				4EEF170429914EBF00754EDD /* NewsClassifications.swift in Sources */,
 				4EF6DCDE296EBEBD00EB9360 /* AppDelegate.swift in Sources */,
+				4EACF0992992CF2A000AE74A /* SourceViewModel.swift in Sources */,
 				4E30C38529794F93008E21A8 /* catogericalSearchViewController.swift in Sources */,
 				4E30C37F2979181B008E21A8 /* HomePageViewController.swift in Sources */,
 				4E30C3912982928B008E21A8 /* NewsCarouselViewController.swift in Sources */,
@@ -305,6 +324,7 @@
 				4E30C39329839F5F008E21A8 /* NewsCardCV.swift in Sources */,
 				4E30C375296FD5E1008E21A8 /* AppSecret.swift in Sources */,
 				4EEF170229914DCD00754EDD /* countryCodes.swift in Sources */,
+				4EACF0972992AEA1000AE74A /* NewsViewModel.swift in Sources */,
 				4E30C373296FD406008E21A8 /* Networking.swift in Sources */,
 				4E30C387297955BB008E21A8 /* CatogeriesCollectionViewCell.swift in Sources */,
 				4EEF16F6298CC31F00754EDD /* AppNavigationViewController.swift in Sources */,
