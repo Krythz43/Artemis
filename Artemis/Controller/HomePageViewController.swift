@@ -88,7 +88,7 @@ class HomePageViewController: UIViewController {
 
     @objc func seeAllTopHeadlines() {
         let newsView =  NewsDisplayViewController()
-        delegate = newsView.getNewsModel()
+        delegate = newsView.getNewsViewModel()
         newsView.setNewsType(newsType: .topHeadlines)
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
@@ -105,14 +105,15 @@ class HomePageViewController: UIViewController {
     
     @objc func setFiltersHeadlines() {
         let filtersView = SourceHandlerViewController()
-        filtersView.newsType = .topHeadlines
-        filtersView.typeOfPage = .category
+        
+        let sourcesViewModel = filtersView.getSourcesViewModel()
+        sourcesViewModel.setNewsType(newsType: .topHeadlines)
+        sourcesViewModel.setPageType(page: .category)
+        sourcesViewModel.resetSources()
+        sourcesViewModel.populateSources()
+        
         filtersView.title = "Sources"
         filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
-        filtersView.sources = SourcesV2(sources: [])
-        for category in categoryList {
-            filtersView.sources.sources?.append(Source(name: category))
-        }
         filtersView.title = "Set Sources"
         filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSources))
         filtersView.modalPresentationStyle = .fullScreen

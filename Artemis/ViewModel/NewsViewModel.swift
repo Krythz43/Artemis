@@ -117,7 +117,7 @@ class NewsViewModel {
     }
 }
 
-extension NewsViewModel: chooseCategoryDelegate{
+extension NewsViewModel: chooseCategoryDelegate {
     func selectedCategory(type: categories) {
         print("The catogery of news to be displayed is : ",type)
         fetchNews(type: .categoricalSearch,category: type)

@@ -95,7 +95,7 @@ class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
     
     fileprivate func displayNews() {
         let newsView =  NewsDisplayViewController()
-        self.delegate = newsView.getNewsModel()
+        self.delegate = newsView.getNewsViewModel()
         newsView.setNewsType(newsType: .geopraphicNews)
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.geoSearch(countryCode: countryCode)
@@ -109,14 +109,14 @@ class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
     
     @objc func setFiltersMaps() {
         let filtersView = SourceHandlerViewController()
-        filtersView.newsType = .geopraphicNews
-        filtersView.typeOfPage = .category
+        let sourcesViewModel = filtersView.getSourcesViewModel()
+        sourcesViewModel.setNewsType(newsType: .geopraphicNews)
+        sourcesViewModel.setPageType(page: .category)
+        sourcesViewModel.resetSources()
+        sourcesViewModel.populateSources()
+        
         filtersView.title = "Sources"
         filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
-        filtersView.sources = SourcesV2(sources: [])
-        for category in categoryList {
-            filtersView.sources.sources?.append(Source(name: category))
-        }
         filtersView.title = "Set Sources"
         filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissMapsNews))
         filtersView.modalPresentationStyle = .fullScreen

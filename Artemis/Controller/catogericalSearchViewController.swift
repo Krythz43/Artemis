@@ -63,12 +63,16 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
     
     @objc func setFiltersForCategories() {
         let filtersView = SourceHandlerViewController()
-        filtersView.newsType = .topHeadlines
-        filtersView.typeOfPage = .sources
+        let sourcesViewModel = filtersView.getSourcesViewModel()
+        sourcesViewModel.setNewsType(newsType: .topHeadlines)
+        sourcesViewModel.setPageType(page: .sources)
+        
+        sourcesViewModel.resetSources()
+        sourcesViewModel.populateSources()
+        
         filtersView.title = "Sources"
         filtersView.tabBarItem = UITabBarItem(title: "Sources", image: UIImage(systemName: "plus.square.on.square.fill"), tag: 4)
-        filtersView.sources = SourcesV2(sources: [])
-        filtersView.fetchSources(type: .sources,category: chosenCategory)
+        
         filtersView.title = "Set Sources"
         filtersView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSources))
         filtersView.modalPresentationStyle = .fullScreen
@@ -116,7 +120,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
     
     @objc func categorypicked() {
         let newsView =  NewsDisplayViewController()
-        self.delegate = newsView.getNewsModel()
+        self.delegate = newsView.getNewsViewModel()
         newsView.setNewsType(newsType: .categoricalNews)
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")

@@ -87,7 +87,7 @@ class NewsDisplayViewController :UITableViewController{
         dismiss(animated: true,completion: nil)
     }
     
-    func getNewsModel() -> NewsViewModel {
+    func getNewsViewModel() -> NewsViewModel {
         return self.viewModel
     }
     
