@@ -66,6 +66,9 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
         let sourcesViewModel = filtersView.getSourcesViewModel()
         sourcesViewModel.setNewsType(newsType: .topHeadlines)
         sourcesViewModel.setPageType(page: .sources)
+        sourcesViewModel.setCategorySelected(category: chosenCategory)
+        
+        print("Category to be reloaded: ",chosenCategory)
         
         sourcesViewModel.resetSources()
         sourcesViewModel.populateSources()

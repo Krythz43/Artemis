@@ -78,6 +78,8 @@ class SourceHandlerViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
+        print("The sources tab was accessed at :",indexPath)
+        
         if(viewModel.getPageType() == .sources)
         {
             navigationController?.popViewController(animated: true)
@@ -90,6 +92,8 @@ class SourceHandlerViewController: UITableViewController {
             self.newsFetchDelegate = newsViewModel
             self.setFiltersdelegate = newsViewModel
             self.refreshNewsDelegate = newsViewModel
+            
+            print("Delegates were set:" ,self.newsFetchDelegate, self.setFiltersdelegate)
             
             viewModel.setSourceDetails(
                 name: viewModel.getSources().sources?[indexPath.row].name,
@@ -143,6 +147,8 @@ class SourceHandlerViewController: UITableViewController {
             }
             
             viewModel.fetchSources(type: .sources,category: viewModel.getCategorySelected())
+            var delegate: fetchSourcesDelegate?
+            delegate = viewModel
             viewModel.setPageType(page: .sources)
         }
     }
