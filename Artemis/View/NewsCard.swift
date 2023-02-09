@@ -71,10 +71,10 @@ class NewsCard: UITableViewCell {
         addSubview(cardBackground)
         addSubview(newsImage)
         addSubview(newsTitle)
-//        addSubview(newsDescription)
-//        addSubview(authorName)
+        //        addSubview(newsDescription)
+        //        addSubview(authorName)
 
-//        cardBackground.addArrangedSubview(newsImage)
+        //        cardBackground.addArrangedSubview(newsImage)
 //        cardBackground.addArrangedSubview(newsTitle)
 //        cardBackground.addArrangedSubview(newsDescription)
 //        cardBackground.addArrangedSubview(authorName)

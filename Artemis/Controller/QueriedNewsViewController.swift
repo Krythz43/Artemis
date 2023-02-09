@@ -21,6 +21,10 @@ protocol setSearchFilterDelegate {
     func setSource(source: String)
 }
 
+protocol setNewsNotFoundDelegate{
+    func setNewsStatus(newsCount:Int)
+}
+
 class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     
     var nameTextField: UITextField = {
@@ -31,7 +35,17 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         print("The text field wws cheanged?")
-        delegate?.resetNews()
+//        delegate?.resetNews()
+        do {
+            try displayResult()
+        } catch {
+            print("Can't diplay results at the moment")
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("The text field wws cheanged?")
+//        delegate?.resetNews()
         do {
             try displayResult()
         } catch {
@@ -43,6 +57,7 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     var query : String = ""
     let newsContainerView = UIView()
     let newsView =  NewsDisplayViewController()
+    let newsNotFoundView = UIView()
     
     var filterCategory: categories = .undefined
     var filterSources: String = ""
@@ -61,6 +76,7 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     @objc func setFiltersSearch() {
         let filtersView = SourceHandlerViewController()
         let sourcesViewModel = filtersView.getSourcesViewModel()
+        
         sourcesViewModel.setNewsType(newsType: .searchNews)
         sourcesViewModel.setPageType(page: .category)
         sourcesViewModel.resetSources()
@@ -88,6 +104,7 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(nameTextField)
         nameTextField.delegate = self
+        newsView.notFoundDelegate = self
         
         view.addSubview(submit)
         view.backgroundColor = .systemBackground
@@ -96,9 +113,37 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         
         newsContainerView.backgroundColor = .systemTeal
         view.addSubview(newsContainerView)
+        addChild(newsView)
         newsContainerView.addSubview(newsView.view)
-        
+        newsView.didMove(toParent: self)
         setupConstaints()
+        let newsNotFoundImage = UIImageView(image: UIImage(systemName: "tortoise.fill"))
+        
+        let newsNotFoundLabel = UILabel()
+        newsNotFoundLabel.text = "News Not found for the set parameters"
+        newsNotFoundLabel.numberOfLines = .zero
+        view.addSubview(newsNotFoundView)
+        
+        newsNotFoundView.addSubview(newsNotFoundImage)
+        newsNotFoundView.addSubview(newsNotFoundLabel)
+        
+        newsNotFoundView.translatesAutoresizingMaskIntoConstraints = false
+        newsNotFoundView.trailingAnchor.constraint(equalTo: newsContainerView.trailingAnchor).isActive = true
+        newsNotFoundView.leadingAnchor.constraint(equalTo: newsContainerView.leadingAnchor).isActive = true
+        newsNotFoundView.topAnchor.constraint(equalTo: newsContainerView.topAnchor).isActive = true
+        newsNotFoundView.bottomAnchor.constraint(equalTo: newsContainerView.bottomAnchor).isActive = true
+
+        newsNotFoundImage.translatesAutoresizingMaskIntoConstraints = false
+        newsNotFoundImage.centerXAnchor.constraint(equalTo: newsNotFoundView.centerXAnchor).isActive = true
+        newsNotFoundImage.centerYAnchor.constraint(equalTo: newsNotFoundView.centerYAnchor,constant: -50).isActive = true
+        newsNotFoundImage.widthAnchor.constraint(equalTo: newsNotFoundView.widthAnchor,multiplier: 0.6).isActive = true
+        newsNotFoundImage.heightAnchor.constraint(equalTo: newsNotFoundView.heightAnchor,multiplier: 0.4).isActive = true
+        
+        newsNotFoundLabel.translatesAutoresizingMaskIntoConstraints = false
+        newsNotFoundLabel.centerXAnchor.constraint(equalTo: newsNotFoundImage.centerXAnchor).isActive = true
+        newsNotFoundLabel.topAnchor.constraint(equalTo: newsNotFoundImage.bottomAnchor).isActive = true
+//        newsNotFoundLabel.heightAnchor.constraint(equalTo: newsNotFoundView.heightAnchor, multiplier: 0.25).isActive = true
+        
     }
     
     fileprivate func displayNews() {
@@ -148,7 +193,7 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
 
 }
 
-fileprivate func setupTextField(_ textField: UITextField, placeHolder: String) {
+func setupTextField(_ textField: UITextField, placeHolder: String) {
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.placeholder = placeHolder
     textField.keyboardType = UIKeyboardType.default
@@ -164,6 +209,13 @@ fileprivate func setupTextField(_ textField: UITextField, placeHolder: String) {
     textField.layer.cornerRadius = 5
     textField.clearButtonMode = UITextField.ViewMode.whileEditing
     textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+    
+    
+    textField.leftViewMode = UITextField.ViewMode.always
+    textField.leftViewMode = .always
+    
+    let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+    textField.leftView = imageView;
 }
 
 private typealias setFilters = QueriedNewsViewController
@@ -175,5 +227,12 @@ extension setFilters: setSearchFilterDelegate {
     
     func setSource(source: String) {
         filterSources = source
+    }
+}
+
+extension QueriedNewsViewController: setNewsNotFoundDelegate {
+    func setNewsStatus(newsCount: Int) {
+        newsNotFoundView.isHidden = (newsCount > 0)
+        print("setting status for translates ", newsNotFoundView.isHidden)
     }
 }

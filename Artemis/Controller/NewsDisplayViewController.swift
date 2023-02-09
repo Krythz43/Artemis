@@ -15,6 +15,7 @@ protocol webViewDelegate {
 class NewsDisplayViewController :UITableViewController{
     
     private var delegate: webViewDelegate?
+    var notFoundDelegate: setNewsNotFoundDelegate?
     private var viewModel =  NewsViewModel()
     
     fileprivate func setupTableView(){
@@ -35,6 +36,10 @@ class NewsDisplayViewController :UITableViewController{
         print("Type of news called: ",viewModel.getCurrentNewsPageType())
         setupTableView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
         
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -42,7 +47,11 @@ class NewsDisplayViewController :UITableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("Number of sections to be processed : ",viewModel.getNewsToBeDisplay().articles?.count ?? 0)
-        return viewModel.getNewsToBeDisplay().articles?.count ?? 0
+        let newsCount = viewModel.getNewsToBeDisplay().articles?.count ?? 0
+        viewModel.setNewsArticlesCount(count: newsCount)
+        notFoundDelegate?.setNewsStatus(newsCount: newsCount)
+        print("DElegtaevdtwvdywyewbue status: ", notFoundDelegate)
+        return newsCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,15 +85,17 @@ class NewsDisplayViewController :UITableViewController{
 
         print("Url to display : ", viewModel.getNewsToBeDisplay().articles?[indexPath.row].url ?? "")
         delegate?.loadWebPage(targetURL: viewModel.getNewsToBeDisplay().articles?[indexPath.row].url ?? "")
-        let navVC = UINavigationController(rootViewController: webView)
-        
-        navVC.modalPresentationStyle = .fullScreen
-        navVC.sheetPresentationController?.prefersGrabberVisible = true
-        present(navVC,animated: true,completion: nil)
+//        let navVC = UINavigationController(rootViewController: webView)
+//
+//        navVC.modalPresentationStyle = .fullScreen
+//        navVC.sheetPresentationController?.prefersGrabberVisible = true
+//        present(navVC,animated: true,completion: nil)
+        navigationController?.pushViewController(webView, animated: true)
     }
     
     @objc private func dismissSelf() {
-        dismiss(animated: true,completion: nil)
+//        dismiss(animated: true,completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     func getNewsViewModel() -> NewsViewModel {
@@ -130,4 +141,8 @@ extension NewsDisplayViewController: NewsViewDelegate{
     func getTableView() -> UITableView {
         return self.tableView
     }
+}
+
+extension NewsDisplayViewController: UITextFieldDelegate{
+
 }

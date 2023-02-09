@@ -45,6 +45,7 @@ class NewsViewModel {
     private var queryString: String = ""
     private var currentPageLimit = 17
     private var currentPage = 1
+    private var numberOfNewsArticles = 0
     
     
     private var newsToDisplay = News(){
@@ -114,6 +115,14 @@ class NewsViewModel {
     
     func getCurrentNewsPageType() -> displayedNewsType {
         return newsType
+    }
+    
+    func getNewsArticlesCount() -> Int {
+        return numberOfNewsArticles
+    }
+    
+    func setNewsArticlesCount(count: Int){
+        numberOfNewsArticles = count
     }
 }
 
