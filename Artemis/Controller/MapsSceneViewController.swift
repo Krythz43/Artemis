@@ -100,7 +100,7 @@ class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.geoSearch(countryCode: countryCode)
         
-        newsView.title = "News from : " + countryName
+        newsView.title =  countryName
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissSelf))
         newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select Filters", style: .plain, target: self, action: #selector(setFiltersMaps))
         navigationController?.pushViewController(newsView, animated: true)

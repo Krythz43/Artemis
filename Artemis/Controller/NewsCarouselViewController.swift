@@ -50,6 +50,8 @@ class NewsCarouselViewController: UICollectionViewController,UICollectionViewDel
         collectionView.delegate = self
         collectionView.isPagingEnabled = true
         collectionView.allowsSelection = true
+        collectionView.tintColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
         startTimer()
     }
     

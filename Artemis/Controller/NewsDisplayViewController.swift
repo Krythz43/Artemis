@@ -26,6 +26,7 @@ class NewsDisplayViewController :UITableViewController{
         tableView.rowHeight = 420
 //        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.tintColor = .white
         configureRefreshControl()
         
         viewModel.newsDisplayDelegate = self

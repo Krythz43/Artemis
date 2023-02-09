@@ -127,7 +127,7 @@ class SourceHandlerViewController: UITableViewController {
                 print("UNDEFFEINEDEDNEINDENDEJUDN NEWS")
                 print("UNDEFINED NEWS")
             }
-            newsView?.title = "News from : " + sourceName
+            newsView?.title = sourceName
         }
         else {
             let categorySelected = getCategoryAt(index: indexPath.row)

@@ -31,13 +31,13 @@ enum categories{
 func getCategory(_ category : categories) -> String {
    
     switch category {
-        case .business : return "business"
-        case .sports : return "sports"
-        case .technology : return "technology"
-        case .entertainment : return "entertainment"
-        case .health : return "health"
-        case .science : return "science"
-        case .general : return "general"
+        case .business : return "Business"
+        case .sports : return "Sports"
+        case .technology : return "Technology"
+        case .entertainment : return "Entertainment"
+        case .health : return "Health"
+        case .science : return "Science"
+        case .general : return "General"
         case .undefined : return ""
         default: return ""
     }

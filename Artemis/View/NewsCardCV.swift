@@ -73,7 +73,6 @@ class NewsCardCV : UICollectionViewCell {
         addSubview(newsTitle)
 //        addSubview(newsDescription)
 //        addSubview(authorName)
-
         cardBackgroundConstraints()
         newsImageConstraints()
         newsTitleConstraints()

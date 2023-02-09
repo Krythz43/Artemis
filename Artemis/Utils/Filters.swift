@@ -7,4 +7,4 @@
 
 import Foundation
 
-let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General","Search"]
+let categoryList = ["Buisness","Sports","Technology","Entertainment","Health","Science","General"]

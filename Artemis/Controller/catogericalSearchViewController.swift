@@ -15,7 +15,7 @@ protocol chooseCategoryDelegate {
 
 class CatogericalSearchViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    private let imagelist = ["bag.fill","sportscourt.fill","apps.iphone","theatermasks","stethoscope","hexagon","pawprint.fill","sparkle.magnifyingglass"]
+    private let imagelist = ["business","sports","technology","entertainment","health","science","general"]
     
     private let imageView : UIImageView = {
         let imageView = UIImageView()
@@ -26,7 +26,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
     
     private let label: UILabel = {
         let label = UILabel()
-        label.backgroundColor = .systemGreen
+//        label.backgroundColor = .systemOrange
         return label
     }()
     
@@ -42,7 +42,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: (view.frame.size.width/4), height: view.frame.size.width/3)
+        layout.itemSize = CGSize(width: (view.frame.size.width/4), height: view.frame.size.width/3 - 20)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -58,7 +58,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
     }
     
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+         return categoryList.count
     }
     
     @objc func setFiltersForCategories() {
@@ -94,7 +94,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
             return CatogeriesCollectionViewCell()
         }
         cell.label.text = categoryList[indexPath.row]
-        cell.imageView.image = UIImage(systemName: imagelist[indexPath.row])
+        cell.imageView.image = UIImage(named: imagelist[indexPath.row])
         return cell
     }
     
@@ -129,7 +129,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
         delegate?.selectedCategory(type: chosenCategory)
         
-        newsView.title = "Displaying news from : " + getCategory(chosenCategory)
+        newsView.title = getCategory(chosenCategory) + " News"
         newsView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: self, action: #selector(dismissSelf))
         newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Set Filters", style: .plain, target: self, action: #selector(setFiltersForCategories))
         newsView.modalPresentationStyle = .pageSheet

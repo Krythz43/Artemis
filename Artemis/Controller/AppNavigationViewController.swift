@@ -42,7 +42,7 @@ class AppNavigationViewController: UINavigationController {
     }
     
     func customizeTabBar() {
-        UITabBar.appearance().tintColor = .systemGreen
+        UITabBar.appearance().tintColor = .systemOrange
     }
     
     func setupConstraints(){
