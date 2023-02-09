@@ -22,7 +22,7 @@ class CatogeriesCollectionViewCell: UICollectionViewCell {
     let imageView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "sportscourt")
-        imageView.backgroundColor = .secondarySystemFill
+//        imageView.backgroundColor = .secondarySystemFill
         imageView.clipsToBounds = true
         return imageView
     }()

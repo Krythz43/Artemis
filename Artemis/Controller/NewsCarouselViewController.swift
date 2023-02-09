@@ -76,6 +76,7 @@ class NewsCarouselViewController: UICollectionViewController,UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
+//        return collectionView.sizeThatFits(CGSize(width: view.frame.width, height: view.frame.height))
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

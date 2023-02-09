@@ -24,7 +24,7 @@ class NewsCardCV : UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
 //        view.axis = NSLayoutConstraint.Axis.vertical
-        view.backgroundColor = UIColor.secondarySystemBackground
+//        view.backgroundColor = UIColor.secondarySystemBackground
         view.clipsToBounds = true
         view.layer.borderColor = CGColor(gray: 0, alpha: 0.5)
         view.layer.borderWidth = 0.5
@@ -87,17 +87,16 @@ class NewsCardCV : UICollectionViewCell {
     
     fileprivate func cardBackgroundConstraints () {
         cardBackground.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        cardBackground.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25).isActive = true
-//        cardBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        cardBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        cardBackground.widthAnchor.constraint(equalToConstant: 364).isActive = true
+        cardBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        cardBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
+        cardBackground.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -8).isActive = true
     }
     
     fileprivate func newsImageConstraints() {
         newsImage.heightAnchor.constraint(equalTo: cardBackground.heightAnchor, multiplier: 0.75).isActive = true
-        newsImage.leadingAnchor.constraint(equalTo: cardBackground.leadingAnchor, constant: 16).isActive = true
-        newsImage.topAnchor.constraint(equalTo: cardBackground.topAnchor,constant: 16).isActive = true
-        newsImage.trailingAnchor.constraint(equalTo: cardBackground.trailingAnchor,constant: -16).isActive = true
+        newsImage.leadingAnchor.constraint(equalTo: cardBackground.leadingAnchor, constant: 8).isActive = true
+        newsImage.topAnchor.constraint(equalTo: cardBackground.topAnchor,constant: 8).isActive = true
+        newsImage.trailingAnchor.constraint(equalTo: cardBackground.trailingAnchor,constant: -8).isActive = true
     }
     
     fileprivate func newsTitleConstraints() {

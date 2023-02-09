@@ -21,7 +21,8 @@ class HomePageViewController: UIViewController {
     private var topControlsStackView =  UIStackView()
     private let headlinesView = UIView()
     private let categoryController = CatogericalSearchViewController()
-    private var headlinesNavigationNar = UINavigationBar()
+    private var headlinesNavigationBar = UINavigationBar()
+    private var categoriesHeaderBar = UINavigationBar()
     
     let pageControl : UIPageControl = {
         let pc = UIPageControl()
@@ -58,15 +59,15 @@ class HomePageViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let headlinesContainer = NewsCarouselViewController(collectionViewLayout: layout)
-        addChild(headlinesContainer)
-        self.setNavigationBar()
+        setNavigationBar()
 
         
         view.addSubview(headlinesView)
         headlinesView.addSubview(headlinesContainer.view)
-        headlinesContainer.didMove(toParent: self)
         headlinesContainer.pageControldelegate = self
         view.addSubview(pageControl)
+        setCategoriesHeaderBar()
+        
         
         var delegate: getNewsDelegate?
         delegate = headlinesContainer
@@ -75,15 +76,30 @@ class HomePageViewController: UIViewController {
         setupTopControlStack()
         setUpButton()
         setupConstraints()
+        
+        headlinesContainer.view.translatesAutoresizingMaskIntoConstraints = false
+        headlinesContainer.view.leadingAnchor.constraint(equalTo: headlinesView.leadingAnchor).isActive = true
+        headlinesContainer.view.trailingAnchor.constraint(equalTo: headlinesView.trailingAnchor).isActive = true
+        headlinesContainer.view.topAnchor.constraint(equalTo: headlinesView.topAnchor).isActive = true
+        headlinesContainer.view.bottomAnchor.constraint(equalTo: headlinesView.bottomAnchor).isActive = true
+        
+        print("Height of the contrinaer is ",headlinesView.heightAnchor.accessibilityFrame.height)
+    }
+    
+    func setCategoriesHeaderBar() {
+        let navItem = UINavigationItem(title: "What's on your mind today?")
+        categoriesHeaderBar.backgroundColor = .systemGray
+        categoriesHeaderBar.setItems([navItem], animated: false)
+        self.view.addSubview(categoriesHeaderBar)
     }
     
     func setNavigationBar() {
         let navItem = UINavigationItem(title: "Top Headlines")
         let doneItem = UIBarButtonItem(title: "view more", style: .plain, target: self, action: #selector(seeAllTopHeadlines))
         navItem.rightBarButtonItem = doneItem
-        headlinesNavigationNar.backgroundColor = .systemGray
-        headlinesNavigationNar.setItems([navItem], animated: false)
-        self.view.addSubview(headlinesNavigationNar)
+        headlinesNavigationBar.backgroundColor = .systemGray
+        headlinesNavigationBar.setItems([navItem], animated: false)
+        self.view.addSubview(headlinesNavigationBar)
     }
 
     @objc func seeAllTopHeadlines() {
@@ -99,7 +115,6 @@ class HomePageViewController: UIViewController {
         newsView.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Set Filters", style: .plain, target: self, action: #selector(setFiltersHeadlines))
         newsView.modalPresentationStyle = .fullScreen
         newsView.sheetPresentationController?.prefersGrabberVisible = true
-        
         navigationController?.pushViewController(newsView, animated: true)
     }
     
@@ -181,37 +196,36 @@ class HomePageViewController: UIViewController {
         button.bottomAnchor.constraint(equalTo: globeImage.bottomAnchor).isActive = true
         button.topAnchor.constraint(equalTo: globeImage.topAnchor).isActive = true
         
-        categoryController.view.translatesAutoresizingMaskIntoConstraints = false
+        headlinesNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            categoryController.view.topAnchor.constraint(equalTo: topControlsStackView.bottomAnchor, constant: 10),
-            categoryController.view.heightAnchor.constraint(equalToConstant: view.frame.size.width*(2/3) - 20)
+            headlinesNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            headlinesNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            headlinesNavigationBar.topAnchor.constraint(equalTo: topControlsStackView.bottomAnchor, constant: 10),
+            headlinesNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
             ])
+
+        categoryController.view.translatesAutoresizingMaskIntoConstraints = false
+        categoryController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        categoryController.view.heightAnchor.constraint(equalToConstant:  view.frame.size.width*(2/3) - 20).isActive = true
+        
+        categoriesHeaderBar.translatesAutoresizingMaskIntoConstraints = false
+        categoriesHeaderBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        categoriesHeaderBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        categoriesHeaderBar.bottomAnchor.constraint(equalTo: categoryController.view.topAnchor,constant: -7).isActive = true
+        categoriesHeaderBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
         
         headlinesView.translatesAutoresizingMaskIntoConstraints = false
-        headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: 0).isActive = true
-        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationNar.bottomAnchor, constant: 0).isActive = true
         headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        headlinesNavigationNar.translatesAutoresizingMaskIntoConstraints = false
-        headlinesNavigationNar.topAnchor.constraint(equalTo: categoryController.view.bottomAnchor,constant: 20).isActive = true
-        headlinesNavigationNar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        headlinesNavigationNar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headlinesNavigationNar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        
-        headlinesView.translatesAutoresizingMaskIntoConstraints = false
-        headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationNar.bottomAnchor,constant: -5).isActive = true
-        headlinesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        headlinesView.topAnchor.constraint(equalTo: headlinesNavigationBar.bottomAnchor,constant: -5).isActive = true
+        headlinesView.bottomAnchor.constraint(equalTo: pageControl.topAnchor).isActive = true
         
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         pageControl.bottomAnchor
-            .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -3
-            ).isActive=true
+            .constraint(equalTo: categoriesHeaderBar.topAnchor,constant: -7).isActive=true
         pageControl.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
 
