@@ -238,8 +238,8 @@ class HomePageViewController: UIViewController {
     func categoriesConstraints(){
         categoryController.view.translatesAutoresizingMaskIntoConstraints = false
         categoryController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 8).isActive = true
+        categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -8).isActive = true
         categoryController.view.heightAnchor.constraint(equalToConstant:  view.frame.size.width*(2/3) - 20).isActive = true
     }
     

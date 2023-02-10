@@ -40,7 +40,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: (view.frame.size.width/4), height: view.frame.size.width/3 - 20)
+        layout.itemSize = CGSize(width: (view.frame.size.width/4 - 4), height: view.frame.size.width/3 - 16)
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -52,8 +52,16 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
-        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width*(2/3))
+        collectionView.contentInsetAdjustmentBehavior = .never
+//        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width*(2/3))
+        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     }
+    
     
      func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          return categoryList.count

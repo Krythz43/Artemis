@@ -42,9 +42,9 @@ class CatogeriesCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(containerView)
-        containerView.addSubview(label)
-        containerView.addSubview(imageView)
+//        contentView.addSubview(containerView)
+        addSubview(label)
+        addSubview(imageView)
     }
     
     required init?(coder: NSCoder) {
@@ -60,11 +60,11 @@ class CatogeriesCollectionViewCell: UICollectionViewCell {
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -3).isActive = true
         imageView.heightAnchor.constraint(equalTo: heightAnchor,multiplier: 0.7).isActive = true
         
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
-        containerView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+//        containerView.translatesAutoresizingMaskIntoConstraints = false
+//        containerView.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
+//        containerView.bottomAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
+//        containerView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+//        containerView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         
         label.translatesAutoresizingMaskIntoConstraints = false
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
