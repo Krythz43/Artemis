@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol getNewsDelegate {
+protocol getNewsDelegate: AnyObject {
     func headlinesSearch()
 }
 
@@ -59,6 +59,8 @@ class NewsCarouselViewController: UICollectionViewController,UICollectionViewDel
         return CGSize(width: view.frame.width, height: view.frame.height)
 //        return collectionView.sizeThatFits(CGSize(width: view.frame.width, height: view.frame.height))
     }
+    
+    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let webView = BrowserViewController()

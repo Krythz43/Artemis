@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol webViewDelegate {
+protocol webViewDelegate: AnyObject {
     func loadWebPage(targetURL: String)
     func loadView()
 }
 
 class NewsDisplayViewController :UITableViewController{
     
-    private var delegate: webViewDelegate?
+    private weak var delegate: webViewDelegate?
     var notFoundDelegate: setNewsNotFoundDelegate?
     private var viewModel =  NewsViewModel()
     

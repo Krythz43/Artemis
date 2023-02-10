@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 
-protocol sourceViewDelegate {
+protocol sourceViewDelegate: AnyObject {
     func getSourceTableView() -> UITableView
 }
 
 class SourceViewModel {
-    var sourceFilterdelegate: sourceViewDelegate?
+    weak var sourceFilterdelegate: sourceViewDelegate?
     private var categorySelected : categories = .undefined
     
     var typeOfPage: pages = .undefined

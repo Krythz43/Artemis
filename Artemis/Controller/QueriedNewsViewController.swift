@@ -11,17 +11,17 @@ enum SubmitError: Error {
     case fieldsCannotBeNull
 }
 
-protocol querySearchDelegate {
+protocol querySearchDelegate: AnyObject {
     func querySearch(type: String, categorySelected: categories,sourceName: String)
     func resetNews()
 }
 
-protocol setSearchFilterDelegate {
+protocol setSearchFilterDelegate: AnyObject {
     func setCategory(category: categories)
     func setSource(source: String)
 }
 
-protocol setNewsNotFoundDelegate{
+protocol setNewsNotFoundDelegate: AnyObject {
     func setNewsStatus(newsCount:Int)
 }
 
@@ -53,7 +53,7 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    var delegate : querySearchDelegate?
+    weak var delegate : querySearchDelegate?
     var query : String = ""
     let newsContainerView = UIView()
     let newsView =  NewsDisplayViewController()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol customPageControlDelegate {
+protocol customPageControlDelegate: AnyObject {
     func setPages(numberOfPages: Int)
     func setCurrentPage(currentPage: Int)
 }
@@ -39,7 +39,7 @@ class HomePageViewController: UIViewController {
         return textField
     }()
     
-    private var delegate : getNewsDelegate?
+    private weak var delegate : getNewsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +86,7 @@ class HomePageViewController: UIViewController {
         layout.scrollDirection = .horizontal
         let headlinesContainer = NewsCarouselViewController(collectionViewLayout: layout)
         
-        var delegate: getNewsDelegate?
+        weak var delegate: getNewsDelegate?
         delegate = headlinesContainer.getNewsViewModel()
         delegate?.headlinesSearch()
         

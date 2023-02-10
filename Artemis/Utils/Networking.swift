@@ -42,10 +42,8 @@ struct Networking {
             case .querySearch:
                 return "https://newsapi.org/v2/top-headlines?q=" + query + "&sources=" + source + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sourceSearch:
-            "Sources Search call attempted"
             return "https://newsapi.org/v2/top-headlines?sources=" + source + "&language=" + languageSetting + "&page=\(page)" + "&apiKey=" + API_KEY
         case .sources:
-            "Sources call attempted"
             return "https://newsapi.org/v2/top-headlines/sources?category=" + getCategory(category) + "&page=\(page)" + "&apiKey=" + API_KEY
         default:
                 print("Invalid call attempt")

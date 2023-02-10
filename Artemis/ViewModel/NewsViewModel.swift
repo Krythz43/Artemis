@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-protocol setFiltersDelegate {
+protocol setFiltersDelegate: AnyObject {
     func setSourceName(sourceName: String)
     func setSourceId(sourceId: String)
     func setCategory(category: categories)
 }
 
-protocol refreshNewsDelegate {
+protocol refreshNewsDelegate: AnyObject {
     func refreshNews(callType: APICalls,category: categories,sourceName: String,page: Int)
 }
 
@@ -29,18 +29,19 @@ enum displayedNewsType {
     case undefined
 }
 
-protocol NewsViewDelegate {
+protocol NewsViewDelegate: AnyObject {
     func getTableView() -> UITableView
 }
 
-protocol NewsViewCVDelegate {
+protocol NewsViewCVDelegate: AnyObject {
     func getCollectionView() -> UICollectionView
 }
 
+
 class NewsViewModel {
     
-    var newsDisplayDelegate: NewsViewDelegate?
-    var newsDisplayCVDelegate: NewsViewCVDelegate?
+    weak var newsDisplayDelegate: NewsViewDelegate?
+    weak var newsDisplayCVDelegate: NewsViewCVDelegate?
     
     var newsType: displayedNewsType = .undefined
     

@@ -13,7 +13,7 @@ enum pages{
     case undefined
 }
 
-protocol fetchSourcesDelegate{
+protocol fetchSourcesDelegate : AnyObject{
     func fetchCategoricalSources(type: APICalls,category: categories)
 }
 
@@ -27,9 +27,9 @@ class SourceHandlerViewController: UITableViewController {
         setupTableView()
     }
     
-    var newsFetchDelegate: categorySourceDelegate?
-    private var setFiltersdelegate: setFiltersDelegate?
-    private var refreshNewsDelegate: refreshNewsDelegate?
+    weak var newsFetchDelegate: categorySourceDelegate?
+    private weak var setFiltersdelegate: setFiltersDelegate?
+    private weak var refreshNewsDelegate: refreshNewsDelegate?
     var searchFilterDelegate : setSearchFilterDelegate?
     
     fileprivate func setupTableView(){
@@ -147,7 +147,7 @@ class SourceHandlerViewController: UITableViewController {
             }
             
             viewModel.fetchSources(type: .sources,category: viewModel.getCategorySelected())
-            var delegate: fetchSourcesDelegate?
+            weak var delegate: fetchSourcesDelegate?
             delegate = viewModel
             viewModel.setPageType(page: .sources)
         }

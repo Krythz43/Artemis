@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol chooseCategoryDelegate {
+protocol chooseCategoryDelegate: AnyObject {
     func selectedCategory(type: categories)
     func resetNews()
 }
@@ -33,7 +33,7 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
     
     
     private var collectionView : UICollectionView?
-    var delegate: chooseCategoryDelegate?
+    weak var delegate: chooseCategoryDelegate?
     private var chosenCategory : categories = .undefined
     
     override func viewDidLoad() {

@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol singularSourceDelegate {
+protocol singularSourceDelegate: AnyObject {
     func getSourceNews(type: APICalls,source: String)
     func resetNews()
 }
 
-protocol categorySourceDelegate {
+protocol categorySourceDelegate: AnyObject {
     func getCategoricalSourceNews(type: APICalls,source: String,category: categories)
     func resetNews()
 }

@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-protocol geoSearchDelegate {
+protocol geoSearchDelegate: AnyObject {
     func geoSearch(countryCode: String)
     func resetNews()
 }
@@ -18,7 +18,7 @@ protocol geoSearchDelegate {
 
 class MapsSceneViewController: UIViewController , GMSMapViewDelegate{
     
-    var delegate: geoSearchDelegate?
+    weak var delegate: geoSearchDelegate?
     var countryCode: String = "in"
     var countryName: String = "India"
     
