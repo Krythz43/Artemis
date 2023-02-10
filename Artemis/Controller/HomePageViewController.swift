@@ -64,6 +64,7 @@ class HomePageViewController: UIViewController {
     }
     
     fileprivate func searchFieldLayout(){
+        nameTextField.delegate = self
         topControlsStackView = UIStackView(arrangedSubviews: [nameTextField])
         view.addSubview(topControlsStackView)
     }
