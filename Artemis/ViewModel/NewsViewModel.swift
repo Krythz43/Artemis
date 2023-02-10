@@ -33,9 +33,15 @@ protocol NewsViewDelegate {
     func getTableView() -> UITableView
 }
 
+protocol NewsViewCVDelegate {
+    func getCollectionView() -> UICollectionView
+}
+
 class NewsViewModel {
     
     var newsDisplayDelegate: NewsViewDelegate?
+    var newsDisplayCVDelegate: NewsViewCVDelegate?
+    
     var newsType: displayedNewsType = .undefined
     
     private var categorySelected : categories = .undefined
@@ -46,19 +52,23 @@ class NewsViewModel {
     private var currentPageLimit = 17
     private var currentPage = 1
     private var numberOfNewsArticles = 0
-    
+    private var isTableView = true
     
     private var newsToDisplay = News(){
         didSet {
             print("News was modified")
             DispatchQueue.main.async {
-                self.newsDisplayDelegate?.getTableView().reloadData()
+                if(self.isTableView){
+                    self.newsDisplayDelegate?.getTableView().reloadData()
+                }
+                else{
+                    self.newsDisplayCVDelegate?.getCollectionView().reloadData()
+                }
             }
         }
     }
     
     private var newsResult : News = News()
-    
     private var shouldNewsBeAppended = false
     
     func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "",source: String = "",page: Int = 1) {
@@ -78,6 +88,10 @@ class NewsViewModel {
                 self?.newsToDisplay = newsResult
             }
         }
+    }
+    
+    func setNewsForCollectionView() {
+        self.isTableView = false
     }
     
     func setNewsAppendingStatus(shouldNewsBeAppended: Bool){
@@ -146,12 +160,6 @@ extension NewsViewModel: geoSearchDelegate{
         fetchNews(type: .geoSearch,countryCode: countryCode)
     }
 }
-extension NewsViewModel: getNewsDelegate{
-    func headlinesSearch() {
-        print("Everything search invoked",self.newsToDisplay)
-        fetchNews(type: .everything)
-    }
-}
 
 extension NewsViewModel: categorySourceDelegate{
     func getCategoricalSourceNews(type: APICalls, source: String, category: categories) {
@@ -214,3 +222,10 @@ extension NewsViewModel: refreshNewsDelegate {
     }
 }
 
+private typealias invokeHeadLinesSearch = NewsViewModel
+extension invokeHeadLinesSearch: getNewsDelegate{
+    func headlinesSearch() {
+        print("Everything search invoked",self.newsToDisplay)
+        fetchNews(type: .everything)
+    }
+}

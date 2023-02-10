@@ -76,7 +76,7 @@ class HomePageViewController: UIViewController {
         
         
         var delegate: getNewsDelegate?
-        delegate = headlinesContainer
+        delegate = headlinesContainer.getNewsViewModel()
         delegate?.headlinesSearch()
         
         setupTopControlStack()

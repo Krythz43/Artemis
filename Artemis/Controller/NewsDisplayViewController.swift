@@ -138,7 +138,7 @@ extension setupInfiniteScroll {
     }
 }
 
-extension NewsDisplayViewController: NewsViewDelegate{
+extension NewsDisplayViewController: NewsViewDelegate {
     func getTableView() -> UITableView {
         return self.tableView
     }
