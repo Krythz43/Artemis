@@ -55,6 +55,9 @@ class NewsViewModel {
     private var numberOfNewsArticles = 0
     private var isTableView = true
     
+    private var newsResult : News = News()
+    private var shouldNewsBeAppended = false
+    
     private var newsToDisplay = News(){
         didSet {
             print("News was modified")
@@ -68,9 +71,7 @@ class NewsViewModel {
             }
         }
     }
-    
-    private var newsResult : News = News()
-    private var shouldNewsBeAppended = false
+
     
     func fetchNews(type: APICalls,category: categories = .undefined, query : String = "",countryCode : String = "",source: String = "",page: Int = 1) {
         Networking.sharedInstance.getNews(type: type, category: category, query: query,countryCode: countryCode,source: source,page: page){[weak self] result in

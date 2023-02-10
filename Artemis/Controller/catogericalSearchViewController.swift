@@ -30,8 +30,6 @@ class CatogericalSearchViewController : UIViewController, UICollectionViewDelega
         return label
     }()
     
-    
-    
     private var collectionView : UICollectionView?
     weak var delegate: chooseCategoryDelegate?
     private var chosenCategory : categories = .undefined

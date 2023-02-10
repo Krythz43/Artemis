@@ -15,7 +15,8 @@ protocol getNewsDelegate: AnyObject {
 class NewsCarouselViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     
     private var viewModel =  NewsViewModel()
-    var pageControldelegate: customPageControlDelegate?
+    weak var pageControldelegate: customPageControlDelegate?
+    weak var webDelegate: webViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,13 +65,12 @@ class NewsCarouselViewController: UICollectionViewController,UICollectionViewDel
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let webView = BrowserViewController()
-        var delegate: webViewDelegate?
-        delegate = webView
-        delegate?.loadView()
+        webDelegate = webView
+        webDelegate?.loadView()
         
         webView.title = viewModel.getNewsToBeDisplay().articles?[indexPath.row].source?.name ?? ""
         webView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<<", style: .plain, target: self, action: #selector(dismissBrowserView))
-        delegate?.loadWebPage(targetURL: viewModel.getNewsToBeDisplay().articles?[indexPath.row].url ?? "")
+        webDelegate?.loadWebPage(targetURL: viewModel.getNewsToBeDisplay().articles?[indexPath.row].url ?? "")
         
         let navVC = UINavigationController(rootViewController: webView)
         

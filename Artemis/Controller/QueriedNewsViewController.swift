@@ -27,15 +27,37 @@ protocol setNewsNotFoundDelegate: AnyObject {
 
 class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     
+    weak var delegate : querySearchDelegate?
+    var query : String = ""
+    let newsContainerView = UIView()
+    let newsView =  NewsDisplayViewController()
+    var newsNotFoundView = UIView()
+    
+    var filterCategory: categories = .undefined
+    var filterSources: String = ""
+    
+    var deBounceSearchTask: DispatchWorkItem?
+    let debounceTimer: Double = 0.5
+    
     var nameTextField: UITextField = {
        let textField = UITextField()
         setupTextField(textField, placeHolder: "tennis to tentacles, you get all here")
         return textField
     }()
     
+    var submit: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Set Filters", for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 5
+        button.addTarget(QueriedNewsViewController.self, action: #selector(setFiltersSearch), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         print("The text field wws cheanged?")
-//        delegate?.resetNews()
         do {
             try displayResult()
         } catch {
@@ -50,29 +72,6 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
             print("Can't diplay results at the moment")
         }
     }
-    
-    weak var delegate : querySearchDelegate?
-    var query : String = ""
-    let newsContainerView = UIView()
-    let newsView =  NewsDisplayViewController()
-    var newsNotFoundView = UIView()
-    
-    var filterCategory: categories = .undefined
-    var filterSources: String = ""
-    
-    var deBounceSearchTask: DispatchWorkItem?
-    let debounceTimer: Double = 0.5
-
-    var submit: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Set Filters", for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 5
-        button.addTarget(self, action: #selector(setFiltersSearch), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     
     @objc func setFiltersSearch() {
         let filtersView = SourceHandlerViewController()

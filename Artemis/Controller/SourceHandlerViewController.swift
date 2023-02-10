@@ -22,15 +22,16 @@ class SourceHandlerViewController: UITableViewController {
     private var viewModel = SourceViewModel()
     var searchView: NewsDisplayViewController = NewsDisplayViewController()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupTableView()
-    }
-    
     weak var newsFetchDelegate: categorySourceDelegate?
     private weak var setFiltersdelegate: setFiltersDelegate?
     private weak var refreshNewsDelegate: refreshNewsDelegate?
     var searchFilterDelegate : setSearchFilterDelegate?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTableView()
+    }
     
     fileprivate func setupTableView(){
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -147,8 +148,6 @@ class SourceHandlerViewController: UITableViewController {
             }
             
             viewModel.fetchSources(type: .sources,category: viewModel.getCategorySelected())
-            weak var delegate: fetchSourcesDelegate?
-            delegate = viewModel
             viewModel.setPageType(page: .sources)
         }
     }

@@ -86,11 +86,7 @@ class NewsDisplayViewController :UITableViewController{
 
         print("Url to display : ", viewModel.getNewsToBeDisplay().articles?[indexPath.row].url ?? "")
         delegate?.loadWebPage(targetURL: viewModel.getNewsToBeDisplay().articles?[indexPath.row].url ?? "")
-//        let navVC = UINavigationController(rootViewController: webView)
-//
-//        navVC.modalPresentationStyle = .fullScreen
-//        navVC.sheetPresentationController?.prefersGrabberVisible = true
-//        present(navVC,animated: true,completion: nil)
+        
         navigationController?.pushViewController(webView, animated: true)
     }
     

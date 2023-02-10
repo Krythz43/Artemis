@@ -21,7 +21,15 @@ class HomePageViewController: UIViewController {
     private let headlinesView = UIView()
     private let categoryController = CatogericalSearchViewController()
     private var headlinesNavigationBar = UINavigationBar()
-    private var categoriesHeaderBar = UINavigationBar()
+    private var categoriesHeaderBar = UILabel()
+    
+    private weak var delegate : getNewsDelegate?
+    
+    var nameTextField: UITextField = {
+       let textField = UITextField()
+        setupTextField(textField, placeHolder: "Search news about...")
+        return textField
+    }()
     
     let pageControl : UIPageControl = {
         let pc = UIPageControl()
@@ -32,14 +40,6 @@ class HomePageViewController: UIViewController {
         pc.allowsContinuousInteraction = false
         return pc
     }()
-    
-    var nameTextField: UITextField = {
-       let textField = UITextField()
-        setupTextField(textField, placeHolder: "Search news about...")
-        return textField
-    }()
-    
-    private weak var delegate : getNewsDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +87,6 @@ class HomePageViewController: UIViewController {
         layout.scrollDirection = .horizontal
         let headlinesContainer = NewsCarouselViewController(collectionViewLayout: layout)
         
-        weak var delegate: getNewsDelegate?
         delegate = headlinesContainer.getNewsViewModel()
         delegate?.headlinesSearch()
         
@@ -110,9 +109,12 @@ class HomePageViewController: UIViewController {
     }
     
     func setCategoriesHeaderBar() {
-        let navItem = UINavigationItem(title: "What's on your mind today?")
-        categoriesHeaderBar.barTintColor = .white
-        categoriesHeaderBar.setItems([navItem], animated: false)
+        let navItem = UILabel()
+        navItem.text = "What's on your mind today?"
+        navItem.textAlignment = .center
+        navItem.shadowColor = .systemOrange
+        navItem.shadowOffset = CGSize(width: 0.3, height: 0.3)
+        categoriesHeaderBar = navItem
         self.view.addSubview(categoriesHeaderBar)
     }
     
