@@ -44,8 +44,6 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("The text field wws cheanged?")
-//        delegate?.resetNews()
         do {
             try displayResult()
         } catch {
@@ -61,6 +59,9 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     
     var filterCategory: categories = .undefined
     var filterSources: String = ""
+    
+    var deBounceSearchTask: DispatchWorkItem?
+    let debounceTimer: Double = 0.5
 
     var submit: UIButton = {
         let button = UIButton(type: .system)
@@ -122,12 +123,33 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(newsNotFoundView)
     }
     
-    fileprivate func displayNews() {
+    func dispatchResultToDebouncer(){
+        self.deBounceSearchTask?.cancel()
+        print("printing debounce tasks: ",deBounceSearchTask)
+        
         let newsView =  self.newsView
         self.delegate = newsView.getNewsViewModel()
         
         print("Delegated function to be invoked :",delegate ?? "Error invoking delegate")
-        delegate?.querySearch(type: query,categorySelected: filterCategory,sourceName: filterSources)
+       
+        let task = DispatchWorkItem { [weak self] in
+            DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+                  DispatchQueue.main.async {
+                    self?.delegate?.querySearch(type: self?.query ?? "",categorySelected: self?.filterCategory ?? .undefined
+                                                ,sourceName: self?.filterSources ?? "")
+                }
+            }
+        }
+        
+        self.deBounceSearchTask = task
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + debounceTimer, execute: task)
+        if(query == ""){
+            self.deBounceSearchTask?.perform()
+        }
+    }
+    
+    fileprivate func displayNews() {
+        dispatchResultToDebouncer()
     }
     
     @objc private func dismissSelf() {
