@@ -23,7 +23,7 @@ class NewsDisplayViewController :UITableViewController{
         tableView.register(NewsCard.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 420
+        tableView.rowHeight = 300
 //        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.tintColor = .white

@@ -35,7 +35,7 @@ class NewsCard: UITableViewCell {
        let title = UILabel()
         title.adjustsFontSizeToFitWidth = true
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = UIFont.boldSystemFont(ofSize: 15)
+        title.font = UIFont.boldSystemFont(ofSize: 12)
         title.numberOfLines = 0
         return title
     }()
@@ -92,7 +92,7 @@ class NewsCard: UITableViewCell {
     
     fileprivate func cardBackgroundConstraints () {
         cardBackground.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        cardBackground.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        cardBackground.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -8).isActive = true
 //        cardBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
         cardBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         cardBackground.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
