@@ -57,7 +57,7 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
     var query : String = ""
     let newsContainerView = UIView()
     let newsView =  NewsDisplayViewController()
-    let newsNotFoundView = UIView()
+    var newsNotFoundView = UIView()
     
     var filterCategory: categories = .undefined
     var filterSources: String = ""
@@ -117,33 +117,9 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         newsContainerView.addSubview(newsView.view)
         newsView.didMove(toParent: self)
         setupConstaints()
-        let newsNotFoundImage = UIImageView(image: UIImage(systemName: "tortoise.fill"))
         
-        let newsNotFoundLabel = UILabel()
-        newsNotFoundLabel.text = "News Not found for the set parameters"
-        newsNotFoundLabel.numberOfLines = .zero
+        newsNotFoundView = NewsNotFoundView().view
         view.addSubview(newsNotFoundView)
-        
-        newsNotFoundView.addSubview(newsNotFoundImage)
-        newsNotFoundView.addSubview(newsNotFoundLabel)
-        
-        newsNotFoundView.translatesAutoresizingMaskIntoConstraints = false
-        newsNotFoundView.trailingAnchor.constraint(equalTo: newsContainerView.trailingAnchor).isActive = true
-        newsNotFoundView.leadingAnchor.constraint(equalTo: newsContainerView.leadingAnchor).isActive = true
-        newsNotFoundView.topAnchor.constraint(equalTo: newsContainerView.topAnchor).isActive = true
-        newsNotFoundView.bottomAnchor.constraint(equalTo: newsContainerView.bottomAnchor).isActive = true
-
-        newsNotFoundImage.translatesAutoresizingMaskIntoConstraints = false
-        newsNotFoundImage.centerXAnchor.constraint(equalTo: newsNotFoundView.centerXAnchor).isActive = true
-        newsNotFoundImage.centerYAnchor.constraint(equalTo: newsNotFoundView.centerYAnchor,constant: -50).isActive = true
-        newsNotFoundImage.widthAnchor.constraint(equalTo: newsNotFoundView.widthAnchor,multiplier: 0.6).isActive = true
-        newsNotFoundImage.heightAnchor.constraint(equalTo: newsNotFoundView.heightAnchor,multiplier: 0.4).isActive = true
-        
-        newsNotFoundLabel.translatesAutoresizingMaskIntoConstraints = false
-        newsNotFoundLabel.centerXAnchor.constraint(equalTo: newsNotFoundImage.centerXAnchor).isActive = true
-        newsNotFoundLabel.topAnchor.constraint(equalTo: newsNotFoundImage.bottomAnchor).isActive = true
-//        newsNotFoundLabel.heightAnchor.constraint(equalTo: newsNotFoundView.heightAnchor, multiplier: 0.25).isActive = true
-        
     }
     
     fileprivate func displayNews() {
@@ -190,7 +166,14 @@ class QueriedNewsViewController: UIViewController, UITextFieldDelegate {
         newsContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         newsContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-
+    
+    private func setupNewsNotFoundConstraints(){
+        newsNotFoundView.translatesAutoresizingMaskIntoConstraints = false
+        newsNotFoundView.centerXAnchor.constraint(equalTo: newsContainerView.centerXAnchor).isActive = true
+        newsNotFoundView.centerYAnchor.constraint(equalTo: newsContainerView.centerYAnchor).isActive = true
+        newsNotFoundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
+        newsNotFoundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
+    }
 }
 
 func setupTextField(_ textField: UITextField, placeHolder: String) {

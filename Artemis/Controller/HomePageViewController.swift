@@ -44,55 +44,68 @@ class HomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        artemisTitleView = UIImageView(image: UIImage(named: "artemisLogo"))
-        artemisTitleView.contentMode = .scaleAspectFill
-        artemisTitleView.clipsToBounds = true
-        
-        globeImage = UIImageView(image: UIImage(named: "earthIcon"))
-        nameTextField.delegate = self
+        setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    fileprivate func setupLayout() {
+        searchFieldLayout()
+        self.navigationController?.navigationBar.isHidden = true
+        categoriesLayoutSetup()
+        carouselBehaviourSetup()
+        setCategoriesHeaderBar()
+        setNavigationBar()
+        setupTopControlStack()
+        setUpButton()
+        setupConstraints()
+    }
+    
+    fileprivate func searchFieldLayout(){
         topControlsStackView = UIStackView(arrangedSubviews: [nameTextField])
         view.addSubview(topControlsStackView)
-        button.setImage(UIImage(named: "earthIcon"), for: .normal)
-        
-        
+    }
+    
+    fileprivate func categoriesLayoutSetup() {
         addChild(categoryController)
         view.addSubview(categoryController.view)
         categoryController.didMove(toParent: self)
         categoryController.view.backgroundColor = .systemTeal
-        
-        
+    }
+    
+    fileprivate func carouselBehaviourSetup(){
+        let headlinesContainer = carouselLayout()
+        headlinesView.addSubview(headlinesContainer.view)
+        view.addSubview(pageControl)
+    }
+    
+    fileprivate func carouselLayout() -> NewsCarouselViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let headlinesContainer = NewsCarouselViewController(collectionViewLayout: layout)
         
-        setNavigationBar()
+        var delegate: getNewsDelegate?
+        delegate = headlinesContainer.getNewsViewModel()
+        delegate?.headlinesSearch()
+        
         addChild(headlinesContainer)
         view.addSubview(headlinesView)
         headlinesView.addSubview(headlinesContainer.view)
         headlinesContainer.didMove(toParent: self)
         headlinesContainer.pageControldelegate = self
         view.addSubview(pageControl)
-        setCategoriesHeaderBar()
-        
-        
-        var delegate: getNewsDelegate?
-        delegate = headlinesContainer.getNewsViewModel()
-        delegate?.headlinesSearch()
-        
-        setupTopControlStack()
-        setUpButton()
-        setupConstraints()
-        self.navigationController?.navigationBar.isHidden = true
-        
+        headlinesConstraints(headlinesContainer)
+        return headlinesContainer
+    }
+    
+    func headlinesConstraints(_ headlinesContainer: NewsCarouselViewController) {
         headlinesContainer.view.translatesAutoresizingMaskIntoConstraints = false
         headlinesContainer.view.leadingAnchor.constraint(equalTo: headlinesView.leadingAnchor).isActive = true
         headlinesContainer.view.trailingAnchor.constraint(equalTo: headlinesView.trailingAnchor).isActive = true
         headlinesContainer.view.topAnchor.constraint(equalTo: headlinesView.topAnchor).isActive = true
         headlinesContainer.view.bottomAnchor.constraint(equalTo: headlinesView.bottomAnchor).isActive = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
     }
     
     func setCategoriesHeaderBar() {
@@ -152,7 +165,6 @@ class HomePageViewController: UIViewController {
     }
     
     fileprivate func setUpButton(){
-//        button.setTitle("News across the globe", for: .normal)
         button.backgroundColor = .secondarySystemBackground
         button.setTitleColor(.black, for: .normal)
         button.frame = CGRect(x: 100, y: 100, width: 200, height: 50)
@@ -187,66 +199,67 @@ class HomePageViewController: UIViewController {
     }
     
     fileprivate func setupConstraints(){
-        
-        
+        headlinesNavBarConstraints()
+        controlsStackConstraints()
+        nameTextFieldConstraints()
+        categoriesConstraints()
+        categoriesHeaderConstraints()
+        headlinesViewConstraints()
+        pageControlConstraints()
+    }
+    
+    func headlinesNavBarConstraints(){
         headlinesNavigationBar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            headlinesNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            headlinesNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            headlinesNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            headlinesNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
-            ])
-        
-        
+        headlinesNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        headlinesNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        headlinesNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        headlinesNavigationBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
+    }
+    
+    func controlsStackConstraints(){
         topControlsStackView.translatesAutoresizingMaskIntoConstraints = false
         topControlsStackView.topAnchor.constraint(equalTo: headlinesNavigationBar.bottomAnchor,constant: 10).isActive = true
         topControlsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topControlsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topControlsStackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.04).isActive = true
-        
-        
+    }
+    
+    func nameTextFieldConstraints(){
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.topAnchor.constraint(equalTo: topControlsStackView.topAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: topControlsStackView.bottomAnchor).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: topControlsStackView.leadingAnchor,constant: 7).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -7).isActive = true
-        
-        
-//
-//        artemisTitleView.translatesAutoresizingMaskIntoConstraints = false
-//        artemisTitleView.topAnchor.constraint(equalTo: topControlsStackView.topAnchor).isActive = true
-//        artemisTitleView.bottomAnchor.constraint(equalTo: topControlsStackView.bottomAnchor).isActive = true
-//        artemisTitleView.leadingAnchor.constraint(equalTo: topControlsStackView.leadingAnchor).isActive = true
-//        artemisTitleView.widthAnchor.constraint(equalTo: topControlsStackView.widthAnchor, multiplier: 0.8).isActive = true
-//
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.trailingAnchor.constraint(equalTo: globeImage.trailingAnchor).isActive = true
-//        button.leadingAnchor.constraint(equalTo: globeImage.leadingAnchor).isActive = true
-//        button.bottomAnchor.constraint(equalTo: globeImage.bottomAnchor).isActive = true
-//        button.topAnchor.constraint(equalTo: globeImage.topAnchor).isActive = true
-
+    }
+    
+    func categoriesConstraints(){
         categoryController.view.translatesAutoresizingMaskIntoConstraints = false
         categoryController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         categoryController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         categoryController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         categoryController.view.heightAnchor.constraint(equalToConstant:  view.frame.size.width*(2/3) - 20).isActive = true
-        
+    }
+    
+    func categoriesHeaderConstraints(){
         categoriesHeaderBar.translatesAutoresizingMaskIntoConstraints = false
         categoriesHeaderBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         categoriesHeaderBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         categoriesHeaderBar.bottomAnchor.constraint(equalTo: categoryController.view.topAnchor,constant: -7).isActive = true
         categoriesHeaderBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05).isActive = true
-        
+    }
+    
+    func headlinesViewConstraints(){
         headlinesView.translatesAutoresizingMaskIntoConstraints = false
         headlinesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headlinesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         headlinesView.topAnchor.constraint(equalTo: topControlsStackView.bottomAnchor,constant: 0).isActive = true
         headlinesView.bottomAnchor.constraint(equalTo: pageControl.topAnchor).isActive = true
-        
+    }
+    
+    func pageControlConstraints(){
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        pageControl.bottomAnchor
-            .constraint(equalTo: categoriesHeaderBar.topAnchor,constant: -7).isActive=true
+        pageControl.bottomAnchor.constraint(equalTo: categoriesHeaderBar.topAnchor,constant: -7).isActive=true
         pageControl.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
 
